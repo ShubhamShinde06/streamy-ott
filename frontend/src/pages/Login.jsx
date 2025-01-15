@@ -16,7 +16,7 @@ const Login = () => {
 
       <div className="w-full mt-8 md:mt-[80px] gap-1 flex md:gap-2 ">
         {/* login & register */}
-        <form action="" className="w-full flex flex-col gap-4 md:gap-6 xl:w-1/2">
+        <form action="" className="w-full h-[80vh] md:h-full justify-center flex flex-col gap-4 md:gap-6 xl:w-1/2">
           <div className="w-full xl:w-[60%] mb-4 text-center md:text-start">
             <h1 className="md:text-[40px] text-[30px] logo">{currentState} ─</h1>
           </div>
@@ -66,7 +66,7 @@ const Login = () => {
             )}
           </div>
 
-          <div className="w-full xl:w-[60%] mt-5 flex gap-4 text-[gray] justify-center">
+          <div className="w-full xl:w-[60%] mt-5 flex gap-4  text-[gray] justify-center">
             ────────────── <span>Or</span>
             <span>──────────────</span>
           </div>
