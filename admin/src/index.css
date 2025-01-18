@@ -10,15 +10,15 @@ body{
 
 @font-face {
     font-family: Bold;
-    src: url('../public/SFPRODISPLAYBOLD.OTF');
+    src: url('/SFPRODISPLAYBOLD.OTF');
 }
 @font-face {
     font-family: Medium;
-    src: url('../public/SFPRODISPLAYMEDIUM.OTF');
+    src: url('/SFPRODISPLAYMEDIUM.OTF');
 }
 @font-face {
     font-family: 'Regular';
-    src: url('../public/SFPRODISPLAYREGULAR.OTF');
+    src: url('/SFPRODISPLAYREGULAR.OTF');
 }
 
 *{
@@ -28,3 +28,20 @@ body{
 .logo{
     font-family: Bold;
 }
+
+a.active{
+    background-color: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(4px); 
+    font-weight: bolder;
+}
+
+.side-menu-hover:hover{
+    background-color: #ffffff1a; 
+    backdrop-filter: blur(4px); 
+}
+
+.show-scroll::-webkit-scrollbar{
+    display: none;
+}
+
+  
