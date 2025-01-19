@@ -80,11 +80,18 @@ const Addseries = () => {
   };
 
   // Update season and episode fields
+  // const handleSeasonChange = (index, event) => {
+  //   const updatedSeasons = [...seasons];
+  //   updatedSeasons[index][event.target.name] = event.target.value;
+  //   setSeasons(updatedSeasons);
+  // };
   const handleSeasonChange = (index, event) => {
     const updatedSeasons = [...seasons];
-    updatedSeasons[index][event.target.name] = event.target.value;
+    const { name, value } = event.target;
+    updatedSeasons[index][name] = name === 'release_year' ? Number(value) : value;
     setSeasons(updatedSeasons);
   };
+  
 
   const handleEpisodeChange = (seasonIndex, episodeIndex, event) => {
     const updatedSeasons = [...seasons];
@@ -107,12 +114,8 @@ const Addseries = () => {
       formData.append("rating", rating);
       formData.append("poster", poster);
       formData.append("genre", JSON.stringify(genre));
-      formData.append(
-        "characters",
-        JSON.stringify(inputs.map((input) => input.value))
-      );
-      formData.append("seasons", JSON.stringify(seasons));
-
+      formData.append("characters",JSON.stringify(inputs.map((input) => input.value)));   
+      formData.append("seasons", JSON.stringify(seasons))
       if (image1) formData.append("image1", image1);
       if (image2) formData.append("image2", image2);
 
@@ -127,7 +130,7 @@ const Addseries = () => {
       }
     } catch (error) {
       console.error(error);
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message);
       setLoading(false)
     }
   };
@@ -187,7 +190,7 @@ const Addseries = () => {
                 <div className="w-full flex gap-2">
                   {/* release_year_start */}
                   <input
-                    type="text"
+                    type="number"
                     placeholder="Release Year"
                     className="w-1/2 py-3 px-2  rounded-md bg-white/10 text-xl"
                     required
@@ -309,7 +312,7 @@ const Addseries = () => {
                     Season {season.season_number}
                   </h3>
                   <input
-                    type="text"
+                    type="number"
                     name="release_year"
                     placeholder="Release Year"
                     className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"
@@ -345,7 +348,7 @@ const Addseries = () => {
                         }
                       />
                       <input
-                        type="text"
+                        type="number"
                         name="runtime_minutes"
                         placeholder="Runtime (minutes)"
                         className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"

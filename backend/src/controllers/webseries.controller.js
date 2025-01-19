@@ -14,10 +14,8 @@ export const uploadSeries = async (req, res) => {
     characters,
   } = req.body;
   try {
-    
-    if (typeof req.body.seasons === "string") {
-      req.body.seasons = JSON.parse(req.body.seasons);
-    }
+   
+    const parsedSeasons = JSON.parse(seasons);
 
     const image1 = req.files.image1 && req.files.image1[0];
     const image2 = req.files.image2 && req.files.image2[0];
@@ -42,7 +40,7 @@ export const uploadSeries = async (req, res) => {
       release_year_end,
       total_seasons,
       image: imagesUrl,
-      seasons,
+      seasons: parsedSeasons,
       characters,
     };
 
