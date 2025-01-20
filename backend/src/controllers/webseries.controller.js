@@ -16,6 +16,8 @@ export const uploadSeries = async (req, res) => {
   try {
    
     const parsedSeasons = JSON.parse(seasons);
+    const parsedGenre = JSON.parse(genre);
+    const parsedCharacters = JSON.parse(characters)
 
     const image1 = req.files.image1 && req.files.image1[0];
     const image2 = req.files.image2 && req.files.image2[0];
@@ -34,14 +36,14 @@ export const uploadSeries = async (req, res) => {
     const seriesData = {
       poster: poster === "true" ? true : false,
       series_name,
-      genre,
+      genre : parsedGenre,
       description,
       release_year_start,
       release_year_end,
       total_seasons,
       image: imagesUrl,
       seasons: parsedSeasons,
-      characters,
+      characters : parsedCharacters,
     };
 
     const series = new seriesModle(seriesData);
@@ -59,3 +61,21 @@ export const uploadSeries = async (req, res) => {
     });
   }
 };
+
+export const getSeries = async (req, res) => {
+  try {
+    
+    const series = await seriesModle.find()
+    res.status(200).json({
+      success: true,
+      series
+    })
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Server down uploadSeries",
+    });
+  }
+}

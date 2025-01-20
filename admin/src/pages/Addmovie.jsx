@@ -45,6 +45,7 @@ const Addmovie = () => {
   const [director, setDirector] = useState("");
   const [rating, setRating] = useState("");
   const [video_link, setVideo_link] = useState("");
+  const [download_link, setDownload_link] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -59,6 +60,7 @@ const Addmovie = () => {
       formData.append("director", director);
       formData.append("rating", rating);
       formData.append("video_link", video_link);
+      formData.append("download_link", download_link);
       formData.append("poster", poster);
       formData.append("genre", JSON.stringify(genre));
       formData.append(
@@ -135,7 +137,7 @@ const Addmovie = () => {
                     />
                     <div className="w-full flex gap-2">
                       <input
-                        type="text"
+                        type="number"
                         placeholder="Release Year"
                         className="w-1/2 py-3 px-2  rounded-md bg-white/10 text-xl"
                         required
@@ -246,6 +248,14 @@ const Addmovie = () => {
                       onChange={(e) => setVideo_link(e.target.value)}
                       className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"
                     />
+                    <input
+                      type="text"
+                      placeholder="Upload downalod Link"
+                      required
+                      value={download_link}
+                      onChange={(e) => setDownload_link(e.target.value)}
+                      className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"
+                    />
                     <div className="flex items-center gap-2">
                       <input
                         type="checkbox"
@@ -262,7 +272,7 @@ const Addmovie = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className=" flex justify-center items-center disabled:cursor-not-allowed md:w-1/4 w-full py-2 bg-white/10 rounded-md hover:bg-[#0D6EFD] text-2xl"
+                className=" flex justify-center items-center disabled:cursor-not-allowed md:w-1/4 w-full py-2 hover:bg-white/10 rounded-md bg-[#0D6EFD] text-2xl"
               >
                 {loading ? <Loader/> : 'Publish'}
               </button>

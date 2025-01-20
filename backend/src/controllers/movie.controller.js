@@ -11,11 +11,16 @@ export const uploadMovie = async (req, res) => {
     plot,
     rating,
     video_link,
+    download_link,
     characters,
     poster
   } = req.body;
 
   try {
+
+    const parsedGenre = JSON.parse(genre);
+    const parsedCharacters = JSON.parse(characters)
+
     const image1 = req.files.image1 && req.files.image1[0];
     const image2 = req.files.image2 && req.files.image2[0];
 
@@ -36,11 +41,12 @@ export const uploadMovie = async (req, res) => {
       release_year,
       runtime_minutes,
       director,
-      genre,
+      genre : parsedGenre,
       plot,
       rating,
       video_link,
-      characters,
+      download_link,
+      characters : parsedCharacters,
       poster: poster === "true" ? true : false
     };
 
@@ -60,3 +66,21 @@ export const uploadMovie = async (req, res) => {
     });
   }
 };
+
+export const getMovies = async (req, res) => {
+  try {
+    
+    const movies = await movieModel.find()
+    res.status(200).json({
+      success: true,
+      movies,
+    })
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Server down getMovies",
+    });
+  }
+}

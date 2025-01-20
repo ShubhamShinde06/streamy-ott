@@ -114,13 +114,13 @@ const Sidebar = () => {
               <IoAddCircleOutline /> <span>ADD SERIES</span>
             </NavLink>
             <NavLink
-              to={"/add-item"}
+              to={"/listM"}
               className="flex items-center gap-2 text-xl py-2 px-2 rounded-md side-menu-hover"
             >
               <CiViewList /><span>MOVIES LISTS</span>
             </NavLink>
             <NavLink
-              to={"/add-item"}
+              to={"/listS"}
               className="flex items-center gap-2 text-xl py-2 px-2 rounded-md side-menu-hover"
             >
               <CiViewList /><span>SERIES LIST</span>

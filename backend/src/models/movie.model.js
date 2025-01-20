@@ -25,7 +25,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   genre: {
-    type: [String],
+    type: [Array],
     required: true,
   },
   plot: {
@@ -40,14 +40,13 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  characters: {
-    type: [String],
+  download_link: {
+    type: String,
     required: true,
   },
-  reviews: {
-    type: Schema.Types.ObjectId,
-    ref: "review",
-    //required: true,
+  characters: {
+    type: [Array],
+    required: true,
   },
 });
 

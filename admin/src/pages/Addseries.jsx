@@ -53,6 +53,7 @@ const Addseries = () => {
           plot: "",
           runtime_minutes: "",
           videoLink: "",
+          downloadLink: ""
         },
       ],
     },
@@ -363,6 +364,16 @@ const Addseries = () => {
                         placeholder="Video Link"
                         className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"
                         value={episode.videoLink}
+                        onChange={(e) =>
+                          handleEpisodeChange(seasonIndex, episodeIndex, e)
+                        }
+                      />
+                      <input
+                        type="text"
+                        name="downloadLink"
+                        placeholder="Download Link"
+                        className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"
+                        value={episode.downloadLink}
                         onChange={(e) =>
                           handleEpisodeChange(seasonIndex, episodeIndex, e)
                         }
