@@ -6,7 +6,7 @@ import { IoInformationCircleOutline } from "react-icons/io5";
 
 const Cardsitem = () => {
   return (
-    <div className="lg:w-[340px] xl:w-[300px] lg:h-[200px] min-w-[150px] h-[240px] border rounded-md cursor-pointer overflow-hidden relative hover-card mr-3 ">
+    <div className="lg:w-[340px] xl:w-[300px] lg:h-[200px] h-[240px] border rounded-md cursor-pointer overflow-hidden relative hover-card mr-3">
 
       <div className=" hidden flex-col gap-4 absolute bottom-0 w-[100%] h-1/2 py-2 px-4 card-info">
         <div className=" text-3xl flex items-center justify-between">
