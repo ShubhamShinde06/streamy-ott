@@ -3,26 +3,119 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: Bold;
-    src: url('../public/SFPRODISPLAYBOLD.OTF');
+  font-family: Bold;
+  src: url("/SFPRODISPLAYBOLD.OTF");
 }
 @font-face {
-    font-family: Medium;
-    src: url('../public/SFPRODISPLAYMEDIUM.OTF');
+  font-family: Medium;
+  src: url("/SFPRODISPLAYMEDIUM.OTF");
 }
 @font-face {
-    font-family: 'Regular';
-    src: url('../public/SFPRODISPLAYREGULAR.OTF');
+  font-family: "Regular";
+  src: url("/SFPRODISPLAYREGULAR.OTF");
 }
 
-*{
-    font-family: 'Regular';
+body {
+  width: 100%;
+  height: 100vh;
+  /* background-color: #070140; */
+  background: rgb(11, 8, 151);
+  background: linear-gradient(120deg, rgb(10, 8, 151) 1%, rgb(7, 1, 79) 20%);
+  color: white;
+  overflow-x: hidden;
+}
+.show-scroll::-webkit-scrollbar {
+  display: none;
 }
 
-.logo{
-    font-family: Bold;
+* {
+  font-family: "Regular";
+}
+.logo {
+  font-family: Bold;
 }
 
-.bg-color{
-    background-image: linear-gradient(to right top, #070140, #04064f, #03085f, #04096f, #060980, #14148d, #1f1d9a, #2827a8, #3839b4, #474bc1, #555ccc, #646dd8);
+.bg-color {
+  background-image: linear-gradient(
+    to right top,
+    #070140,
+    #04064f,
+    #03085f,
+    #04096f,
+    #060980,
+    #14148d,
+    #1f1d9a,
+    #2827a8,
+    #3839b4,
+    #474bc1,
+    #555ccc,
+    #646dd8
+  );
+}
+.side-bar {
+  background: rgb(11, 8, 151);
+  background: linear-gradient(120deg, rgb(10, 8, 151) 5%, #070140 70%);
+}
+
+a.active {
+  background-color: #7339e5;
+  padding: 5px;
+  border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
+}
+.icon-hover:hover {
+  background-color: #7339e5;
+  padding: 5px;
+  border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
+}
+
+.slick-dots li button:before {
+  color: white; /* Changes the default dot color to white */
+  /* Makes the dots fully opaque */
+}
+
+.slick-dots li.slick-active button:before {
+  color: white !important; /* Ensures active dot is also white */
+}
+
+.slick-dots li button:before {
+  color: white !important; /* Set all dots to white */
+  opacity: 0.5; /* Optional: Adjust opacity for inactive dots */
+}
+
+.slick-dots li.slick-active button:before {
+  color: white !important; /* Active dot also in white */
+  opacity: 1; /* Optional: Fully opaque for active dot */
+}
+
+.in-site-color {
+  -webkit-box-shadow: inset 96px -77px 82px -28px rgba(7, 1, 64, 1);
+  -moz-box-shadow: inset 96px -77px 82px -28px rgba(7, 1, 64, 1);
+  box-shadow: inset 96px -77px 82px -28px rgba(7, 1, 64, 1);
+}
+
+@media only screen and (min-width: 1024px) {
+  .hover-card:hover .card-info {
+    display: flex;
+    transition: all ease-in-out;
+    transition-duration: 5000;
+    -webkit-transition: all ease-in-out;
+    -moz-transition: all ease-in-out;
+    -ms-transition: all ease-in-out;
+    -o-transition: all ease-in-out;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .slick-prev,
+  .slick-next {
+    display: none !important;
+  }
 }

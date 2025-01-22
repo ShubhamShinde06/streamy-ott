@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import img from '../assets/LoginImg.png'
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Auth = () => {
   const [currentState, setCurrentState] = useState("Login");
 
   return (
@@ -16,7 +16,7 @@ const Login = () => {
 
       <div className="w-full mt-8 md:mt-[80px] gap-1 flex md:gap-2 ">
         {/* login & register */}
-        <form action="" className="w-full h-[80vh] md:h-full justify-center flex flex-col gap-4 md:gap-6 xl:w-1/2">
+        <form action="" className=" w-full h-[80vh] md:h-full justify-center flex flex-col gap-4 md:gap-6 xl:w-1/2">
           <div className="w-full xl:w-[60%] mb-4 text-center md:text-start">
             <h1 className="md:text-[40px] text-[30px] logo">{currentState} ─</h1>
           </div>
@@ -24,7 +24,7 @@ const Login = () => {
             ""
           ) : (
             <>
-              <div className="w-full h-[80px] xl:w-[60%] md:h-[90px] flex flex-col gap-2">
+              <div className="w-full h-[80px] xl:w-[60%] md:h-[90px] flex flex-col gap-2 text-xl">
                 <label htmlFor="">Username</label>
                 <input
                   type="text"
@@ -36,7 +36,7 @@ const Login = () => {
             </>
           )}
 
-          <div className="w-full h-[80px] xl:w-[60%] md:h-[90px] flex flex-col gap-2">
+          <div className="w-full h-[80px] xl:w-[60%] md:h-[90px] flex flex-col gap-2 text-xl">
             <label htmlFor="">Email</label>
             <input
               type="email"
@@ -45,7 +45,7 @@ const Login = () => {
               className="w-full h-full border-2 border-[#8989ac] rounded-lg bg-[#454e6a] pl-2 text-1xl outline-none "
             />
           </div>
-          <div className="w-full h-[80px] xl:w-[60%] md:h-[90px] flex flex-col gap-2">
+          <div className="w-full h-[80px] xl:w-[60%] md:h-[90px] flex flex-col gap-2 text-xl">
             <label htmlFor="">Password</label>
             <input
               type="password"
@@ -73,19 +73,19 @@ const Login = () => {
 
           <div className="text-center w-full xl:w-[60%]">
             {currentState === "Login" ? (
-              <p
+              <div
                 onClick={() => setCurrentState("Sign Up")}
                 className=" cursor-pointer"
               >
-                <p className="text-[gray] tracking-wider">You have no account? <span className=" underline font-bold text-white">Create account</span></p>
-              </p>
+                <p className="text-[gray] tracking-wider">You have no account? <span className=" underline font-bold text-white tracking-wide text-[18px]">Create account</span></p>
+              </div>
             ) : (
-              <p
+              <div
                 onClick={() => setCurrentState("Login")}
                 className=" cursor-pointer"
               >
-                <p className="text-[gray] tracking-wider">Already have an account? <span className=" underline font-bold text-white">Log in</span></p>
-              </p>
+                <p className="text-[gray] tracking-wider">Already have an account? <span className=" underline font-bold text-white tracking-wide text-[18px]">Log in</span></p>
+              </div>
             )}
           </div>
         </form>
@@ -103,4 +103,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Auth;

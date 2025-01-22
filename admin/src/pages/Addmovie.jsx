@@ -145,7 +145,7 @@ const Addmovie = () => {
                         onChange={(e) => setRelease_year(e.target.value)}
                       />
                       <input
-                        type="number"
+                        type="text"
                         placeholder="Runtime minutes"
                         className="w-1/2 py-3 px-2  rounded-md bg-white/10 text-xl"
                         required

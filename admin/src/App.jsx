@@ -2,9 +2,10 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Addmovie from "./pages/Addmovie";
 import Addseries from "./pages/Addseries";
-import Movielist from "./pages/Movielist";
-import Serieslist from "./pages/Serieslist";
 import {ToastContainer} from 'react-toastify'
+import Catalog from "./pages/Catalog";
+import Updatemovie from "./pages/Updatemovie";
+import Updateseries from "./pages/Updateseries";
 
 export default function App() {
   return (
@@ -13,8 +14,9 @@ export default function App() {
       <Route path="/" element={<Home/>} />
       <Route path="/uploadM" element={<Addmovie/>} />
       <Route path="/uploadS" element={<Addseries/>} />
-      <Route path="/listM" element={<Movielist/>} />
-      <Route path="/listS" element={<Serieslist/>} />
+      <Route path="/updateM/:id" element={<Updatemovie/>} />
+      <Route path="/updateS/:id" element={<Updateseries/>} />
+      <Route path="/catalog" element={<Catalog/>} />
     </Routes>
     <ToastContainer/>
     </>

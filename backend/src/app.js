@@ -36,5 +36,8 @@ app.use('/api/movies', movieRoute)
 import seriesRoute from './routes/series.routes.js'
 app.use('/api/series', seriesRoute)
 
+import mixRoute from './routes/mix.routes.js'
+app.use('/api/mix', mixRoute)
+
 
 export default app;

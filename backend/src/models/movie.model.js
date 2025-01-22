@@ -5,6 +5,10 @@ const movieSchema = new mongoose.Schema({
     type: Array,
     required: true,
   },
+  category:{
+    type: String,
+    default: "movie"
+  },
   poster:{
     type: Boolean
   },
@@ -17,7 +21,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   runtime_minutes: {
-    type: Number,
+    type: String,
     required: true,
   },
   director: {
@@ -48,6 +52,15 @@ const movieSchema = new mongoose.Schema({
     type: [Array],
     required: true,
   },
-});
+  visitCount: {
+    type: Number,
+    default: 0,  // Initial count is 0
+  },
+  likeCount: {
+    type: Number,
+    default: 0,  // Initialize like count to 0
+  }
+
+},{timestamps: true});
 
 export const movieModel = mongoose.models.movie || mongoose.model("movie", movieSchema);

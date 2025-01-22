@@ -1,40 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { toast } from "react-toastify";
 import axios from "axios";
 import upload_img from "../assets/upload_area.png";
 import { RxCross1 } from "react-icons/rx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AdminContext } from "../context/adminContext";
 import Loader from "../components/Loader";
 
-const Addseries = () => {
-  const navigateTo = useNavigate();
+const Updateseries = () => {
+
+  const {id} = useParams()
 
   const {loading, setLoading} = useContext(AdminContext)
 
-  // State to manage input fields
-  const [inputs, setInputs] = useState([{ value: "" }]);
-  // Handle input change
-  const handleInputChange = (index, event) => {
-    const newInputs = [...inputs];
-    newInputs[index].value = event.target.value;
-    setInputs(newInputs);
-  };
-  // Handle adding new input field
-  const handleAddInput = () => {
-    setInputs([...inputs, { value: "" }]);
-  };
-  // Handle deleting an input field
-  const handleDeleteInput = (index) => {
-    const newInputs = inputs.filter((_, i) => i !== index);
-    setInputs(newInputs);
-  };
-
-  const [genre, setGenre] = useState([]);
-  const [image1, setImage1] = useState(null);
-  const [image2, setImage2] = useState(null);
   const [poster, setPoster] = useState(false);
   const [description, setPlot] = useState("");
   const [series_name, setTitle] = useState("");
@@ -101,32 +81,43 @@ const Addseries = () => {
     setSeasons(updatedSeasons);
   };
 
+  const getSingleContent = async () => {
+    try {
+      
+      const response = await axios.get(`/api/series/get-single-series/${id}`)
+      if(response.data.success){
+        console.log(response.data.series)
+        setTitle(response.data.series.series_name)
+        setRelease_year(response.data.series.release_year_start)
+        setTotal_seasons(response.data.series.total_seasons)
+        setPlot(response.data.series.description)
+        setSeasons(response.data.series.seasons)
+        setRating(response.data.series.rating)
+        setDirector(response.data.series.director)
+        setPoster(response.data.series.poster)
+      } else {
+        toast.error(response.data.message)
+      }
+
+    } catch (error) {
+      console.log(error)
+      toast.error(error.message)
+    }
+  }
+  useEffect(()=>{
+    getSingleContent()
+  },[])
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true)
     try {
-      const formData = new FormData();
-
-      formData.append("series_name", series_name);
-      formData.append("description", description);
-      formData.append("release_year_start", release_year_start);
-      formData.append("total_seasons", total_seasons);
-      formData.append("director", director);
-      formData.append("rating", rating);
-      formData.append("poster", poster);
-      formData.append("genre", JSON.stringify(genre));
-      formData.append("characters",JSON.stringify(inputs.map((input) => input.value)));   
-      formData.append("seasons", JSON.stringify(seasons))
-      if (image1) formData.append("image1", image1);
-      if (image2) formData.append("image2", image2);
-
-      const response = await axios.post("/api/series/upload", formData);
+      const response = await axios.put(`/api/series/update-series/${id}`, {
+        series_name, release_year_start, total_seasons, description, seasons, rating, director, poster
+      });
 
       if (response.data.success) {
         toast.success(response.data.message);
-        setTimeout(() => {
-          navigateTo(0, { replace: true });
-        }, 2000);
         setLoading(false)
       }
     } catch (error) {
@@ -144,40 +135,6 @@ const Addseries = () => {
         <div className="w-full mt-5 px-5 py-5 h-[calc(100vh-140px)] bg-gradient-to-b from-blue-900/80 to-blue-800/20 text-[#fff] backdrop-blur-lg  -white/20 rounded-2xl shadow-black/70 shadow-2xl overflow-scroll show-scroll">
           <form onSubmit={handleSubmit}>
             <div className="w-full flex flex-col gap-5">
-              <div className="flex flex-col md:flex-row gap-5">
-                <div className="w-full md:w-1/2 lg:w-1/5 h-60  rounded-md overflow-hidden">
-                  {/* front_img */}
-                  <label htmlFor="image1">
-                    <img
-                      src={!image1 ? upload_img : URL.createObjectURL(image1)}
-                      alt="front_img"
-                      className="w-full h-full cursor-pointer"
-                    />
-                    <input
-                      type="file"
-                      id="image1"
-                      hidden
-                      onChange={(e) => setImage1(e.target.files[0])}
-                    />
-                  </label>
-                </div>
-                <div className="w-full h-60  rounded-md overflow-hidden">
-                  {/* back_img */}
-                  <label htmlFor="image2">
-                    <img
-                      src={!image2 ? upload_img : URL.createObjectURL(image2)}
-                      alt="back_img"
-                      className="w-full h-full cursor-pointer"
-                    />
-                    <input
-                      type="file"
-                      id="image2"
-                      hidden
-                      onChange={(e) => setImage2(e.target.files[0])}
-                    />
-                  </label>
-                </div>
-              </div>
               <div className="flex flex-col md:flex-row gap-5">
                 {/* series_name */}
                 <input
@@ -219,7 +176,8 @@ const Addseries = () => {
                   className="w-full py-6 px-2  rounded-md bg-white/10 text-xl"
                 ></textarea>
               </div>
-              <div className="flex flex-wrap gap-3">
+
+              {/* <div className="flex flex-wrap gap-3">
                 <p className="mb-3 text-xl">Choose genre :-</p>
                 {[
                   "Action",
@@ -252,7 +210,8 @@ const Addseries = () => {
                     {item}
                   </div>
                 ))}
-              </div>
+              </div> */}
+
               <div className="flex flex-col md:flex-row gap-5">
                 {/* rating */}
                 <input
@@ -273,8 +232,9 @@ const Addseries = () => {
                   onChange={(e) => setDirector(e.target.value)}
                 />
               </div>
+
               {/* characters */}
-              <div>
+              {/* <div>
                 <p className="text-xl mb-2">Characters</p>
                 {inputs.map((input, index) => (
                   <div key={index} className="flex gap-2">
@@ -300,7 +260,8 @@ const Addseries = () => {
                 >
                   Add Character
                 </button>
-              </div>
+              </div> */}
+
             </div>
             {/* Season & episodes */}
             <div className=" my-5">
@@ -324,7 +285,7 @@ const Addseries = () => {
                   {season.episodes.map((episode, episodeIndex) => (
                     <div
                       key={episodeIndex}
-                      className="mt-5 flex gap-5 flex-wrap"
+                      className="mt-5 flex gap-5 flex-wrap pb-5 border-b-2"
                     >
                       <h4 className="text-xl ">
                         Episode {episode.episode_number}
@@ -342,7 +303,7 @@ const Addseries = () => {
                       <textarea
                         name="plot"
                         placeholder="Episode Plot"
-                        className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"
+                        className="w-full py-3 px-2 h-20  rounded-md bg-white/10 text-xl show-scroll"
                         value={episode.plot}
                         onChange={(e) =>
                           handleEpisodeChange(seasonIndex, episodeIndex, e)
@@ -382,7 +343,7 @@ const Addseries = () => {
                   ))}
                   <button
                     type="button"
-                    className="mt-5 py-1 px-3 bg-[#0D6EFD] rounded-md text-white"
+                    className="mt-5 py-1 px-3 bg-white/10 hover:bg-[#0D6EFD] rounded-md text-white"
                     onClick={() => handleAddEpisode(seasonIndex)}
                   >
                     Add Episode
@@ -390,7 +351,7 @@ const Addseries = () => {
                 </div>
               ))}
               <button
-                className="w-full hover:bg-[#0D6EFD]  bg-white/10 py-2 rounded-full text-2xl "
+                className="w-full md:w-1/4 bg-white/10 hover:bg-[#0D6EFD] py-2 rounded-md text-2xl "
                 type="button"
                 onClick={handleAddSeason}
               >
@@ -414,16 +375,16 @@ const Addseries = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="  disabled:cursor-not-allowed flex items-center justify-center md:w-1/4 w-full py-2 bg-white/10 rounded-md hover:bg-[#0D6EFD] text-2xl"
+                className="  disabled:cursor-not-allowed flex items-center justify-center w-full py-4 hover:bg-white/10 rounded-md bg-[#0D6EFD] text-2xl"
               >
-               {loading ? <Loader/> : 'Publish'}
+               {loading ? <Loader/> : 'Update'}
               </button>
             </div>
           </form>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Addseries;
+export default Updateseries

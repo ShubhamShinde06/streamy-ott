@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import { movieModel } from "../models/movie.model.js";
+import mongoose from "mongoose";
 
 export const uploadMovie = async (req, res) => {
   const {
@@ -29,11 +30,25 @@ export const uploadMovie = async (req, res) => {
     let imagesUrl = await Promise.all(
       images.map(async (item) => {
         let result = await cloudinary.uploader.upload(item.path, {
-          resource_type: "image",
+          resource_type: "image", // Specify that the resource is an image
+          use_filename: true, // Use the original file name
+          unique_filename: false, // Avoid generating a random unique name
+          transformation: [
+            {
+              width: 800, // Resize to a maximum width of 800px
+              height: 600, // Resize to a maximum height of 600px
+              crop: "limit" // Limit resizing to not exceed the width/height
+            },
+            {
+              quality: "auto", // Automatically adjust quality for optimization
+              fetch_format: "auto" // Use WebP or other optimized format
+            }
+          ]
         });
         return result.secure_url;
       })
     );
+    
 
     const movieData = {
       title,
@@ -84,3 +99,77 @@ export const getMovies = async (req, res) => {
     });
   }
 }
+
+export const deleteMovie = async (req, res) => {
+  try {
+    
+    const { id } = req.params;
+
+    const movie = await movieModel.findByIdAndDelete(id)
+
+    if(!movie){
+      res.status(404).json({
+        success:false,
+        message:"movie not found!"
+      })
+    }
+
+    res.json({
+      success: true,
+      message: "Movie deleted",
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleteMovie ', error });
+  }
+}
+
+export const singleMovie = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const movie = await movieModel.findById(id);
+    res.json({
+      success: true,
+      movie,
+    });
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Error in singleMovie",
+    });
+  }
+};
+
+export const updateMovie = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid movie ID" });
+    }
+
+    const updatedMovie = await movieModel.findByIdAndUpdate(
+      id,
+      req.body,
+      { new: true }
+    );
+    if (!updatedMovie) {
+      return res.status(404).json({ error: "movie not found" });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "updated",
+      updatedMovie,
+    });
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "server error updateMovie",
+    });
+  }
+};
