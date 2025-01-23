@@ -9,6 +9,7 @@ import { IoSearch } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 
 const PosterSlider = () => {
+
   const settings = {
     dots: true, // Hides dots navigation
     arrows: false, // Hides left and right navigation arrows
@@ -44,16 +45,16 @@ const PosterSlider = () => {
 
       <Slider
         {...settings}
-        className="h-auto w-[95%]   rounded-md overflow-hidden lg:overflow-visible lg:w-full lg:h-[95%] lg:rounded-none"
+        className="h-auto w-[95%] rounded-md overflow-hidden lg:overflow-visible lg:w-full lg:h-[95%] lg:rounded-none "
       >
-        <div className="lg:-z-10 lg:relative h-[70vh] lg:h-full">
+        <div className=" lg:relative h-[70vh] lg:h-full">
           <img
-            className="w-full h-full"
+            className="w-full h-full -z-10"
             src="https://i.ebayimg.com/images/g/4NQAAOSwyTpjk7dC/s-l1200.jpg"
             alt=""
           />
           {/* content */}
-          <div className=" absolute w-[16.5%] h-[70vh]  in-site-color top-0 left-0 lg:w-full lg:h-full flex flex-col justify-end items-center lg:items-start gap-6 lg:px-[50px] lg:py-[100px] tracking-widest">
+          <div className=" absolute w-[16.5%] h-[70vh] z-10 in-site-color top-0 left-0 lg:w-full lg:h-full flex flex-col justify-end items-center lg:items-start gap-6 lg:px-[50px] lg:py-[100px] tracking-widest">
             <p className="w-[70%] text-2xl lg:block hidden">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
               quia consequatur laboriosam? Fuga unde voluptates placeat? Ipsa
@@ -67,13 +68,13 @@ const PosterSlider = () => {
                 <span> Horror</span>
               </p>
               <div className=" flex items-center justify-evenly w-full lg:gap-4 ">
-                <button className="backdrop-blur-sm bg-white text-black px-10 py-2 lg:py-3 lg:px-16 text-xl rounded-md flex items-center gap-3">
+                <Link to={'/seriesplayer/:id'} className="backdrop-blur-sm bg-white text-black px-10 py-2 lg:py-3 lg:px-16 text-xl rounded-md flex items-center gap-3">
                   <FaPlay /> Play
-                </button>
-                <button className="backdrop-blur-sm bg-white/40 px-8 py-2 lg:py-3 lg:px-16  text-xl rounded-md flex items-center gap-1">
+                </Link>
+                <Link to={''} className="backdrop-blur-sm bg-white/40 px-8 py-2 lg:py-3 lg:px-16  text-xl rounded-md flex items-center gap-1">
                   <MdAdd className=" text-2xl" />
                   My List
-                </button>
+                </Link>
               </div>
             </div>
           </div>

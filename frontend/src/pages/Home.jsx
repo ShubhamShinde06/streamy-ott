@@ -5,9 +5,7 @@ import PosterSlider from "../components/PosterSlider";
 import CardSlider from "../components/CardSlider";
 
 const Home = () => {
-  
-  
-
+    
   return (
     <div className=" w-full h-[calc(100vh-80px)] lg:h-[100vh] lg:flex">
       <Sidebar />
