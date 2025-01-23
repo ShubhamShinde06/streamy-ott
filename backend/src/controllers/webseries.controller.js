@@ -28,7 +28,20 @@ export const uploadSeries = async (req, res) => {
     let imagesUrl = await Promise.all(
       images.map(async (item) => {
         let result = await cloudinary.uploader.upload(item.path, {
-          resource_type: "image",
+          resource_type: "image", // Specify that the resource is an image
+          use_filename: true, // Use the original file name
+          unique_filename: false, // Avoid generating a random unique name
+          transformation: [
+            {
+              width: 800, // Resize to a maximum width of 800px
+              height: 600, // Resize to a maximum height of 600px
+              crop: "limit" // Limit resizing to not exceed the width/height
+            },
+            {
+              quality: "auto", // Automatically adjust quality for optimization
+              fetch_format: "auto" // Use WebP or other optimized format
+            }
+          ]
         });
         return result.secure_url;
       })
