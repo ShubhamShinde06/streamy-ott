@@ -1,53 +1,31 @@
 import React from "react";
 import Cardsitem from "../components/Cardsitem";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 const CardSlider = () => {
-  var settings = {
-    dots: false, // Hides dots navigation
-    arrows: true, // Hides left and right navigation arrows
-    infinite: false,
-    speed: 500,
-    slidesToShow: 5, // Default for extra-large laptops
-    slidesToScroll: 1,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1440, // Extra-large laptops
-        settings: {
-          slidesToShow: 5,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 1280, // Large laptops
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 1024, // Tablets
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 768, // Phones
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+  const responsive = {
+    superLargeDesktop:{
+      breakpoint: {max: 4000, min: 1024},
+      items: 4
+    },
+    desktop: {
+      breakpoint: { max: 1024, min: 800 },
+      items: 4,
+    },
+    tablet: {
+      breakpoint: { max: 800, min: 464 },
+      items: 3,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 2,
+    },
   };
 
   return (
-    <div className="slider-container">
-      <Slider {...settings}>
+    <div className=" scroll-hover">
+      <Carousel responsive={responsive}>
         <div>
           <Cardsitem />
         </div>
@@ -66,16 +44,8 @@ const CardSlider = () => {
         <div>
           <Cardsitem />
         </div>
-        <div>
-          <Cardsitem />
-        </div>
-        <div>
-          <Cardsitem />
-        </div>
-        <div>
-          <Cardsitem />
-        </div>
-      </Slider>
+        
+      </Carousel>
     </div>
   );
 };

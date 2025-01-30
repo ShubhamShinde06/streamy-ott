@@ -2,7 +2,9 @@ import React from 'react'
 
 const Movieplayer = () => {
   return (
-    <div>Movieplayer</div>
+    <div>
+      
+    </div>
   )
 }
 

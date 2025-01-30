@@ -22,7 +22,7 @@ const PosterSlider = () => {
   };
 
   return (
-    <div className="slider-container w-full h-full relative lg:block flex flex-col items-center justify-center">
+    <div className=" w-full h-full relative lg:block flex flex-col items-center justify-center">
       {/* logo */}
       <header className="w-[95%] h-[80px] flex items-center justify-between px-1 lg:px-0 lg:absolute top-4 left-10 z-10">
         <Link to={"/"}>

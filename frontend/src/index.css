@@ -86,6 +86,18 @@ body {
   opacity: 1; /* Optional: Fully opaque for active dot */
 }
 
+.hover-box:hover .show-box{
+  opacity: 1;
+}
+
+.react-multiple-carousel__arrow{
+  opacity: 0 !important;
+ 
+}
+
+.scroll-hover:hover .react-multiple-carousel__arrow{
+  opacity: 1 !important;
+}
 
 
 @media only screen and (min-width: 1024px) {
@@ -118,14 +130,17 @@ body {
 }
 
 @media only screen and (max-width: 720px) {
-  .slick-prev,
-  .slick-next {
+  .react-multiple-carousel__arrow  {
     display: none !important;
+    
   }
-  /* body{
-    background: #070140;
-  } */
   a.active {
     color: white;
+  }
+  .in-site-color {
+    /* -webkit-box-shadow: inset 96px -77px 82px -28px #070140;
+    -moz-box-shadow: inset 96px -77px 82px -28px #070140;
+    box-shadow: inset 96px -77px 82px -28px #070140; */
+    box-shadow: inset -0px -100px 202px 0px rgba(7,1,64,1);
   }
 }
