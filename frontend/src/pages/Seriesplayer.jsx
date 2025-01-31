@@ -14,7 +14,7 @@ import { IoMdPlayCircle } from "react-icons/io";
 const Seriesplayer = () => {
   return (
     <div className="w-full h-[calc(100vh-80px)] lg:h-[100vh] lg:flex">
-      <Sidebar />
+      <Sidebar/>
       <div className=" lg:relative w-full h-full overflow-scroll show-scroll">
         {/* poster */}
         <main className="w-full h-auto lg:h-[100%] ">

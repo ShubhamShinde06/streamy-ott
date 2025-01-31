@@ -8,6 +8,8 @@ import Movies from "./pages/MOvies";
 import Shows from "./pages/Shows";
 import MyList from "./pages/MyList";
 import Profile from "./pages/Profile";
+import { ToastContainer } from "react-toastify";
+import Player from "./pages/Player";
 
 function App() {
   return (
@@ -22,7 +24,9 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/movieplayer/:id" element={<Movieplayer />} />
         <Route path="/seriesplayer/:id" element={<Seriesplayer />} />
+        <Route path="/iframe/:id" element={<Player />} />
       </Routes>
+      <ToastContainer/>
     </div>
   );
 }

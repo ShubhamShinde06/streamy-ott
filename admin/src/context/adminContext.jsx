@@ -14,7 +14,10 @@ const AdminContextProvider = (props) => {
         try {
             const response = await axios.get('/api/mix/get-mix')
             if(response.data.success){
-                setContentData(response.data.data.content)
+                const sortedContent = response.data.data.content.sort(
+                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                );
+                setContentData(sortedContent)
             } else {
                 toast.error(response.data.message)
             }
