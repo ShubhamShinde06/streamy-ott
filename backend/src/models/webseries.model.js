@@ -6,7 +6,7 @@ import mongoose from 'mongoose'
     poster:{type: Boolean},
     series_name: { type: String, required: true },
     genre: {type: [Array], required: true},
-    description: { type: String, required: true },
+    plot: { type: String, required: true },
     release_year_start: { type: Number, required: true },
     total_seasons: { type: Number, required: true },
     rating: {type: Number, required: true},

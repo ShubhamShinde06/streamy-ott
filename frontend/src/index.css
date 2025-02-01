@@ -18,7 +18,6 @@
 body {
   width: 100%;
   height: 100vh;
-  /* background-color: #070140; */
   background: rgb(11, 8, 151);
   background: linear-gradient(120deg, rgb(10, 8, 151) 1%, rgb(7, 1, 79) 20%);
   color: white;
@@ -68,22 +67,21 @@ body {
 }
 
 .slick-dots li button:before {
-  color: white; /* Changes the default dot color to white */
-  /* Makes the dots fully opaque */
+  color: white; 
 }
 
 .slick-dots li.slick-active button:before {
-  color: white !important; /* Ensures active dot is also white */
+  color: white !important; 
 }
 
 .slick-dots li button:before {
-  color: white !important; /* Set all dots to white */
-  opacity: 0.5; /* Optional: Adjust opacity for inactive dots */
+  color: white !important; 
+  opacity: 0.5;
 }
 
 .slick-dots li.slick-active button:before {
-  color: white !important; /* Active dot also in white */
-  opacity: 1; /* Optional: Fully opaque for active dot */
+  color: white !important; 
+  opacity: 1; 
 }
 
 .hover-box:hover .show-box{
@@ -99,50 +97,6 @@ body {
   opacity: 1 !important;
 }
 
-
-@media only screen and (min-width: 1024px) {
-  .hover-card:hover .card-info {
-    display: flex;
-    transition: all ease-in-out;
-    transition-duration: 5000;
-    -webkit-transition: all ease-in-out;
-    -moz-transition: all ease-in-out;
-    -ms-transition: all ease-in-out;
-    -o-transition: all ease-in-out;
-  }
-  .in-site-color {
-    /* -webkit-box-shadow: inset 96px -77px 82px -28px #070140;
-    -moz-box-shadow: inset 96px -77px 82px -28px #070140;
-    box-shadow: inset 96px -77px 82px -28px #070140; */
-    -webkit-box-shadow: inset 157px -200px 242px 7px rgba(7,1,64,1);
-    -moz-box-shadow: inset 157px -200px 242px 7px rgba(7,1,64,1);
-    box-shadow: inset 157px -200px 242px 7px rgba(7,1,64,1);
-  }
-  a.active {
-    background-color: #7339e5;
-    padding: 5px;
-    border-radius: 100%;
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
-    -ms-border-radius: 100%;
-    -o-border-radius: 100%;
-  }
-}
-
-@media only screen and (max-width: 720px) {
-  .react-multiple-carousel__arrow  {
-    display: none !important;
-  }
-  a.active {
-    color: white;
-  }
-  .in-site-color {
-    /* -webkit-box-shadow: inset 96px -77px 82px -28px #070140;
-    -moz-box-shadow: inset 96px -77px 82px -28px #070140;
-    box-shadow: inset 96px -77px 82px -28px #070140; */
-    box-shadow: inset -0px -100px 202px 0px rgba(7,1,64,1);
-  }
-}
 
 :root {
   --color: #0088cc;
@@ -183,5 +137,55 @@ body {
   65% {
     opacity: 1;
     transform: scale(0.7);
+  }
+}
+
+
+
+@media only screen and (min-width: 1024px) {
+  .hover-card:hover .card-info {
+    display: flex;
+    transition: all ease-in-out;
+    transition-duration: 5000;
+    -webkit-transition: all ease-in-out;
+    -moz-transition: all ease-in-out;
+    -ms-transition: all ease-in-out;
+    -o-transition: all ease-in-out;
+  }
+  .in-site-color {
+    -webkit-box-shadow: inset 157px -200px 242px 7px rgba(7,1,64,1);
+    -moz-box-shadow: inset 157px -200px 242px 7px rgba(7,1,64,1);
+    box-shadow: inset 157px -200px 242px 7px rgba(7,1,64,1);
+  }
+  a.active {
+    background-color: #7339e5;
+    padding: 5px;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+  }
+  .truncate-multiline {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Show only 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 100px;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .react-multiple-carousel__arrow  {
+    display: none !important;
+  }
+  a.active {
+    color: white;
+  }
+  .in-site-color {
+    /* -webkit-box-shadow: inset 96px -77px 82px -28px #070140;
+    -moz-box-shadow: inset 96px -77px 82px -28px #070140;
+    box-shadow: inset 96px -77px 82px -28px #070140; */
+    box-shadow: inset -0px -100px 202px 0px rgba(7,1,64,1);
   }
 }

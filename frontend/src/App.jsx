@@ -10,6 +10,7 @@ import MyList from "./pages/MyList";
 import Profile from "./pages/Profile";
 import { ToastContainer } from "react-toastify";
 import Player from "./pages/Player";
+import PlayerW from "./pages/PlayerW";
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/movieplayer/:id" element={<Movieplayer />} />
         <Route path="/seriesplayer/:id" element={<Seriesplayer />} />
-        <Route path="/iframe/:id" element={<Player />} />
+        <Route path="/iframeM/:id" element={<Player />} />
+        <Route path="/iframeS/:seriesId/:episodeId" element={<PlayerW />} />
       </Routes>
       <ToastContainer/>
     </div>

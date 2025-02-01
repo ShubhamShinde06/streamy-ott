@@ -7,7 +7,7 @@ export const uploadSeries = async (req, res) => {
     poster,
     series_name,
     genre,
-    description,
+    plot,
     release_year_start,
     total_seasons,
     seasons,
@@ -40,7 +40,7 @@ export const uploadSeries = async (req, res) => {
       poster: poster === "true" ? true : false,
       series_name,
       genre: parsedGenre,
-      description,
+      plot,
       release_year_start,
       total_seasons,
       image: imagesUrl,
@@ -106,24 +106,43 @@ export const deleteSeries = async (req, res) => {
     }
 };
 
+
 export const singleSeries = async (req, res) => {
   try {
+    //console.log("Received params:", req.params); // Debugging log
+
     const { id } = req.params;
 
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid series ID",
+      });
+    }
+
     const series = await seriesModle.findById(id);
+    if (!series) {
+      return res.status(404).json({
+        success: false,
+        message: "Series not found",
+      });
+    }
+
     res.json({
       success: true,
       series,
     });
 
   } catch (error) {
-    console.log(error);
+    console.error("Error in singleSeries:", error);
     return res.status(500).json({
       success: false,
-      message: "Error in singleSeries",
+      message: "Internal Server Error",
     });
   }
 };
+
+
 
 export const updateSeries = async (req, res) => {
   try {
@@ -155,3 +174,46 @@ export const updateSeries = async (req, res) => {
     });
   }
 };
+
+export const singleEpisode = async (req, res) => {
+  try {
+    const { seriesId, episodeId } = req.params;
+
+    // Find the series by ID
+    const series = await seriesModle.findById(seriesId);
+    if (!series) {
+      return res.status(404).json({
+        success: false,
+        message: "Series not found",
+      });
+    }
+
+    // Find the episode inside the seasons
+    let foundEpisode = null;
+    series.seasons.forEach((season) => {
+      const episode = season.episodes.find(
+        (ep) => ep._id.toString() === episodeId
+      );
+      if (episode) foundEpisode = episode;
+    });
+
+    if (!foundEpisode) {
+      return res.status(404).json({
+        success: false,
+        message: "Episode not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      episode: foundEpisode,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Error retrieving episode",
+    });
+  }
+};
+

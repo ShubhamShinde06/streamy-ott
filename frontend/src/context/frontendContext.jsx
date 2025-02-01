@@ -10,6 +10,10 @@ const FrontendContextProvider = (props) => {
     const [posterdata, setPosterData] = useState([])
     const [moviedata, setMovieData] = useState([])
     const [seriesData, setSeriesData] = useState([])
+    const [comdeyData, setComdeyData] = useState([])
+    const [actionData, setActionData] = useState([])
+    const [animationData, setAnimationData] = useState([])
+    const [crimeData, setCrimeData] = useState([])
 
     const getContent = async () => {
         try {
@@ -27,6 +31,22 @@ const FrontendContextProvider = (props) => {
                 const series = response.data.data.content.filter(
                     (item) => item.category === 'series'
                 );
+                const comedyData = response.data.data.content.filter((item) =>
+                    item.genre.some((g) => g.includes("Comedy"))
+                );
+                const actionData = response.data.data.content.filter((item) =>
+                    item.genre.some((g) => g.includes("Action"))
+                );
+                const animationData = response.data.data.content.filter((item) =>
+                    item.genre.some((g) => g.includes("Animation"))
+                );
+                const crimeData = response.data.data.content.filter((item) =>
+                    item.genre.some((g) => g.includes("Crime"))
+                );
+                setCrimeData(crimeData)
+                setAnimationData(animationData)
+                setComdeyData(comedyData)
+                setActionData(actionData)
                 setPosterData(poster)
                 setAllData(sortedContent)
                 setNew_release(sortedContent.slice(0,7))
@@ -55,7 +75,15 @@ const FrontendContextProvider = (props) => {
         moviedata, 
         setMovieData,
         seriesData, 
-        setSeriesData
+        setSeriesData,
+        comdeyData, 
+        setComdeyData,
+        actionData, 
+        setActionData,
+        animationData, 
+        setAnimationData,
+        crimeData,
+        setCrimeData
     }
 
     return(

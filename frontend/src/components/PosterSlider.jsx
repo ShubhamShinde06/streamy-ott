@@ -15,7 +15,7 @@ const PosterSlider = ({ Data }) => {
     infinite: true, // Enables infinite loop
     speed: 500,
     autoplay: true, // Enables autoplay
-    autoplaySpeed: 2000, // Autoplay every 2 seconds
+    autoplaySpeed: 5000, // Autoplay every 2 seconds
     slidesToShow: 1,
     slidesToScroll: 1,
   };
@@ -63,15 +63,20 @@ const PosterSlider = ({ Data }) => {
 
               {/* Overlay Content */}
               <div className="absolute inset-0 in-site-color flex flex-col justify-end items-center gap-3 lg:gap-6 lg:items-start p-6 lg:p-14 xl:p-20">
-                <p className="text-white text-lg md:text-xl lg:text-2xl xl:text-3xl w-4/5 hidden lg:block">
+                <p className="text-white text-lg md:text-xl lg:text-2xl xl:text-3xl w-4/5 hidden lg:block truncate-multiline">
                   {item.plot}
                 </p>
+
                 <p className="text-white text-xl md:text-lg lg:text-xl xl:text-2xl line-clamp-1">
                   {item.genre.flat().join(" • ")}
                 </p>
                 <div className="flex gap-4 mt-4">
                   <Link
-                    to={item.category === "series" ? `/seriesplayer/${item._id}` : `/movieplayer/${item._id}`}
+                    to={
+                      item.category === "series"
+                        ? `/seriesplayer/${item._id}`
+                        : `/movieplayer/${item._id}`
+                    }
                     className="bg-white text-black px-6 md:px-10 py-2 md:py-3 text-lg lg:text-xl xl:text-2xl rounded-md flex items-center gap-2"
                   >
                     <FaPlay /> Play
