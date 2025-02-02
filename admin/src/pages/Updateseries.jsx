@@ -84,7 +84,7 @@ const Updateseries = () => {
   const getSingleContent = async () => {
     try {
       
-      const response = await axios.get(`/api/series/get-single-series/${id}`)
+      const response = await axios.get(`/api/series/${id}`)
       if(response.data.success){
         console.log(response.data.series)
         setTitle(response.data.series.series_name)

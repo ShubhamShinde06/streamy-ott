@@ -14,6 +14,13 @@ const FrontendContextProvider = (props) => {
     const [actionData, setActionData] = useState([])
     const [animationData, setAnimationData] = useState([])
     const [crimeData, setCrimeData] = useState([])
+    const [dramaData, setDramaData] = useState([])
+    const [fantasyData, setFantasyData] = useState([])
+    const [historicalData, setHistoricalData] = useState([])
+    const [horrorData, setHorrorData] = useState([])
+    const [romanceData, setRomanceData] = useState([])
+    const [sci_fiData, setSci_fiData] = useState([])
+    const [thrillerData, setThrillerData] = useState([])
 
     const getContent = async () => {
         try {
@@ -55,14 +62,27 @@ const FrontendContextProvider = (props) => {
                 const horrorData = response.data.data.content.filter((item) =>
                     item.genre.some((g) => g.includes("Horror"))
                 );
-                const Data = response.data.data.content.filter((item) =>
-                    item.genre.some((g) => g.includes("Horror"))
+                const romanceData = response.data.data.content.filter((item) =>
+                    item.genre.some((g) => g.includes("Romance"))
+                );
+                const sci_fiData = response.data.data.content.filter((item) =>
+                    item.genre.some((g) => g.includes("Science-fiction"))
+                );
+                const thrillerData = response.data.data.content.filter((item) =>
+                    item.genre.some((g) => g.includes("Thriller"))
                 );
 
                 setCrimeData(crimeData)
                 setAnimationData(animationData)
                 setComdeyData(comedyData)
                 setActionData(actionData)
+                setDramaData(dramaData)
+                setFantasyData(fantasyData)
+                setHistoricalData(historicalData)
+                setHorrorData(horrorData)
+                setRomanceData(romanceData)
+                setSci_fiData(sci_fiData)
+                setThrillerData(thrillerData)
                 
                 setAllData(sortedContent)
 
@@ -101,7 +121,21 @@ const FrontendContextProvider = (props) => {
         animationData, 
         setAnimationData,
         crimeData,
-        setCrimeData
+        setCrimeData,
+        dramaData, 
+        setDramaData,
+        fantasyData, 
+        setFantasyData,
+        historicalData, 
+        setHistoricalData,
+        horrorData, 
+        setHorrorData,
+        romanceData, 
+        setRomanceData,
+        sci_fiData, 
+        setSci_fiData,
+        thrillerData, 
+        setThrillerData
     }
 
     return(

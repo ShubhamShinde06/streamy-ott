@@ -6,7 +6,7 @@ import Cards from "../components/Cards";
 import Categorysheader from "../components/Categorysheader";
 
 const Home = () => {
-  const { new_release, posterdata, moviedata, seriesData, comdeyData, actionData, animationData,crimeData } =
+  const { new_release, posterdata, moviedata, seriesData, comdeyData, actionData, animationData,crimeData, dramaData, fantasyData, historicalData, horrorData, romanceData, sci_fiData, thrillerData } =
     useContext(FrontendContext);
 
   return (
@@ -59,6 +59,57 @@ const Home = () => {
             </div>
             <Cards Data={crimeData} />
           </div>
+
+          <div className="flex flex-col gap-4 lg:gap-5 px-2 md:px-6 lg:px-2 scroll-hover">
+            <div className="w-full flex justify-between items-center lg:pr-5 text-2xl">
+              <h1 className="lg:text-3xl text-1xl">Drama</h1>
+            </div>
+            <Cards Data={dramaData} />
+          </div>
+
+          <div className="flex flex-col gap-4 lg:gap-5 px-2 md:px-6 lg:px-2 scroll-hover">
+            <div className="w-full flex justify-between items-center lg:pr-5 text-2xl">
+              <h1 className="lg:text-3xl text-1xl">Fantasy</h1>
+            </div>
+            <Cards Data={fantasyData} />
+          </div>
+
+          <div className="flex flex-col gap-4 lg:gap-5 px-2 md:px-6 lg:px-2 scroll-hover">
+            <div className="w-full flex justify-between items-center lg:pr-5 text-2xl">
+              <h1 className="lg:text-3xl text-1xl">Historical</h1>
+            </div>
+            <Cards Data={historicalData} />
+          </div>
+
+          <div className="flex flex-col gap-4 lg:gap-5 px-2 md:px-6 lg:px-2 scroll-hover">
+            <div className="w-full flex justify-between items-center lg:pr-5 text-2xl">
+              <h1 className="lg:text-3xl text-1xl">Horror</h1>
+            </div>
+            <Cards Data={horrorData} />
+          </div>
+
+          {/* <div className="flex flex-col gap-4 lg:gap-5 px-2 md:px-6 lg:px-2 scroll-hover">
+            <div className="w-full flex justify-between items-center lg:pr-5 text-2xl">
+              <h1 className="lg:text-3xl text-1xl">Romance</h1>
+            </div>
+            <Cards Data={romanceData} />
+          </div> */}
+
+          <div className="flex flex-col gap-4 lg:gap-5 px-2 md:px-6 lg:px-2 scroll-hover">
+            <div className="w-full flex justify-between items-center lg:pr-5 text-2xl">
+              <h1 className="lg:text-3xl text-1xl">Sci-Fi</h1>
+            </div>
+            <Cards Data={sci_fiData} />
+          </div>
+
+          <div className="flex flex-col gap-4 lg:gap-5 px-2 md:px-6 lg:px-2 scroll-hover">
+            <div className="w-full flex justify-between items-center lg:pr-5 text-2xl">
+              <h1 className="lg:text-3xl text-1xl">Thriller</h1>
+            </div>
+            <Cards Data={thrillerData} />
+          </div>
+
+
         </div>
       </div>
     </div>
