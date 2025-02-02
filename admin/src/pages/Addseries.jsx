@@ -36,7 +36,7 @@ const Addseries = () => {
   const [image1, setImage1] = useState(null);
   const [image2, setImage2] = useState(null);
   const [poster, setPoster] = useState(false);
-  const [description, setPlot] = useState("");
+  const [plot, setPlot] = useState("");
   const [series_name, setTitle] = useState("");
   const [release_year_start, setRelease_year] = useState("");
   const [total_seasons, setTotal_seasons] = useState("");
@@ -108,7 +108,7 @@ const Addseries = () => {
       const formData = new FormData();
 
       formData.append("series_name", series_name);
-      formData.append("description", description);
+      formData.append("plot", plot);
       formData.append("release_year_start", release_year_start);
       formData.append("total_seasons", total_seasons);
       formData.append("director", director);
@@ -214,7 +214,7 @@ const Addseries = () => {
                 <textarea
                   placeholder="Plot"
                   required
-                  value={description}
+                  value={plot}
                   onChange={(e) => setPlot(e.target.value)}
                   className="w-full py-6 px-2  rounded-md bg-white/10 text-xl"
                 ></textarea>

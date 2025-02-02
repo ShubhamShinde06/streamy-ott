@@ -7,7 +7,7 @@ const Card = ({ id, category, img1, img2 }) => {
     <Link
       to={category === "series" ? `/seriesplayer/${id}` : `/movieplayer/${id}`}
     >
-      <div className="lg:w-[340px] hover-box lg:h-[200px] md:w-[170px] h-[180px] w-[140px] rounded-md cursor-pointer overflow-hidden relative hover-card mr-3">
+      <div className="lg:w-[340px] hover-box lg:h-[200px] md:w-[170px] h-[180px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative hover-card mr-3">
          <img
           src={img1}
           alt="streamy"

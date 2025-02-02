@@ -10,7 +10,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 
 const PosterSlider = ({ Data }) => {
   const settings = {
-    dots: true,
+    dots: false,
     arrows: false,
     infinite: true, // Enables infinite loop
     speed: 500,

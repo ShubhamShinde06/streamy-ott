@@ -43,12 +43,30 @@ const FrontendContextProvider = (props) => {
                 const crimeData = response.data.data.content.filter((item) =>
                     item.genre.some((g) => g.includes("Crime"))
                 );
+                const dramaData = response.data.data.content.filter((item) =>
+                    item.genre.some((g) => g.includes("Drama"))
+                );
+                const fantasyData = response.data.data.content.filter((item) =>
+                    item.genre.some((g) => g.includes("Fantasy"))
+                );
+                const historicalData = response.data.data.content.filter((item) =>
+                    item.genre.some((g) => g.includes("Historical"))
+                );
+                const horrorData = response.data.data.content.filter((item) =>
+                    item.genre.some((g) => g.includes("Horror"))
+                );
+                const Data = response.data.data.content.filter((item) =>
+                    item.genre.some((g) => g.includes("Horror"))
+                );
+
                 setCrimeData(crimeData)
                 setAnimationData(animationData)
                 setComdeyData(comedyData)
                 setActionData(actionData)
-                setPosterData(poster)
+                
                 setAllData(sortedContent)
+
+                setPosterData(poster.slice(0,7))
                 setNew_release(sortedContent.slice(0,7))
                 setMovieData(movie.slice(0,7))
                 setSeriesData(series.slice(0,7))
