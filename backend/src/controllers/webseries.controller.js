@@ -106,7 +106,6 @@ export const deleteSeries = async (req, res) => {
     }
 };
 
-
 export const singleSeries = async (req, res) => {
   try {
     //console.log("Received params:", req.params); // Debugging log
@@ -141,8 +140,6 @@ export const singleSeries = async (req, res) => {
     });
   }
 };
-
-
 
 export const updateSeries = async (req, res) => {
   try {

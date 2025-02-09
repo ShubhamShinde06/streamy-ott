@@ -18,7 +18,7 @@
 body {
   width: 100%;
   height: 100vh;
-  background: rgb(11, 8, 151);
+  /* background: rgb(11, 8, 151); */
   background: linear-gradient(120deg, rgb(10, 8, 151) 1%, rgb(7, 1, 79) 20%);
   color: white;
   overflow-x: hidden;

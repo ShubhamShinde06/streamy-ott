@@ -12,12 +12,16 @@ import { FaPlay } from "react-icons/fa";
 import { IoMdPlayCircle } from "react-icons/io";
 import axios from "axios";
 import { CgProfile } from "react-icons/cg";
+import { mixStore } from "../store/mixStore";
+import { AiFillLike } from "react-icons/ai";
 
 const Seriesplayer = () => {
   const topRef = useRef(null);
   const handlePageUp = () => {
     topRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
+  const [likeCount, setLikeCount] = useState(0);
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -52,8 +56,11 @@ const Seriesplayer = () => {
           video_link: Data.video_link,
           download_link: Data.download_link,
           seasonData: seasonData,
+          likeCount: Data.likeCount
         };
+        console.log(DataM)
         setData(DataM);
+        setLikeCount(DataM.likeCount)
         setSelectedSeason(seasonData.length > 0 ? seasonData[0] : null);
       }
     } catch (error) {
@@ -61,9 +68,42 @@ const Seriesplayer = () => {
     }
   };
 
+ 
+  const [liked, setLiked] = useState(false);
+
+  const handleLike = async () => {
+    try {
+      const response = await axios.post(`/api/mix/toggle-like/${id}`, {
+        liked: !liked,
+      });
+
+      if (response.data.success) {
+        setLikeCount(response.data.likeCount);
+        setLiked(!liked);
+      } else {
+        toast.error("Failed to update like.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Error updating like.");
+    }
+  };
+
+  useEffect(() => {
+    if (data) {
+      setLikeCount(data.likeCount);
+    }
+  }, [data]);
+
   useEffect(() => {
     getSingleMovie();
   }, []);
+
+  const { viewCount, visitCount } = mixStore();
+
+  useEffect(() => {
+    viewCount(id);
+  }, [id]);
 
   return (
     <>
@@ -112,9 +152,15 @@ const Seriesplayer = () => {
                           <button className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl">
                             <IoAdd />
                           </button>
-                          <button className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl">
-                            <BiLike />
-                          </button>
+                          <div className="flex flex-col gap-2 items-center justify-center mt-8">
+                            <button
+                              onClick={handleLike}
+                              className={`px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl`}
+                            >
+                              {liked ? <AiFillLike /> : <BiLike />}
+                            </button>
+                            <span>{likeCount}</span>
+                          </div>
                           <button className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl">
                             <IoInformationCircleOutline />
                           </button>
@@ -149,9 +195,15 @@ const Seriesplayer = () => {
                   <p className="text-white">Plot: </p>{" "}
                   <span className="text-wrap line-clamp-3">{data?.plot}</span>
                 </b>
-                <div className="flex items-center gap-2 text-white text-xl mt-5 lg:mt-0">
-                  <b className=" text-[#8989ac]">This Series is:</b>
-                  <p>Streamy Platfrom</p>
+                <div className=" flex flex-col gap-5">
+                  <div className="flex items-center gap-2 text-white text-xl mt-5 lg:mt-0">
+                    <b className=" text-[#8989ac]">This Series is:</b>
+                    <p>Streamy Platfrom</p>
+                  </div>
+                  <div className="flex items-center gap-2 text-white text-xl mt-5 lg:mt-0">
+                    <b className=" text-[#8989ac]">Views:</b>
+                    <p>{visitCount}</p>
+                  </div>
                 </div>
               </div>
             </div>

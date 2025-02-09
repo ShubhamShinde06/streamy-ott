@@ -4,6 +4,7 @@ import { IoIosSearch } from "react-icons/io";
 import Categorysheader from "../components/Categorysheader";
 import { AiOutlineLike } from "react-icons/ai";
 import { FrontendContext } from "../context/frontendContext";
+import { Link } from "react-router-dom";
 
 const Search = () => {
   const { allData } = useContext(FrontendContext);
@@ -104,8 +105,9 @@ const Search = () => {
           <Categorysheader title={"Top Searches"} link={"search"} />
           <div className="lg:grid lg:grid-cols-4 gap-3 py-4 h-full flex-col-reverse">
             {filteredData.map((item, index) => (
-              <div
-                key={index}
+              <Link
+                to={item.category === "series" ? `/seriesplayer/${item._id}` : `/movieplayer/${item._id}`}
+                key={index + 1}
                 className="lg:h-[320px] rounded-md flex flex-col lg:flex lg:flex-row gap-2 overflow-hidden"
               >
                 <img
@@ -139,7 +141,7 @@ const Search = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

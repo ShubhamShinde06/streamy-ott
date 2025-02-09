@@ -50,33 +50,34 @@ export const countView = async (req, res) => {
   }
 };
 
-export const countLike = async (req, res) => {
-  try {
 
+
+export const toggleLike = async (req, res) => {
+  try {
     const { id } = req.params;
-    const { liked } = req.body; 
+    const { liked } = req.body; // true if the user is liking, false if unliking
 
     const movie = await movieModel.findById(id);
     const series = await seriesModle.findById(id);
-    
+
     const content = movie || series;
 
     if (!content) {
       return res.status(404).json({ success: false, message: "Content not found" });
     }
 
-    if (liked) {
-      content.likeCount -= 1;
-    } else {
-      content.likeCount += 1;
-    }
-    
+    // Toggle like count
+    content.likeCount = await liked ? content.likeCount + 1 : Math.max(0, content.likeCount - 1);
+
     await content.save();
-    res.json({ likeCount: content.likeCount });
+
+    res.json({ success: true, likeCount: content.likeCount });
   } catch (error) {
-    res.status(500).json({ message: 'Error toggling like', error });
+    res.status(500).json({ success: false, message: "Error toggling like", error });
   }
-}
+};
+
+
 
 
 

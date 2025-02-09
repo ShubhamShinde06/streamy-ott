@@ -6,20 +6,20 @@ import {
   IoInformationCircleOutline,
 } from "react-icons/io5";
 import { FaPlay } from "react-icons/fa";
-import { IoMdPlayCircle } from "react-icons/io";
 import Sidebar from "../components/Sidebar";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { LuDownload } from "react-icons/lu";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
+import { AiFillLike } from "react-icons/ai";
+import { mixStore } from "../store/mixStore";
 
 const Movieplayer = () => {
   const { id } = useParams();
-
-  const navigation = useNavigate()
-
+  const navigation = useNavigate();
   const [data, setData] = useState([]);
+  const [likeCount, setLikeCount] = useState(0);
 
   const getSingleMovie = async () => {
     try {
@@ -41,8 +41,11 @@ const Movieplayer = () => {
           genre: Data.genre,
           video_link: Data.video_link,
           download_link: Data.download_link,
+          likeCount: Data.likeCount
         };
+        console.log(Data)
         setData(DataM);
+        setLikeCount(DataM.likeCount)
       } else {
         toast.error(response.data.message);
       }
@@ -55,6 +58,38 @@ const Movieplayer = () => {
     getSingleMovie();
   }, []);
 
+  const [liked, setLiked] = useState(false);
+
+  const handleLike = async () => {
+    try {
+      const response = await axios.post(`/api/mix/toggle-like/${id}`, {
+        liked: !liked,
+      });
+
+      if (response.data.success) {
+        setLikeCount(response.data.likeCount);
+        setLiked(!liked);
+      } else {
+        toast.error("Failed to update like.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Error updating like.");
+    }
+  };
+
+  useEffect(() => {
+    if (data) {
+      setLikeCount(data.likeCount);
+    }
+  }, [data]);
+
+  const { viewCount, visitCount } = mixStore();
+
+  useEffect(() => {
+    viewCount(id);
+  }, [id]);
+
   return (
     <div className="w-full h-[calc(100vh-80px)] lg:h-[100vh] lg:flex">
       <Sidebar />
@@ -64,7 +99,10 @@ const Movieplayer = () => {
           <div className=" in-site-color w-full h-full relative lg:block flex flex-col items-center justify-center">
             {/* logo */}
             <header className="absolute top-5 left-2 lg:top-10 lg:left-10 z-20 ">
-              <button onClick={()=>navigation('/home')} className="px-2 py-2 rounded-full lg:border-2 border-[#8989ac] backdrop-blur-sm lg:bg-white/20 text-2xl">
+              <button
+                onClick={() => navigation("/home")}
+                className="px-2 py-2 rounded-full lg:border-2 border-[#8989ac] backdrop-blur-sm lg:bg-white/20 text-2xl"
+              >
                 <IoChevronBackOutline />
               </button>
             </header>
@@ -106,9 +144,18 @@ const Movieplayer = () => {
                         <button className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl">
                           <IoAdd />
                         </button>
-                        <button className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl">
-                          <BiLike />
-                        </button>
+                        <div className="flex flex-col gap-2 items-center justify-center mt-8">
+                          <button
+                            onClick={handleLike}
+                            className={`px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl`}
+                          >
+                           {liked ? <AiFillLike /> : <BiLike />}
+                          </button>
+                          <span>{likeCount}</span>
+                        </div>
+
+                        
+
                         <button className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl">
                           <IoInformationCircleOutline />
                         </button>
@@ -124,14 +171,13 @@ const Movieplayer = () => {
         <div className="slider-container w-full mx-auto h-auto flex flex-col gap-10 bg-[#070140] px-5 py-5 lg:py-10 lg:px-12">
           <div className="w-full flex flex-col gap-8">
             <div className=" flex flex-col lg:flex-row  lg:items-center lg:justify-between">
-              <div>
-                <div className="flex items-center gap-4 text-[#8989ac]">
-                  <b className="text-white text-xl">Popular</b>{" "}
-                  <p>{data.rating}</p>
-                  <p className="text-[20px]">2018</p>
-                  <p className="text-[20px]">{data.name}</p>
-                </div>
+              <div className="flex items-center gap-4 text-[#8989ac]">
+                <b className="text-white text-xl">Popular</b>{" "}
+                <p>{data.rating}</p>
+                <p className="text-[20px]">2018</p>
+                <p className="text-[20px]">{data.name}</p>
               </div>
+
               <div className="flex items-center gap-2 text-white text-xl mt-5 lg:mt-0">
                 <b className=" text-[#8989ac]">Genres:</b>
                 {Array.isArray(data.genre) && data.genre.length > 0
@@ -144,9 +190,15 @@ const Movieplayer = () => {
                 <p className="text-white">Plot: </p>{" "}
                 <span className="text-wrap line-clamp-3">{data.plot}</span>
               </b>
-              <div className="flex items-center gap-2 text-white text-xl mt-5 lg:mt-0">
-                <b className=" text-[#8989ac]">This Series is:</b>
-                <p>Streamy Platfrom</p>
+              <div className=" flex flex-col gap-5">
+                <div className="flex items-center gap-2 text-white text-xl mt-5 lg:mt-0">
+                  <b className=" text-[#8989ac]">This Series is:</b>
+                  <p>Streamy Platfrom</p>
+                </div>
+                <div className="flex items-center gap-2 text-white text-xl mt-5 lg:mt-0">
+                  <b className=" text-[#8989ac]">Views:</b>
+                  <p>{visitCount}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -157,7 +209,7 @@ const Movieplayer = () => {
                 {data.characters && data.characters.length > 0 ? (
                   data.characters.map((item, index) => (
                     <div
-                      key={index}
+                      key={index + 1}
                       className="flex flex-col gap-2 items-center text-center"
                     >
                       <div className="w-[80px] h-[80px] rounded-full flex items-center justify-center text-9xl">
@@ -172,7 +224,7 @@ const Movieplayer = () => {
               </div>
             </div>
 
-            <div className="mt-10">
+            {/* <div className="mt-10">
               <h1 className="text-2xl ">More Like This</h1>
               <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-5 lg:px-10">
                 <div className="w-auto h-[500px]  overflow-hidden">
@@ -206,7 +258,7 @@ const Movieplayer = () => {
                 <div className="w-auto h-[500px] border"></div>
                 <div className="w-auto h-[500px] border"></div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

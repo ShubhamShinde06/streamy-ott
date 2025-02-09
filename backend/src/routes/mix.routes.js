@@ -1,10 +1,10 @@
 import {Router} from 'express'
-import { countLike, countView, getAllContent } from '../controllers/mix.controller.js'
+import { toggleLike, countView, getAllContent } from '../controllers/mix.controller.js'
 
 const route = Router()
 
 route.get('/get-mix', getAllContent)
-route.get('/content/:id/visit', countView)
-route.post('/content/:id/toggle-like', countLike)
+route.post('/content/:id', countView)
+route.post('/toggle-like/:id', toggleLike)
 
 export default route

@@ -39,5 +39,8 @@ app.use('/api/series', seriesRoute)
 import mixRoute from './routes/mix.routes.js'
 app.use('/api/mix', mixRoute)
 
+import userRoute from './routes/user.routes.js'
+app.use('/api/auth', userRoute)
+
 
 export default app;
