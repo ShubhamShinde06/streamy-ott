@@ -28,7 +28,7 @@ const FrontendContextProvider = (props) => {
     const getContent = async () => {
         setLoading(true)
         try {
-            const response = await axios.get(server + '/api/mix/get-mix')
+            const response = await axios.get('/api/mix/get-mix')
             if(response.data.success){
                 const sortedContent = response.data.data.content.sort(
                     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
