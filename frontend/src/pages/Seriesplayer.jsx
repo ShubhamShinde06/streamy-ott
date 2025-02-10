@@ -58,7 +58,7 @@ const Seriesplayer = () => {
           seasonData: seasonData,
           likeCount: Data.likeCount
         };
-        console.log(DataM)
+
         setData(DataM);
         setLikeCount(DataM.likeCount)
         setSelectedSeason(seasonData.length > 0 ? seasonData[0] : null);

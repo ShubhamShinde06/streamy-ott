@@ -8,6 +8,12 @@ const Profile = () => {
   const { user } = useUserStore();
   const [image, setImage] = useState(false);
 
+  const {  logout } = useUserStore();
+  
+    const handleLogout = () => {
+      logout();
+    };
+
   const imageURL =
     image && image instanceof File ? URL.createObjectURL(image) : image;
 
@@ -150,7 +156,7 @@ const Profile = () => {
             ))}
           </div>
 
-          <button className=" py-2 w-full  backdrop-blur-sm bg-white/15 rounded-md mt-28 text-xl">
+          <button onClick={handleLogout} className=" py-2 w-full  backdrop-blur-sm bg-white/15 rounded-md mt-28 text-xl">
             Log Out
           </button>
         </div>

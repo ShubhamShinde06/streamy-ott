@@ -43,7 +43,6 @@ const Movieplayer = () => {
           download_link: Data.download_link,
           likeCount: Data.likeCount
         };
-        console.log(Data)
         setData(DataM);
         setLikeCount(DataM.likeCount)
       } else {

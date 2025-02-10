@@ -12,7 +12,7 @@ route.post('/login', login)
 
 route.post('/verify-email', verifyEmail)
 route.post('/forgot-password', forgotPassword)
-route.post('/reset=password/:token', resetPassword)
+route.post('/reset-password/:token', resetPassword)
 
 
 export default route

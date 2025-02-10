@@ -39,7 +39,7 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/auth" replace state={{ from: location }} />;
   }
 
-  if (!user.isVerified) {
+  if (user && !user.isVerified) {
     return <Navigate to="/verify-email" replace />;
   }
 
@@ -58,7 +58,7 @@ function App() {
   return (
     <div className="w-full h-full">
       {isLoading ? (
-        <div className="w-full h-full flex items-center justify-center">
+        <div className="w-full h-[100vh] flex items-center justify-center">
           <Loading/>
         </div>
       ) : (
