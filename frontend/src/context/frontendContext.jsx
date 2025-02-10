@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react"
 import axios from 'axios'
 
+export const server = "https://streamy-ott-backend.onrender.com"
 export const FrontendContext = createContext()
 
 const FrontendContextProvider = (props) => {
