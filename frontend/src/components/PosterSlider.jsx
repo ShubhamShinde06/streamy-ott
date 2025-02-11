@@ -29,7 +29,7 @@ const PosterSlider = ({ Data }) => {
         </Link>
         {/* Mobile Icons */}
         <div className="lg:hidden flex items-center gap-4 text-white">
-          <Link to={"/"}>
+          <Link to={"/search"}>
             <IoSearch className="text-2xl" />
           </Link>
           <Link to={"/"}>

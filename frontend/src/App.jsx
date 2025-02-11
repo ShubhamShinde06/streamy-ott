@@ -17,170 +17,45 @@ import PlayerW from "./pages/PlayerW";
 import EmailVerification from "./pages/EmailVerification";
 import EmailSendFrongotPassword from "./pages/EmailSendFrongotPassword";
 import PasswordSet from "./pages/PasswordSet";
-import Loading from "./components/Loading";
 
-export const server = "https://streamy-ott-backend.onrender.com/"
-
-// Redirect authenticated users to home if they visit /login
-const RedirectAuthenticatedUser = ({ children }) => {
-  const { isAuthenticated, user } = useUserStore();
-
-  if (isAuthenticated && user.isVerified) {
-    return <Navigate to={"/"} replace />;
-  }
-
-  return children;
-};
-
-// Protect routes that require authentication
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, user } = useUserStore();
-  const location = useLocation();
-
-  if (!isAuthenticated) {
-    return <Navigate to="/auth" replace />;
-  }
-
-  if (!user.isVerified) {
-    return <Navigate to="/verify-email" replace />;
-  }
-
-  return children;
-};
+export const server = "https://streamy-ott-backend.onrender.com/";
 
 function App() {
-  const { checkAuth, user, isLoading } = useUserStore();
-
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
-
-
 
   return (
     <div className="w-full h-full">
-      {isLoading ? (
-        <div className="w-full h-[100vh] flex items-center justify-center">
-          <Loading/>
-        </div>
-      ) : (
-        <Routes>
-          {/* Default Route Redirects to Home */}
-          <Route path="/" element={<Navigate to="/home" replace />} />
 
-          {/* Public Routes */}
-          <Route path="/home" element={<Home />} />
+      <Routes>
+        {/* Default Route Redirects to Home */}
+        <Route path="/" element={<Navigate to="/home" replace />} />
 
-          <Route
-            path="/auth"
-            element={
-              <RedirectAuthenticatedUser>
-                <Auth />
-              </RedirectAuthenticatedUser>
-            }
-          />
+        {/* Public Routes */}
+        <Route path="/home" element={<Home />} />
 
-          {/* Protected Routes */}
-          <Route
-            path="/search"
-            element={
-              <ProtectedRoute>
-                <Search />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/movies"
-            element={
-              <ProtectedRoute>
-                <Movies />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/shows"
-            element={
-              <ProtectedRoute>
-                <Shows />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/saved"
-            element={
-              <ProtectedRoute>
-                <MyList />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
+        <Route path="/auth" element={<Auth />} />
 
-          {/* Password Recovery Routes */}
-          <Route
-            path="/forgot-password"
-            element={
-              <RedirectAuthenticatedUser>
-                <EmailSendFrongotPassword />
-              </RedirectAuthenticatedUser>
-            }
-          />
-          <Route
-            path="/reset-password/:token"
-            element={
-              <RedirectAuthenticatedUser>
-                <PasswordSet />
-              </RedirectAuthenticatedUser>
-            }
-          />
+        {/* Protected Routes */}
+        <Route path="/search" element={<Search />} />
+        <Route path="/movies" element={<Movies />} />
+        <Route path="/shows" element={<Shows />} />
+        <Route path="/saved" element={<MyList />} />
+        <Route path="/profile" element={<Profile />} />
 
-          {/* Movie & Series Players - Now Protected */}
-          <Route
-            path="/movieplayer/:id"
-            element={
-              <ProtectedRoute>
-                <Movieplayer />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/seriesplayer/:id"
-            element={
-              <ProtectedRoute>
-                <Seriesplayer />
-              </ProtectedRoute>
-            }
-          />
+        {/* Password Recovery Routes */}
+        <Route path="/forgot-password" element={<EmailSendFrongotPassword />} />
+        <Route path="/reset-password/:token" element={<PasswordSet />} />
 
-          {/* Other Player Routes */}
-          <Route
-            path="/iframeM/:id"
-            element={
-              <ProtectedRoute>
-                <Player />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/iframeS/:seriesId/:episodeId"
-            element={
-              <ProtectedRoute>
-                <PlayerW />
-              </ProtectedRoute>
-            }
-          />
+        {/* Movie & Series Players - Now Protected */}
+        <Route path="/movieplayer/:id" element={<Movieplayer />} />
+        <Route path="/seriesplayer/:id" element={<Seriesplayer />} />
 
-          {/* Email Verification */}
-          <Route path="/verify-email" element={<EmailVerification />} />
-        </Routes>
-      )}
+        {/* Other Player Routes */}
+        <Route path="/iframeM/:id" element={<Player />} />
+        <Route path="/iframeS/:seriesId/:episodeId" element={<PlayerW />} />
 
+        {/* Email Verification */}
+        <Route path="/verify-email" element={<EmailVerification />} />
+      </Routes>
       <ToastContainer />
     </div>
   );

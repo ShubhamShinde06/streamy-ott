@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: [process.env.FRONTEND_URL, process.env.FRONTEND_ADMIN_URL], // Allow multiple origins
+    origin: [process.env.FRONTEND_URL, process.env.FRONTEND_ADMIN_URL]
   })
 );
 app.use(cookieParser());

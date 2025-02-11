@@ -89,7 +89,7 @@ const Search = () => {
             >
               Series
             </button>
-            <button
+            {/* <button
               onClick={() => setMenu("Comedy")}
               className={`py-2 w-full rounded-md px-2 text-xl cursor-pointer text-start transition-all ${
                 menu === "Comedy"
@@ -98,7 +98,7 @@ const Search = () => {
               }`}
             >
               Comedy
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="lg:flex-1 h-full lg:px-5 py-1 overflow-scroll show-scroll">

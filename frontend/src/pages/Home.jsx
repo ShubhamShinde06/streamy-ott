@@ -6,7 +6,7 @@ import Cards from "../components/Cards";
 import Categorysheader from "../components/Categorysheader";
 
 const Home = () => {
-  const { new_release, posterdata, moviedata, seriesData, comdeyData, actionData, animationData,crimeData, dramaData, fantasyData, historicalData, horrorData, romanceData, sci_fiData, thrillerData } =
+  const { new_release, posterdata, moviedata, seriesData, comdeyData, actionData, animationData,crimeData, dramaData, fantasyData, historicalData, horrorData, romanceData, sci_fiData, thrillerData, l } =
     useContext(FrontendContext);
 
   return (

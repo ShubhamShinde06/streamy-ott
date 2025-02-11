@@ -26,9 +26,9 @@ const FrontendContextProvider = (props) => {
     const [thrillerData, setThrillerData] = useState([])
 
     const getContent = async () => {
-        setLoading(true)
+    
         try {
-            const response = await axios.get(`${server}api/mix/get-mix`)
+            const response = await axios.get(server + `api/mix/get-mix`)
             if(response.data.success){
                 const sortedContent = response.data.data.content.sort(
                     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -87,7 +87,7 @@ const FrontendContextProvider = (props) => {
                 setRomanceData(romanceData)
                 setSci_fiData(sci_fiData)
                 setThrillerData(thrillerData)
-                setLoading(false)
+            
                 setAllData(sortedContent)
 
                 setPosterData(poster.slice(0,7))
@@ -97,11 +97,11 @@ const FrontendContextProvider = (props) => {
             } else {
                 //toast.error(response.data.message)
                 console.log(response.data.message)
-                setLoading(false)
+             
             }
         } catch (error) {
             console.log(error)
-            setLoading(false)
+        
         }
     }
     useEffect(()=>{
