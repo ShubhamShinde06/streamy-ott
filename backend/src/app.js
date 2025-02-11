@@ -5,30 +5,35 @@ import cors from "cors";
 const app = express();
 
 app.use(express.json());
+app.use(cors({
+  credentials: true,
+  origin:process.env.FRONTEND_URL,
+  origin:process.env.FRONTEND_ADMIN_URL
+}))
 app.use(cookieParser());
 
-const allowedOrigins = [process.env.FRONTEND_ADMIN_URL, process.env.FRONTEND_URL, process.env.FRONTEND_LOCAL_URL, process.env.FRONTEND_ADMIN_LOCAL_URL];
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  optionsSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
+// const allowedOrigins = [process.env.FRONTEND_ADMIN_URL, process.env.FRONTEND_URL, process.env.FRONTEND_LOCAL_URL, process.env.FRONTEND_ADMIN_LOCAL_URL];
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   optionsSuccessStatus: 200,
+// };
+// app.use(cors(corsOptions));
 
 // allow cross-origin requests
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
 import movieRoute from './routes/movie.routes.js'
 app.use('/api/movies', movieRoute)
