@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { TbArrowBackUp } from "react-icons/tb";
+import { server } from "../App";
 
 const PlayerW = () => {
 
@@ -16,7 +17,7 @@ const PlayerW = () => {
       const getSingleSeries = async () => {
         setLoading(true);
         try {
-          const response = await axios.get(`/api/series/${seriesId}/${episodeId}`);
+          const response = await axios.get(server +`api/series/${seriesId}/${episodeId}`);
           if (response.data.success) {
             const Data = response.data.episode;
             const DataM = {

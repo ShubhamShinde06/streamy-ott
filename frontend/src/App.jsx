@@ -19,6 +19,8 @@ import EmailSendFrongotPassword from "./pages/EmailSendFrongotPassword";
 import PasswordSet from "./pages/PasswordSet";
 import Loading from "./components/Loading";
 
+export const server = "https://streamy-ott-backend.onrender.com/"
+
 // Redirect authenticated users to home if they visit /login
 const RedirectAuthenticatedUser = ({ children }) => {
   const { isAuthenticated, user } = useUserStore();

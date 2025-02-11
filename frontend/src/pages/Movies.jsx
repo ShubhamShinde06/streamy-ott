@@ -5,13 +5,14 @@ import { useEffect } from "react";
 import axios from "axios";
 import Cards from "../components/Cards";
 import Cardsitem from "../components/Card";
+import { server } from "../App";
 
 const Movies = () => {
   const [Data, setData] = useState([]);
 
   const getContent = async () => {
     try {
-      const response = await axios.get("/api/movies/get-movies");
+      const response = await axios.get(server +"api/movies/get-movies");
       if (response.data.success) {
         console.log(response.data.movies);
         setData(response.data.movies);

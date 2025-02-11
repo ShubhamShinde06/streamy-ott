@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { TbArrowBackUp } from "react-icons/tb";
+import { server } from "../App";
 
 const Player = () => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ const Player = () => {
   const getSingleMovie = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`/api/movies/get-single-movies/${id}`);
+      const response = await axios.get(server +`api/movies/get-single-movies/${id}`);
       if (response.data.success) {
         const Data = response.data.movie;
         const DataM = {

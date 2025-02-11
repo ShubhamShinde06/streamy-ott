@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { AiFillLike } from "react-icons/ai";
 import { mixStore } from "../store/mixStore";
+import { server } from "../App";
 
 const Movieplayer = () => {
   const { id } = useParams();
@@ -23,7 +24,7 @@ const Movieplayer = () => {
 
   const getSingleMovie = async () => {
     try {
-      const response = await axios.get(`/api/movies/get-single-movies/${id}`);
+      const response = await axios.get(server +`api/movies/get-single-movies/${id}`);
       if (response.data.success) {
         const Data = response.data.movie;
         let characters = Data.characters;
@@ -61,7 +62,7 @@ const Movieplayer = () => {
 
   const handleLike = async () => {
     try {
-      const response = await axios.post(`/api/mix/toggle-like/${id}`, {
+      const response = await axios.post(server +`/api/mix/toggle-like/${id}`, {
         liked: !liked,
       });
 

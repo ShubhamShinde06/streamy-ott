@@ -3,6 +3,7 @@ import Sidebar from "../components/Sidebar";
 import Categorysheader from "../components/Categorysheader";
 import axios from 'axios';
 import Cardsitem from "../components/Card";
+import {server} from '../App'
 
 const Shows = () => {
 
@@ -10,7 +11,7 @@ const Shows = () => {
 
   const getContent = async () => {
     try {
-      const response = await axios.get("/api/series/get-series");
+      const response = await axios.get(server +"api/series/get-series");
       if (response.data.success) {
         console.log(response.data.series);
         setData(response.data.series);

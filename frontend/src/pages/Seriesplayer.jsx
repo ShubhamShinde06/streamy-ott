@@ -14,6 +14,7 @@ import axios from "axios";
 import { CgProfile } from "react-icons/cg";
 import { mixStore } from "../store/mixStore";
 import { AiFillLike } from "react-icons/ai";
+import { server } from "../App";
 
 const Seriesplayer = () => {
   const topRef = useRef(null);
@@ -30,7 +31,7 @@ const Seriesplayer = () => {
 
   const getSingleMovie = async () => {
     try {
-      const response = await axios.get(`/api/series/${id}`);
+      const response = await axios.get(server +`api/series/${id}`);
       if (response.data.success) {
         const Data = response.data.series;
         let characters = Data.characters;
