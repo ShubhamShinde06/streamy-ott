@@ -300,42 +300,6 @@ const Seriesplayer = () => {
                 </div>
               </div>
             </div>
-
-            <div className="mt-10">
-              <h1 className="text-2xl ">More Like This</h1>
-              <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-5 lg:px-10">
-                <div className="w-auto h-[500px]  overflow-hidden">
-                  <div className="w-full h-1/2 ">
-                    <img
-                      className="w-full h-full"
-                      src="https://i.ebayimg.com/images/g/4NQAAOSwyTpjk7dC/s-l1200.jpg"
-                      alt=""
-                    />
-                  </div>
-                  <div className="h-full bg-[#7a7a933f] p-5">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className=" text-2xl">13 Reason why</p>
-                        <p className="text-[#8989ac]">1 Seasons</p>
-                      </div>
-                      <div className=" text-5xl">
-                        <IoPlayCircle />
-                      </div>
-                    </div>
-                    <div className=" text-[#8989ac] mt-8 tracking-wide line-clamp-4 lg:line-clamp-none">
-                      <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Provident ea accusantium iste nostrum totam ab nemo
-                        labore incidunt, qui, voluptate animi quisquam quidem
-                        sequi facilis quaerat aperiam, recusandae dolor ullam.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="w-auto h-[500px] border"></div>
-                <div className="w-auto h-[500px] border"></div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
