@@ -26,14 +26,14 @@ app.use(cookieParser());
 // app.use(cors(corsOptions));
 
 // allow cross-origin requests
-// app.use(function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   next();
-// });
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 import movieRoute from './routes/movie.routes.js'
 app.use('/api/movies', movieRoute)
