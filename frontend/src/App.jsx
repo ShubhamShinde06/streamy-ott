@@ -38,10 +38,10 @@ const ProtectedRoute = ({ children }) => {
   const location = useLocation();
 
   if (!isAuthenticated) {
-    return <Navigate to="/auth" replace state={{ from: location }} />;
+    return <Navigate to="/auth" replace />;
   }
 
-  if (user && !user.isVerified) {
+  if (!user.isVerified) {
     return <Navigate to="/verify-email" replace />;
   }
 
