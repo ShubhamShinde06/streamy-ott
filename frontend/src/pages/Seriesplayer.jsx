@@ -31,7 +31,7 @@ const Seriesplayer = () => {
 
   const getSingleMovie = async () => {
     try {
-      const response = await axios.get(server +`api/series/${id}`);
+      const response = await axios.get(server + `api/series/${id}`);
       if (response.data.success) {
         const Data = response.data.series;
         let characters = Data.characters;
@@ -57,11 +57,11 @@ const Seriesplayer = () => {
           video_link: Data.video_link,
           download_link: Data.download_link,
           seasonData: seasonData,
-          likeCount: Data.likeCount
+          likeCount: Data.likeCount,
         };
 
         setData(DataM);
-        setLikeCount(DataM.likeCount)
+        setLikeCount(DataM.likeCount);
         setSelectedSeason(seasonData.length > 0 ? seasonData[0] : null);
       }
     } catch (error) {
@@ -69,7 +69,6 @@ const Seriesplayer = () => {
     }
   };
 
- 
   const [liked, setLiked] = useState(false);
 
   const handleLike = async () => {
@@ -238,11 +237,13 @@ const Seriesplayer = () => {
                     >
                       <div className=" lg:h-[200px] h-[100px] rounded-md overflow-hidden relative flex items-center gap-6">
                         <div className="lg:min-w-[250px] max-w-[100px]">
-                          <img
-                            className="w-full h-full lg:hidden object-fill"
-                            src={data?.image1}
-                            alt="poster"
-                          />
+                          <Link to={`/iframeS/${data.id}/${episode._id}`}>
+                            <img
+                              className="w-full h-full lg:hidden object-fill"
+                              src={data?.image1}
+                              alt="poster"
+                            />
+                          </Link>
                           <img
                             className="w-full h-full lg:block hidden object-fill"
                             src={data?.image2}
