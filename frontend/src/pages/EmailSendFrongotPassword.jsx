@@ -74,7 +74,7 @@ const EmailSendFrongotPassword = () => {
           ) : (
             <div className="text-center">
               <p className="text-gray-600 mb-6">
-                If an account exists for <span className=" font-bold">{email}</span>, you will receive a password
+                If an account exists for <span className=" font-bold text-white">{email}</span>, you will receive a password
                 reset link shortly.
               </p>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400 flex items-center justify-center">

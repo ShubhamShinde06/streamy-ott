@@ -12,6 +12,7 @@ import Loader from '../components/Loader'
 const Updatemovie = () => {
 
   const { id } = useParams();
+  const navigate = useNavigate()
 
   const {loading, setLoading, contentData} = useContext(AdminContext)
 
@@ -65,6 +66,7 @@ const Updatemovie = () => {
       if (response.data.success) {
         await contentData
         toast.success(response.data.message);
+        navigate('/catalog')
         setLoading(false)
       } else {
         toast.error(response.data.message)

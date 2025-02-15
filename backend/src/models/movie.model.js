@@ -56,10 +56,12 @@ const movieSchema = new mongoose.Schema({
     type: Number,
     default: 0,  // Initial count is 0
   },
-  likeCount: {
-    type: Number,
-    default: 0,  // Initialize like count to 0
-  }
+  likeCount: { 
+    type: Number, 
+    default: 0 
+  },
+  
+
 
 },{timestamps: true});
 

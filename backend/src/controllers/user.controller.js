@@ -44,14 +44,13 @@ export const signUp = async (req, res) => {
     await userNew.save();
 
     // jwt
-    const token = generateTokenAndSetCookie(res, userNew._id);
+    generateTokenAndSetCookie(res, userNew._id);
 
     await sendVerificationEmail(userNew.email, verificationToken);
 
     res.status(201).json({
         success: true,
         message: "user created successfully",
-        token,
         data : {
             ...userNew._doc,
             password: undefined
@@ -131,7 +130,7 @@ export const login = async (req, res) => {
       });
     }
 
-    const token = generateTokenAndSetCookie(res, user._id);
+    generateTokenAndSetCookie(res, user._id);
 
     user.lastLogin = new Date();
     await user.save();
@@ -139,7 +138,6 @@ export const login = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Logged in successfully",
-      token,
       data: {
         ...user._doc,
         password: undefined,
@@ -247,7 +245,7 @@ export const logout = async (req, res) => {
 
 export const checkAuth = async (req, res) => {
   try {
-    const user = await userModel.findById(req.id).select("-password")
+    const user = await userModel.findById(req.userId).select("-password")
     if(!user){
       return res.status(400).json({
         success: false,

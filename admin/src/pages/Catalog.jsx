@@ -68,7 +68,7 @@ const Catalog = () => {
             <tbody className="text-xl text-center">
               {contentData.map((item, index) => (
                 <>
-                  <tr key={index} className="border-b-2 border-[rgba(255,255,255,0.22)]">
+                  <tr key={index + 1} className="border-b-2 border-[rgba(255,255,255,0.22)]">
                     <td className=" py-2">{index + 1}</td>
                     <td className="">
                       {item.category === "series"

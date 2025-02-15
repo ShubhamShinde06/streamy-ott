@@ -1,5 +1,7 @@
 import { seriesModle } from "../models/webseries.model.js";
 import { movieModel } from "../models/movie.model.js";
+import {likeModel} from '../models/like.model.js'
+import mongoose from "mongoose";
 
 export const getAllContent = async (req, res) => {
   try {
@@ -50,32 +52,65 @@ export const countView = async (req, res) => {
   }
 };
 
-
-
 export const toggleLike = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { liked } = req.body; // true if the user is liking, false if unliking
+    const { userId, contentId, contentType } = req.body;
 
-    const movie = await movieModel.findById(id);
-    const series = await seriesModle.findById(id);
-
-    const content = movie || series;
-
-    if (!content) {
-      return res.status(404).json({ success: false, message: "Content not found" });
+    if (!userId || !contentId || !contentType) {
+      return res.status(400).json({ error: "User ID, Content ID, and Content Type are required" });
     }
 
-    // Toggle like count
-    content.likeCount = await liked ? content.likeCount + 1 : Math.max(0, content.likeCount - 1);
+    if (!["movie", "web_series"].includes(contentType)) {
+      return res.status(400).json({ error: "Invalid content type" });
+    }
 
-    await content.save();
+    // Determine the correct model based on contentType
+    const contentModel = contentType === "movie" ? movieModel : seriesModle;
 
-    res.json({ success: true, likeCount: content.likeCount });
+    // Check if user already liked the content
+    const existingLike = await likeModel.findOne({ userId, contentId });
+
+    if (existingLike) {
+      // User wants to unlike (remove like)
+      await likeModel.findOneAndDelete({ userId, contentId });
+      await contentModel.findByIdAndUpdate(contentId, { $inc: { likeCount: -1 } }); // Decrease like count
+      return res.json({ message: `${contentType} unliked!`, liked: false });
+    }
+
+    // User wants to like
+    await new likeModel({ userId, contentId, contentType }).save();
+    await contentModel.findByIdAndUpdate(contentId, { $inc: { likeCount: 1 } }); // Increase like count
+
+    res.json({ message: `${contentType} liked!`, liked: true });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Error toggling like", error });
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export const checkLike = async (req, res) => {
+  try {
+    const { userId, contentId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(userId, contentId)) {
+          return res.status(400).json({
+            success: false,
+            message: "Invalid series ID",
+          });
+        }
+
+    if (!userId || !contentId) {
+      return res.status(400).json({ error: "User ID and Content ID are required" });
+    }
+
+    const existingLike = await likeModel.findOne({ userId, contentId });
+
+    res.json({ isLiked: !!existingLike }); // Return true if liked, false otherwise
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
 
 
 

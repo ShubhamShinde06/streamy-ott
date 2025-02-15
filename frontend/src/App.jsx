@@ -17,14 +17,48 @@ import PlayerW from "./pages/PlayerW";
 import EmailVerification from "./pages/EmailVerification";
 import EmailSendFrongotPassword from "./pages/EmailSendFrongotPassword";
 import PasswordSet from "./pages/PasswordSet";
+import LoadingAnimation from "./components/LoadingAnimation";
 
 export const server = "https://streamy-ott-backend.onrender.com/";
+//export const server = "http://localhost:8000/";
+
+// redirect authenticated users to the home page
+const RedirectAuthenticatedUser = ({ children }) => {
+  const { isAuthenticated, user } = useUserStore();
+
+  if (isAuthenticated && user.isVerified) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+};
+
+// protect routes that require authentication
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated, user } = useUserStore();
+
+  if (!isAuthenticated) {
+    return <Navigate to="/auth" replace />;
+  }
+
+  if (!user.isVerified) {
+    return <Navigate to="/verify-email" replace />;
+  }
+
+  return children;
+};
 
 function App() {
+  const { checkAuth, user } = useUserStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [user & checkAuth]);
+
+  console.log(user);
 
   return (
     <div className="w-full h-full">
-
       <Routes>
         {/* Default Route Redirects to Home */}
         <Route path="/" element={<Navigate to="/home" replace />} />
@@ -32,29 +66,72 @@ function App() {
         {/* Public Routes */}
         <Route path="/home" element={<Home />} />
 
-        <Route path="/auth" element={<Auth />} />
+        <Route
+          path="/auth"
+          element={
+            <RedirectAuthenticatedUser>
+              <Auth />
+            </RedirectAuthenticatedUser>
+          }
+        />
 
         {/* Protected Routes */}
         <Route path="/search" element={<Search />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/shows" element={<Shows />} />
         <Route path="/saved" element={<MyList />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Password Recovery Routes */}
-        <Route path="/forgot-password" element={<EmailSendFrongotPassword />} />
-        <Route path="/reset-password/:token" element={<PasswordSet />} />
+        <Route
+          path="/forgot-password"
+          element={
+            <RedirectAuthenticatedUser>
+              <EmailSendFrongotPassword />
+            </RedirectAuthenticatedUser>
+          }
+        />
+        <Route
+          path="/reset-password/:token"
+          element={
+            <RedirectAuthenticatedUser>
+              <PasswordSet />
+            </RedirectAuthenticatedUser>
+          }
+        />
 
-        {/* Movie & Series Players - Now Protected */}
+        {/* Movie & Series Players - No Protected */}
         <Route path="/movieplayer/:id" element={<Movieplayer />} />
         <Route path="/seriesplayer/:id" element={<Seriesplayer />} />
 
-        {/* Other Player Routes */}
-        <Route path="/iframeM/:id" element={<Player />} />
-        <Route path="/iframeS/:seriesId/:episodeId" element={<PlayerW />} />
+        {/* Other Player Routes protected */}
+        <Route
+          path="/iframeM/:id"
+          element={
+            <ProtectedRoute>
+              <Player />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/iframeS/:seriesId/:episodeId"
+          element={
+            <ProtectedRoute>
+              <PlayerW />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Email Verification */}
         <Route path="/verify-email" element={<EmailVerification />} />
+        <Route path="/loading" element={<LoadingAnimation />} />
       </Routes>
       <ToastContainer />
     </div>

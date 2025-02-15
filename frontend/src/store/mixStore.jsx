@@ -11,6 +11,7 @@ export const mixStore = create((set) => ({
   isAuthenticted: null,
   message: null,
 
+
   viewCount: async (id) => {
     set({ isLoading: true, error: null });
 
@@ -27,4 +28,40 @@ export const mixStore = create((set) => ({
       });
     }
   },
+
+  likeCounts: async (userId, contentId, contentType ) => {
+    set({ isLoading: true, error: null });
+
+    try {
+      const response = await axios.post(server +`api/mix/toggle-like`, {userId, contentId, contentType });
+      set({
+        likeds: response.data.liked, 
+        isLoading: false,
+      });
+    } catch (error) {
+      set({
+        error: error.response?.data?.message || "Error updating view count",
+        isLoading: false,
+      });
+    }
+  },
+
+  likeCheckCounts: async (userId, contentId) => {
+    set({ isLoading: true, error: null });
+
+    try {
+      const response = await axios.get(server +`api/mix/check-like/${userId}/${contentId}`, );
+      set({
+        likeds: response.data.isLiked, 
+        isLoading: false,
+      });
+    } catch (error) {
+      set({
+        error: error.response?.data?.message || "Error updating view count",
+        isLoading: false,
+      });
+    }
+  },
+
+
 }));

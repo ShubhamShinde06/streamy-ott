@@ -12,11 +12,12 @@ import Loader from "../components/Loader";
 const Updateseries = () => {
 
   const {id} = useParams()
+  const navigate = useNavigate()
 
   const {loading, setLoading} = useContext(AdminContext)
 
   const [poster, setPoster] = useState(false);
-  const [description, setPlot] = useState("");
+  const [plot, setPlot] = useState("");
   const [series_name, setTitle] = useState("");
   const [release_year_start, setRelease_year] = useState("");
   const [total_seasons, setTotal_seasons] = useState("");
@@ -90,7 +91,7 @@ const Updateseries = () => {
         setTitle(response.data.series.series_name)
         setRelease_year(response.data.series.release_year_start)
         setTotal_seasons(response.data.series.total_seasons)
-        setPlot(response.data.series.description)
+        setPlot(response.data.series.plot)
         setSeasons(response.data.series.seasons)
         setRating(response.data.series.rating)
         setDirector(response.data.series.director)
@@ -113,12 +114,13 @@ const Updateseries = () => {
     setLoading(true)
     try {
       const response = await axios.put(`/api/series/update-series/${id}`, {
-        series_name, release_year_start, total_seasons, description, seasons, rating, director, poster
+        series_name, release_year_start, total_seasons, plot, seasons, rating, director, poster
       });
 
       if (response.data.success) {
         toast.success(response.data.message);
         setLoading(false)
+        navigate('/catalog')
       }
     } catch (error) {
       console.error(error);
@@ -171,7 +173,7 @@ const Updateseries = () => {
                 <textarea
                   placeholder="Plot"
                   required
-                  value={description}
+                  value={plot}
                   onChange={(e) => setPlot(e.target.value)}
                   className="w-full py-6 px-2  rounded-md bg-white/10 text-xl"
                 ></textarea>

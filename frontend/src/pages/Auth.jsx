@@ -24,9 +24,7 @@ const Auth = () => {
     if (currentState === "Login") {
       try {
         await login(email, password);
-
         navigate("/");
-
         toast.success(message || "Welcome back");
       } catch (error) {
         console.log(error);

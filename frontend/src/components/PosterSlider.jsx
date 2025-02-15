@@ -32,9 +32,9 @@ const PosterSlider = ({ Data }) => {
           <Link to={"/search"}>
             <IoSearch className="text-2xl" />
           </Link>
-          <Link to={"/"}>
+          {/* <Link to={"/"}>
             <FaRegUserCircle className="text-2xl" />
-          </Link>
+          </Link> */}
         </div>
       </header>
 

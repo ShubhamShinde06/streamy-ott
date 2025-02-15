@@ -13,7 +13,7 @@ export const useUserStore = create((set) => ({
     signup: async (name, email, password) => {
         set({ isLoading: true, error: null });
         try {
-            const response = await axios.post(server + "api/auth/signup", {name, email, password});
+            const response = await axios.post(server + "api/auth/signup", {name, email, password},{ withCredentials: true,});
             set({ user: response.data.data, isAuthenticted: true, isLoading: false});
         } catch (error) {
             set({ error: error.response?.data?.message || "Error signing up", isLoading: false });
@@ -24,7 +24,7 @@ export const useUserStore = create((set) => ({
     login: async ( email, password) => {
         set({ isLoading: true, error: null });
         try {
-            const response = await axios.post(server +"api/auth/login",  {email, password});
+            const response = await axios.post(server +"api/auth/login",  {email, password},{ withCredentials: true,});
             set({ user: response.data.data, isAuthenticted: true, isLoading: false});
         } catch (error) {
             set({ error: error.response?.data?.message || "Error signing up", isLoading: false });
