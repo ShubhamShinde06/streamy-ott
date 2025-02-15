@@ -55,7 +55,7 @@ function App() {
     checkAuth();
   }, [user & checkAuth]);
 
-  console.log(user);
+
 
   return (
     <div className="w-full h-full">
