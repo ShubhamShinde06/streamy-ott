@@ -7,10 +7,20 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    credentials: true,
-    origin: [process.env.FRONTEND_URL, process.env.FRONTEND_ADMIN_URL]
+      origin: "*",
+      methods: "GET,POST,PUT,DELETE",
+      allowedHeaders: "Content-Type,Authorization",
   })
 );
+/*
+app.use(
+  cors({
+    credentials: true,
+    origin: [process.env.FRONTEND_URL, process.env.FRONTEND_ADMIN_URL]
+  
+  })
+);
+*/
 app.use(cookieParser());
 
 
