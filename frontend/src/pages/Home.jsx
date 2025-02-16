@@ -30,16 +30,50 @@ const Home = () => {
 
   if (loading) {
     return (
-      <motion.div className="relative h-[70vh] md:h-[75vh] lg:h-screen xl:h-[90vh] bg-gray-800  overflow-hidden shadow-lg cursor-pointer animate-pulse">
-        <div className="absolute inset-0 in-site-color flex flex-col justify-end items-center gap-3 lg:gap-6 lg:items-start p-6 lg:p-14 xl:p-20">
-          <p className="text-white bg-gray-700 text-lg md:text-xl lg:text-2xl xl:text-3xl w-4/5 hidden lg:block truncate-multiline"></p>
-          <p className="text-white bg-gray-700 text-xl md:text-lg lg:text-xl xl:text-2xl line-clamp-1"></p>
-          <div className="flex gap-4 mt-4">
-            <button className="bg-gray-700 text-black px-6 md:px-10 py-2 md:py-3 text-lg lg:text-xl xl:text-2xl rounded-md flex items-center gap-2"></button>
-            <button className="bg-gray-700 text-white px-6 md:px-10 py-2 md:py-3 text-lg lg:text-xl xl:text-2xl rounded-md flex items-center gap-2"></button>
+      <>
+        <motion.div className="relative h-[70vh] md:h-[75vh] lg:h-screen xl:h-[90vh] bg-gray-800  overflow-hidden shadow-lg cursor-pointer animate-pulse">
+          <div className="absolute inset-0 in-site-color flex flex-col justify-end items-center gap-3 lg:gap-6 lg:items-start p-6 lg:p-14 xl:p-20">
+            <p className="text-white bg-gray-700 text-lg md:text-xl lg:text-2xl xl:text-3xl w-4/5 hidden lg:block truncate-multiline"></p>
+            <p className="text-white bg-gray-700 text-xl md:text-lg lg:text-xl xl:text-2xl line-clamp-1"></p>
+            <div className="flex gap-4 mt-4">
+              <button className="bg-gray-700 text-black px-6 md:px-10 py-2 md:py-3 text-lg lg:text-xl xl:text-2xl rounded-md flex items-center gap-2"></button>
+              <button className="bg-gray-700 text-white px-6 md:px-10 py-2 md:py-3 text-lg lg:text-xl xl:text-2xl rounded-md flex items-center gap-2"></button>
+            </div>
           </div>
+        </motion.div>
+        <div className="flex items-center justify-between gap-6">
+          <motion.div className="lg:w-[340px] bg-gray-700  shadow-lg animate-pulse lg:h-[200px] md:w-[170px] h-[180px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative mt-5 lg:ml-[100px]">
+            <div className="lg:w-[340px]  lg:h-[200px] md:w-[170px] h-[180px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative mr-3">
+              <img
+                src={""}
+                alt="streamy"
+                className="w-full h-full lg:hidden block"
+              />
+              <img
+                src={""}
+                alt="streamy"
+                className="w-full h-full lg:block hidden"
+              />
+              <div className=" opacity-0 absolute top-0 w-[100%] h-full flex justify-center items-center text-5xl backdrop-blur-sm bg-white/5 show-box"></div>
+            </div>
+          </motion.div>
+          <motion.div className="lg:w-[340px] bg-gray-700  shadow-lg animate-pulse lg:h-[200px] md:w-[170px] h-[180px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative mt-5 lg:ml-[100px]">
+            <div className="lg:w-[340px]  lg:h-[200px] md:w-[170px] h-[180px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative mr-3">
+              <img
+                src={""}
+                alt="streamy"
+                className="w-full h-full lg:hidden block"
+              />
+              <img
+                src={""}
+                alt="streamy"
+                className="w-full h-full lg:block hidden"
+              />
+              <div className=" opacity-0 absolute top-0 w-[100%] h-full flex justify-center items-center text-5xl backdrop-blur-sm bg-white/5 show-box"></div>
+            </div>
+          </motion.div>
         </div>
-      </motion.div>
+      </>
     );
   }
 

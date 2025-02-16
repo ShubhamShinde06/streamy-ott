@@ -3,9 +3,7 @@ import dotenv from 'dotenv'
 import connectDB from './db/index.db.js'
 import connectCloudinary from './utils/cloudinary.utils.js'
 
-dotenv.config({
-    path:'./env'
-})
+dotenv.config()
 
 connectCloudinary()
 connectDB()

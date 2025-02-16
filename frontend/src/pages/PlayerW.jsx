@@ -26,7 +26,7 @@ const PlayerW = () => {
               iframe: Data.videoLink,
               download_link: Data.downloadLink,
             };
-            console.log(DataM)
+           
             setData(DataM);
             setLoading(false);
           } else {
