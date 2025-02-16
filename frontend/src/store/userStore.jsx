@@ -15,12 +15,13 @@ export const useUserStore = create((set) => ({
     try {
       const response = await axios.post(
         server + "api/auth/signup",
+        { name, email, password },
         {
           withCredentials: true,
           credentials: "include",
           headers: { "Content-Type": "application/json" },
-        },
-        { name, email, password }
+        }
+        
       );
       set({ user: response.data.data, isAuthenticted: true, isLoading: false });
     } catch (error) {
@@ -37,12 +38,12 @@ export const useUserStore = create((set) => ({
     try {
       const response = await axios.post(
         server + "api/auth/login",
+        { email, password },
         {
           withCredentials: true,
           credentials: "include",
           headers: { "Content-Type": "application/json" },
-        },
-        { email, password }
+        }
       );
       set({ user: response.data.data, isAuthenticted: true, isLoading: false });
     } catch (error) {
