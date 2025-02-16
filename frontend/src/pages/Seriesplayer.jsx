@@ -243,8 +243,8 @@ const Seriesplayer = () => {
                         if (season) setSelectedSeason(season);
                       }}
                     >
-                      {data?.seasonData.map((season) => (
-                        <option key={season._id} value={season.season_number}>
+                      {data?.seasonData.map((season,index) => (
+                        <option key={index + 1} value={season.season_number}>
                           Season {season.season_number}
                         </option>
                       ))}

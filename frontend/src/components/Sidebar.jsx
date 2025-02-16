@@ -56,8 +56,8 @@ const Sidebar = () => {
           [<RiSearch2Fill />, "Search"],
           //[<IoAdd />, "saved"],
           [<FaUser />, "Profile"],
-        ].map((item) => (
-          <div className="flex flex-col items-center justify-center">
+        ].map((item, index) => (
+          <div key={index + 1} className="flex flex-col items-center justify-center">
             <NavLink
               to={`/${item[1]}`}
               key={item}

@@ -27,7 +27,11 @@ const Movieplayer = () => {
   const [likeit, setLikeit] = useState(false);
   const [contentType, setContentType] = useState("");
   const [loading, setLoading] = useState(false);
+  const [liked, setLiked] = useState(false)
 
+  const { user } = useUserStore();
+  const userId = user?._id;
+  const itemId = id;
   const {
     likeCounts,
     message,
@@ -36,9 +40,19 @@ const Movieplayer = () => {
     viewCount,
     visitCount,
     likeCheckCounts,
+    saved
   } = mixStore();
 
-  const { user } = useUserStore();
+  const handelAdd = async () => {
+      try {
+            await saved(userId, itemId);
+            toast.success(message || 'Item Add');
+          } catch (error) {
+            console.log(error);
+          }
+  }
+
+  
 
   const getSingleMovie = async () => {
     setLoading(true);
@@ -86,9 +100,6 @@ const Movieplayer = () => {
   }, []);
 
   //like post
-  const [liked, setLiked] = useState(false);
-  const userId = user?._id;
-  const contentId = id;
   const handleLike = async () => {
     try {
       await likeCounts(userId, contentId, contentType);
@@ -99,30 +110,28 @@ const Movieplayer = () => {
       toast.error("Error updating like.");
     }
   };
+  // useEffect(() => {
+  //   const checkLikeStatus = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         server + `api/mix/check-like/${userId}/${contentId}`
+  //       );
+  //       if (response.data.success) {
+  //         const Data = response.data.isLiked;
+  //         setLiked(Data);
+  //         console.log("like", Data);
+  //       } else {
+  //         toast.error(response.data.message);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error checking like status:", error);
+  //     }
+  //   };
 
-  useEffect(() => {
-    const checkLikeStatus = async () => {
-      try {
-        const response = await axios.get(
-          server + `api/mix/check-like/${userId}/${contentId}`
-        );
-        if (response.data.success) {
-          const Data = response.data.isLiked;
-          setLiked(Data);
-          console.log("like", Data);
-        } else {
-          toast.error(response.data.message);
-        }
-      } catch (error) {
-        console.error("Error checking like status:", error);
-      }
-    };
-
-    if (user && contentId) {
-      checkLikeStatus();
-    }
-  }, [contentId, userId]);
-
+  //   if (user && itemId) {
+  //     checkLikeStatus();
+  //   }
+  // }, [itemId, userId]);
   useEffect(() => {
     if (data) {
       setLikeCount(data.likeCount);
@@ -199,7 +208,7 @@ const Movieplayer = () => {
                             Download
                           </Link>
                           <div className="flex items-center gap-4">
-                            <button className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl">
+                            <button onClick={handelAdd} className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl">
                               <IoAdd />
                             </button>
                             {/* <div className="flex flex-col gap-2 items-center justify-center mt-8">

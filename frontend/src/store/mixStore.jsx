@@ -63,5 +63,25 @@ export const mixStore = create((set) => ({
     }
   },
 
+  saved: async (userId, itemId ) => {
+    set({ isLoading: true, error: null });
+
+    try {
+      const response = await axios.post(server +`api/save/add`, {userId, itemId });
+      set({
+        Data: response.data.data, 
+        message: response.data.data,
+        isLoading: false,
+      });
+    } catch (error) {
+      set({
+        error: error.response?.data?.message || "Error save item",
+        isLoading: false,
+      });
+    }
+  },
+
+
+
 
 }));
