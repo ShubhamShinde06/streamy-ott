@@ -28,7 +28,7 @@ const Home = () => {
     l,
   } = useContext(FrontendContext);
 
-  const loadCard = [{}, {}, {}, {}];
+  const loadCard = [{}, {}, {}, {}, {}];
 
   if (loading) {
     return (
@@ -43,9 +43,9 @@ const Home = () => {
             </div>
           </div>
         </motion.div>
-        <div className="flex items-center gap-6">
+        <div className=" w-full flex items-center gap-3 lg:ml-[100px]">
           {loadCard.map((item) => (
-            <motion.div key={item + 1} className="lg:w-[340px] bg-gray-700  shadow-lg animate-pulse lg:h-[200px] md:w-[170px] h-[180px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative mt-5 lg:ml-[100px]">
+            <motion.div key={item + 1} className="lg:w-[340px] bg-gray-700  shadow-lg animate-pulse lg:h-[200px] md:w-[170px] h-[180px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative mt-5">
               <div className="lg:w-[340px]  lg:h-[200px] md:w-[170px] h-[180px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative mr-3">
                 <img
                   src={""}

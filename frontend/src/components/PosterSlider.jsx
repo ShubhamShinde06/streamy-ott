@@ -23,7 +23,7 @@ const PosterSlider = ({ Data }) => {
   return (
     <div className="w-full h-[70vh] md:h-[75vh] lg:h-screen xl:h-[90vh] relative flex flex-col items-center justify-center bg-black">
       {/* Header */}
-      <header className="w-full h-8 lg:h-auto lg:bg-none flex items-center justify-between px-4 py-8 lg:py-0 lg:px-10 absolute top-0 lg:top-8 z-10 backdrop-blur-sm bg-white/15 lg:bg-transparent">
+      <header className="w-full h-8 lg:h-auto lg:bg-none flex items-center justify-between px-4 py-8 lg:py-0 lg:px-10 absolute top-0 lg:top-8 z-10 backdrop-blur-sm bg-white/10 lg:backdrop-blur-0 lg:bg-transparent">
         <Link to={"/"}>
           <h1 className="text-3xl lg:text-4xl font-bold text-white">STREAMY</h1>
         </Link>
