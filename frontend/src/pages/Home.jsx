@@ -28,6 +28,8 @@ const Home = () => {
     l,
   } = useContext(FrontendContext);
 
+  const loadCard = [{}, {}, {}, {}];
+
   if (loading) {
     return (
       <>
@@ -41,37 +43,24 @@ const Home = () => {
             </div>
           </div>
         </motion.div>
-        <div className="flex items-center justify-between gap-6">
-          <motion.div className="lg:w-[340px] bg-gray-700  shadow-lg animate-pulse lg:h-[200px] md:w-[170px] h-[180px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative mt-5 lg:ml-[100px]">
-            <div className="lg:w-[340px]  lg:h-[200px] md:w-[170px] h-[180px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative mr-3">
-              <img
-                src={""}
-                alt="streamy"
-                className="w-full h-full lg:hidden block"
-              />
-              <img
-                src={""}
-                alt="streamy"
-                className="w-full h-full lg:block hidden"
-              />
-              <div className=" opacity-0 absolute top-0 w-[100%] h-full flex justify-center items-center text-5xl backdrop-blur-sm bg-white/5 show-box"></div>
-            </div>
-          </motion.div>
-          <motion.div className="lg:w-[340px] bg-gray-700  shadow-lg animate-pulse lg:h-[200px] md:w-[170px] h-[180px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative mt-5 lg:ml-[100px]">
-            <div className="lg:w-[340px]  lg:h-[200px] md:w-[170px] h-[180px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative mr-3">
-              <img
-                src={""}
-                alt="streamy"
-                className="w-full h-full lg:hidden block"
-              />
-              <img
-                src={""}
-                alt="streamy"
-                className="w-full h-full lg:block hidden"
-              />
-              <div className=" opacity-0 absolute top-0 w-[100%] h-full flex justify-center items-center text-5xl backdrop-blur-sm bg-white/5 show-box"></div>
-            </div>
-          </motion.div>
+        <div className="flex items-center gap-6">
+          {loadCard.map((item) => (
+            <motion.div key={item + 1} className="lg:w-[340px] bg-gray-700  shadow-lg animate-pulse lg:h-[200px] md:w-[170px] h-[180px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative mt-5 lg:ml-[100px]">
+              <div className="lg:w-[340px]  lg:h-[200px] md:w-[170px] h-[180px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative mr-3">
+                <img
+                  src={""}
+                  alt="streamy"
+                  className="w-full h-full lg:hidden block"
+                />
+                <img
+                  src={""}
+                  alt="streamy"
+                  className="w-full h-full lg:block hidden"
+                />
+                <div className=" opacity-0 absolute top-0 w-[100%] h-full flex justify-center items-center text-5xl backdrop-blur-sm bg-white/5 show-box"></div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </>
     );
