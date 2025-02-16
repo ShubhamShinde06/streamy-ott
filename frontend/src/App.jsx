@@ -19,7 +19,8 @@ import EmailSendFrongotPassword from "./pages/EmailSendFrongotPassword";
 import PasswordSet from "./pages/PasswordSet";
 import LoadingAnimation from "./components/LoadingAnimation";
 
-export const server = "https://streamy-ott-backend.onrender.com/";
+export const server = import.meta.env.MODE === "development" ? "http://localhost:8000/" : "/";
+//export const server = "https://streamy-ott-backend.onrender.com/";
 //export const server = "http://localhost:8000/";
 
 // redirect authenticated users to the home page

@@ -2,6 +2,8 @@ import { create } from "zustand";
 import axios from "axios";
 import { server } from "../App";
 
+axios.defaults.withCredentials = true;
+
 export const useUserStore = create((set) => ({
   user: null,
   isAuthenticted: null,

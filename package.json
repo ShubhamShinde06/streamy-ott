@@ -2,7 +2,8 @@
   "name": "ott-tutorial",
   "version": "1.0.0",
   "description": "",
-  "main": "backend/index.js",
+  "type": "module",
+  "main": "backend/index.cjs",
   "scripts": {
     "dev": "npm install --force && npm run build",
     "start": "cross-env NODE_ENV=production node backend/index.js",

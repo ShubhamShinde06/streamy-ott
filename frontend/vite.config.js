@@ -3,11 +3,8 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  server:{
-   proxy:{
-    '/api':'https://streamy-ott-backend.onrender.com'
-    //'/api':'http://localhost:8000/'
-   }
+  build: {
+    chunkSizeWarningLimit: 1000 // Set higher limit (default is 500KB)
   },
   plugins: [react()],
 })
