@@ -4,7 +4,7 @@
   "type": "module",
   "main": "backend/index.js",
   "scripts": {
-    "dev": "nodemon backend/index.js",
+    "dev": "nodemon -r dotenv/config --experimental-json-modules backend/index.js",
     "start": "node backend/index.js",
     "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
