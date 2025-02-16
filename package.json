@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "backend/index.cjs",
+  "main": "backend/index.js",
   "scripts": {
     "dev": "npm install --force && npm run build",
-    "start": "cross-env NODE_ENV=production node backend/index.js",
+    "start": "NODE_ENV=production node backend/index.js",
     "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "",

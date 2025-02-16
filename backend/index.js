@@ -13,5 +13,5 @@ connectDB()
     })
 })
 .catch((error) => {
-    console.log('app is Soory not working',error)
+    console.log('Soory not working',error)
 })
