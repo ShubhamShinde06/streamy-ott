@@ -10,7 +10,7 @@ import { transporter } from "./mailtrap.js";
 export const sendVerificationEmail = async (email, verificationToken) => {
   try {
     const response = await transporter.sendMail({
-      from: '"Shoopfinity" <shoopfinity@gmail.com>', // sender address
+      from: '"sttreamy" <sttreamy@gmail.com>', // sender address
       to: email, // list of receivers
       subject: "Verify your email",
       html: VERIFICATION_EMAIL_TEMPLATE.replace(
@@ -28,9 +28,9 @@ export const sendVerificationEmail = async (email, verificationToken) => {
 export const sendWelcomeEmail = async (email, name) => {
   try {
     const response = await transporter.sendMail({
-      from: '"Shoopfinity" <shoopfinity@gmail.com>', // sender address
+      from: '"sttreamy" <sttreamy@gmail.com>', // sender address
       to: email,
-      subject: "Welcome to Shoopfinity",
+      subject: "Welcome to sttreamy",
       text: "Welcome Email",
       html: Welcome_Email_Template.replace("{name}", name),
     });
@@ -43,7 +43,7 @@ export const sendWelcomeEmail = async (email, name) => {
 export const sendPasswordResetEmail = async (email, resetURL) => {
   try {
     const response = await transporter.sendMail({
-      from: '"Shoopfinity" <shoopfinity@gmail.com>', // sender address
+      from: '"sttreamy" <sttreamy@gmail.com>', // sender address
       to: email,
       subject: "Reset Password",
       text: "Reset Password Email",
@@ -58,7 +58,7 @@ export const sendPasswordResetEmail = async (email, resetURL) => {
 export const sendResetSuccessEmail = async (email) => {
   try {
     const response = await transporter.sendMail({
-      from: '"Shoopfinity" <shoopfinity@gmail.com>', // sender address
+      from: '"sttreamy" <sttreamy@gmail.com>', // sender address
       to: email,
       subject: "Password Reset Successful",
       text: "Password Reset",
