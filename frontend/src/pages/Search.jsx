@@ -48,24 +48,7 @@ const Search = () => {
     applyFilter();
   }, [search, menu, allData]);
 
-  const loadData = [
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-  ];
+
 
   return (
     <div className="w-full h-[calc(100vh-80px)] lg:h-[100vh] lg:flex">

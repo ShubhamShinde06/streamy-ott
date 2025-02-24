@@ -13,17 +13,8 @@ const FrontendContextProvider = (props) => {
     const [posterdata, setPosterData] = useState([])
     const [moviedata, setMovieData] = useState([])
     const [seriesData, setSeriesData] = useState([])
-    const [comdeyData, setComdeyData] = useState([])
-    const [actionData, setActionData] = useState([])
-    const [animationData, setAnimationData] = useState([])
-    const [crimeData, setCrimeData] = useState([])
-    const [dramaData, setDramaData] = useState([])
-    const [fantasyData, setFantasyData] = useState([])
-    const [historicalData, setHistoricalData] = useState([])
-    const [horrorData, setHorrorData] = useState([])
-    const [romanceData, setRomanceData] = useState([])
-    const [sci_fiData, setSci_fiData] = useState([])
-    const [thrillerData, setThrillerData] = useState([])
+    const [genreData, setGenreData] = useState({});
+
 
     const getContent = async () => {
     setLoading(true)
@@ -43,51 +34,39 @@ const FrontendContextProvider = (props) => {
                 const series = response.data.data.content.filter(
                     (item) => item.category === 'series'
                 );
-                const comedyData = response.data.data.content.filter((item) =>
-                    item.genre.some((g) => g.includes("Comedy"))
-                );
-                const actionData = response.data.data.content.filter((item) =>
-                    item.genre.some((g) => g.includes("Action"))
-                );
-                const animationData = response.data.data.content.filter((item) =>
-                    item.genre.some((g) => g.includes("Animation"))
-                );
-                const crimeData = response.data.data.content.filter((item) =>
-                    item.genre.some((g) => g.includes("Crime"))
-                );
-                const dramaData = response.data.data.content.filter((item) =>
-                    item.genre.some((g) => g.includes("Drama"))
-                );
-                const fantasyData = response.data.data.content.filter((item) =>
-                    item.genre.some((g) => g.includes("Fantasy"))
-                );
-                const historicalData = response.data.data.content.filter((item) =>
-                    item.genre.some((g) => g.includes("Historical"))
-                );
-                const horrorData = response.data.data.content.filter((item) =>
-                    item.genre.some((g) => g.includes("Horror"))
-                );
-                const romanceData = response.data.data.content.filter((item) =>
-                    item.genre.some((g) => g.includes("Romance"))
-                );
-                const sci_fiData = response.data.data.content.filter((item) =>
-                    item.genre.some((g) => g.includes("Science-fiction"))
-                );
-                const thrillerData = response.data.data.content.filter((item) =>
-                    item.genre.some((g) => g.includes("Thriller"))
-                );
 
-                setCrimeData(crimeData)
-                setAnimationData(animationData)
-                setComdeyData(comedyData)
-                setActionData(actionData)
-                setDramaData(dramaData)
-                setFantasyData(fantasyData)
-                setHistoricalData(historicalData)
-                setHorrorData(horrorData)
-                setRomanceData(romanceData)
-                setSci_fiData(sci_fiData)
-                setThrillerData(thrillerData)
+             const genreData = {};
+
+            // Set to track used movies/shows (so they appear only once)
+            const usedContent = new Set();
+
+            sortedContent.forEach(item => {
+                let genres = [];
+                if (typeof item.genre === "string") {
+                    genres = item.genre.split(",").map(g => g.trim()); // Split & trim spaces
+                } else if (Array.isArray(item.genre)) {
+                    genres = item.genre;
+                }
+
+                // Assign the movie/show to the first genre only (to avoid repetition)
+                const primaryGenre = genres[0]; 
+                if (primaryGenre && !usedContent.has(item._id)) { 
+                    if (!genreData[primaryGenre]) {
+                        genreData[primaryGenre] = [];
+                    }
+                    genreData[primaryGenre].push(item);
+                    usedContent.add(item._id); // Mark as used
+                }
+            });
+
+            // Limit each genre to 7 items
+            Object.keys(genreData).forEach(genre => {
+                genreData[genre] = genreData[genre].slice(0, 7);
+            });
+    
+
+                
+                setGenreData(genreData)
                 setAllData(sortedContent)
                 setPosterData(poster)
                 setNew_release(sortedContent.slice(0,7))
@@ -119,30 +98,9 @@ const FrontendContextProvider = (props) => {
         setMovieData,
         seriesData, 
         setSeriesData,
-        comdeyData, 
-        setComdeyData,
-        actionData, 
-        setActionData,
-        animationData, 
-        setAnimationData,
-        crimeData,
-        setCrimeData,
-        dramaData, 
-        setDramaData,
-        fantasyData, 
-        setFantasyData,
-        historicalData, 
-        setHistoricalData,
-        horrorData, 
-        setHorrorData,
-        romanceData, 
-        setRomanceData,
-        sci_fiData, 
-        setSci_fiData,
-        thrillerData, 
-        setThrillerData,
         loading,
-        setLoading
+        setLoading,
+        genreData
     }
 
     return(
