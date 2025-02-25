@@ -52,10 +52,10 @@ const MyList = () => {
   return (
     <div className=" w-full h-[calc(100vh-auto)] lg:h-[100vh] lg:flex">
     <Sidebar />
-    <div className=" lg:relative w-full h-full overflow-scroll show-scroll flex items-center justify-center">
+    <div className=" lg:relative w-full h-full overflow-scroll show-scroll flex justify-center">
       {/* categorys */}
       <div className="slider-container w-full lg:mx-auto flex flex-col gap-10 bg-[#070140] py-5 px-5 lg:py-10 lg:px-10">
-        <div className="flex flex-col gap-4 lg:gap-5 px-2 md:px-6 lg:px-2 lg:mt-[450px]">
+        <div className="flex flex-col gap-4 lg:gap-5 px-2 md:px-6 lg:px-2 ">
           <Categorysheader title={"My List"} link={"saved"} />
           <div className=" grid xl:grid-cols-0 lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-3 ">
               {loading ? (

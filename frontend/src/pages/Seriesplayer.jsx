@@ -15,6 +15,7 @@ import { mylistStore } from "../store/mylistStore";
 import { MdFileDownloadDone } from "react-icons/md";
 import { useUserStore } from "../store/userStore";
 import { toast } from "react-toastify";
+import Loading from "../components/Loading";
 
 
 const Seriesplayer = () => {
@@ -25,7 +26,7 @@ const Seriesplayer = () => {
   const userId = user?._id; //global use
 
   const { viewCount, visitCount } = mixStore();
-  const { addToList, message  } = mylistStore();
+  const { addToList, deleteToList, message, error, isLoading } = mylistStore();
 
  const [listId, setListId] = useState([])
   const [mylistUpdated, setMyListUpdated] = useState(false);
@@ -34,6 +35,7 @@ const Seriesplayer = () => {
   const [data, setData] = useState(null);
   const [selectedSeason, setSelectedSeason] = useState(null);
   const [category, setCategory] = useState('')
+  const [saveId, setSaveId] = useState(null)
 
   const itemType = 'web_series'; //global use
   
@@ -100,8 +102,8 @@ const Seriesplayer = () => {
       try {
         await addToList(userId, itemId, itemType);
         setMyListUpdated((prev) => !prev)
-        toast.success(message);
-        console.log(message || "done");
+        //toast.success(message);
+        //console.log(message);
       } catch (error) {
         console.log(error);
       }
@@ -113,7 +115,8 @@ const Seriesplayer = () => {
           const response = await axios.get(`${server}api/mylist/get/${userId}`);
           const data = response.data.data; 
         if (data.length > 0) {
-          setListId(data.map(item => item.itemId._id)); // Logs all itemIds
+          setListId(data.map(item => item.itemId._id));
+          setSaveId(data.find(item => item.itemId._id === id)?._id || '');
         } else {
           console.log("No items found");
         }
@@ -130,6 +133,18 @@ const Seriesplayer = () => {
     }, [userId, mylistUpdated]); 
   
     const isSaved = listId.includes(id);// global use
+
+      // remove mylist
+  const handleDeleteToList = async () => {
+    try {
+      await deleteToList(userId, saveId);
+      setMyListUpdated((prev) => !prev)
+      //toast.success(message);
+      //console.log(message || error);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   
 
   return (
@@ -193,7 +208,7 @@ const Seriesplayer = () => {
                             </button>
                             <div className="flex items-center gap-4">
                               <button className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl">
-                                  {isSaved ? <MdFileDownloadDone /> : <IoAdd onClick={handleAddToList}/>}
+                              {isSaved ? (isLoading ? <Loading/> : <MdFileDownloadDone onClick={handleDeleteToList} />) : (isLoading ? <Loading/> : <IoAdd onClick={handleAddToList}/>)}
                               </button>
                               {/* <div className="flex flex-col gap-2 items-center justify-center mt-8">
                             <button

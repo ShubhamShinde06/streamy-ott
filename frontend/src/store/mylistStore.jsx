@@ -26,5 +26,23 @@ export const mylistStore = create((set) => ({
         }
     },
 
+    deleteToList: async (userId, saveId) => {
+        set({isLoading: true, error: null})
+
+        try {
+            const response = await axios.delete(server + `api/mylist/delete/${saveId}/${userId}`)
+            set({
+                Data: response.data.data,
+                message: response.data.message,
+                isLoading: false
+            })
+        } catch (error) {
+            set({
+                error: error.response?.data?.message || "Error addToList",
+                isLoading: false,
+              });
+        }
+    },
+
 
 }))
