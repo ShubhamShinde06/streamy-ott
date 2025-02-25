@@ -55,7 +55,7 @@ const Sidebar = () => {
         {[
           [<AiFillHome />, "Home"],
           [<RiSearch2Fill />, "Search"],
-          [<BiSolidSave />, "saved"],
+          [<BiSolidSave />, "Saved"],
           [<FaUser />, "Profile"],
         ].map((item, index) => (
           <div key={index + 1} className="flex flex-col items-center justify-center">

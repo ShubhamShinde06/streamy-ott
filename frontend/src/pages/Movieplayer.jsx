@@ -49,7 +49,6 @@ const Movieplayer = () => {
         if (typeof characters === "string") {
           characters = characters.split(",").map((item) => item.trim()); // Split and trim string if necessary
         }
-        console.log(Data)
         const DataM = {
           title: Data.title,
           id: Data._id,

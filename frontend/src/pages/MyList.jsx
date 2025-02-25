@@ -23,9 +23,6 @@ const MyList = () => {
         const data = response.data.data; 
   
         if (data.length > 0) {
-
-          
-    
           const formattedData = data.map(item => ({
             id: item.itemId?._id,  
             type: item.itemId.category ,
@@ -49,7 +46,7 @@ const MyList = () => {
     }
   }, [userId]);
 
-  console.log(Data)
+
   
 
   return (

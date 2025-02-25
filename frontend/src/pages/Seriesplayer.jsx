@@ -36,7 +36,6 @@ const Seriesplayer = () => {
   const [category, setCategory] = useState('')
 
   const itemType = 'web_series'; //global use
-  console.log(itemType)
   
   const topRef = useRef(null);
   const handlePageUp = () => {
