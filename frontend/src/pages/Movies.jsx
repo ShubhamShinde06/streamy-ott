@@ -17,7 +17,6 @@ const Movies = () => {
     try {
       const response = await axios.get(server + "api/movies/get-movies");
       if (response.data.success) {
-        console.log(response.data.movies);
         setData(response.data.movies);
         setLoading(false);
       } else {

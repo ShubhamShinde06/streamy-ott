@@ -2,34 +2,48 @@ import React, { useEffect, useRef, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { LuDownload } from "react-icons/lu";
-import { IoAdd, IoPlayCircle } from "react-icons/io5";
-import { BiLike } from "react-icons/bi";
-import {
-  IoChevronBackOutline,
-  IoInformationCircleOutline,
-} from "react-icons/io5";
+import { IoAdd } from "react-icons/io5";
+import {IoChevronBackOutline, IoInformationCircleOutline} from "react-icons/io5";
 import { FaPlay } from "react-icons/fa";
 import { IoMdPlayCircle } from "react-icons/io";
 import axios from "axios";
 import { CgProfile } from "react-icons/cg";
 import { mixStore } from "../store/mixStore";
-import { AiFillLike } from "react-icons/ai";
 import { server } from "../App";
 import { motion } from "framer-motion";
+import { mylistStore } from "../store/mylistStore";
+import { MdFileDownloadDone } from "react-icons/md";
+import { useUserStore } from "../store/userStore";
+import { toast } from "react-toastify";
+
 
 const Seriesplayer = () => {
+  const { id } = useParams();
+  const itemId = id //global use
+
+  const { user } = useUserStore();
+  const userId = user?._id; //global use
+
+  const { viewCount, visitCount } = mixStore();
+  const { addToList, message  } = mylistStore();
+
+ const [listId, setListId] = useState([])
+  const [mylistUpdated, setMyListUpdated] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [data, setData] = useState(null);
+  const [selectedSeason, setSelectedSeason] = useState(null);
+  const [category, setCategory] = useState('')
+
+  const itemType = 'web_series'; //global use
+  console.log(itemType)
+  
   const topRef = useRef(null);
   const handlePageUp = () => {
     topRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const [likeCount, setLikeCount] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [data, setData] = useState(null);
-  const [selectedSeason, setSelectedSeason] = useState(null);
-
+  //single web series data
   const getSingleMovie = async () => {
     setLoading(true);
     try {
@@ -60,54 +74,64 @@ const Seriesplayer = () => {
           download_link: Data.download_link,
           seasonData: seasonData,
           likeCount: Data.likeCount,
+          category: Data.category
         };
 
-        setData(DataM);
-        setLikeCount(DataM.likeCount);
+        setData(DataM)
         setSelectedSeason(seasonData.length > 0 ? seasonData[0] : null);
-        setLoading(false)
+        setLoading(false);
+        setCategory(DataM.category)
       }
     } catch (error) {
       console.error("Error fetching series:", error);
-      setLoading(false)
+      setLoading(false);
     }
   };
-
-  const [liked, setLiked] = useState(false);
-
-  const handleLike = async () => {
-    try {
-      const response = await axios.post(`/api/mix/toggle-like/${id}`, {
-        liked: !liked,
-      });
-
-      if (response.data.success) {
-        setLikeCount(response.data.likeCount);
-        setLiked(!liked);
-      } else {
-        toast.error("Failed to update like.");
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Error updating like.");
-    }
-  };
-
-  useEffect(() => {
-    if (data) {
-      setLikeCount(data.likeCount);
-    }
-  }, [data]);
-
   useEffect(() => {
     getSingleMovie();
   }, []);
 
-  const { viewCount, visitCount } = mixStore();
-
+  // count web page views
   useEffect(() => {
     viewCount(id);
   }, [id]);
+
+   // add mylist
+    const handleAddToList = async () => {
+      try {
+        await addToList(userId, itemId, itemType);
+        setMyListUpdated((prev) => !prev)
+        toast.success(message);
+        console.log(message || "done");
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(`${server}api/mylist/get/${userId}`);
+          const data = response.data.data; 
+        if (data.length > 0) {
+          setListId(data.map(item => item.itemId._id)); // Logs all itemIds
+        } else {
+          console.log("No items found");
+        }
+        } catch (error) {
+          console.log(error.response?.data?.message || "Something went wrong");
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      if (userId) {
+        fetchData();
+      }
+    }, [userId, mylistUpdated]); 
+  
+    const isSaved = listId.includes(id);// global use
+  
 
   return (
     <>
@@ -170,7 +194,7 @@ const Seriesplayer = () => {
                             </button>
                             <div className="flex items-center gap-4">
                               <button className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl">
-                                <IoAdd />
+                                  {isSaved ? <MdFileDownloadDone /> : <IoAdd onClick={handleAddToList}/>}
                               </button>
                               {/* <div className="flex flex-col gap-2 items-center justify-center mt-8">
                             <button
@@ -243,8 +267,8 @@ const Seriesplayer = () => {
                         if (season) setSelectedSeason(season);
                       }}
                     >
-                      {data?.seasonData.map((season,index) => (
-                        <option key={index + 1} value={season.season_number}>
+                      {data?.seasonData.map((season) => (
+                        <option key={season.season_number} value={season.season_number}>
                           Season {season.season_number}
                         </option>
                       ))}

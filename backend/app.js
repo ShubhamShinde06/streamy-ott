@@ -26,7 +26,7 @@ app.use("/api/mix", mixRoute);
 import userRoute from "./routes/user.routes.js";
 app.use("/api/auth", userRoute);
 
-import savedRoute from "./routes/saved.routes.js";
-app.use("/api/save", savedRoute);
+import mylistRoute from "./routes/mylist.routes.js";
+app.use("/api/mylist", mylistRoute);
 
 export default app;

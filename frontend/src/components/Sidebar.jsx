@@ -13,6 +13,7 @@ import { IoIosSearch } from "react-icons/io";
 import { IoAdd } from "react-icons/io5";
 import { useUserStore } from "../store/userStore";
 import { RiSearch2Fill } from "react-icons/ri";
+import { BiSolidSave } from "react-icons/bi";
 
 const Sidebar = () => {
   const { logout } = useUserStore();
@@ -54,7 +55,7 @@ const Sidebar = () => {
         {[
           [<AiFillHome />, "Home"],
           [<RiSearch2Fill />, "Search"],
-          //[<IoAdd />, "saved"],
+          [<BiSolidSave />, "saved"],
           [<FaUser />, "Profile"],
         ].map((item, index) => (
           <div key={index + 1} className="flex flex-col items-center justify-center">
