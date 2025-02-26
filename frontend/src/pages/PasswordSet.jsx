@@ -21,7 +21,7 @@ const PasswordSet = () => {
             alert("Password Do Not Match")
         }
         await resetPassword(token, password)
-        navigate('/')
+        navigate('/auth')
         toast.success('Password reset successfully')
 
     }
@@ -35,7 +35,7 @@ const PasswordSet = () => {
       </Link>
     </div>
 
-    <div className="w-full mt-8 md:mt-[80px] gap-1 flex md:gap-2 ">
+    <div className="w-full mt-8 md:mt-[80px] flex justify-between ">
       {/* form */}
       <div className="lg:w-1/2 w-full flex items-center justify-center">
         <div className=" text-white w-[100%] flex flex-col items-center justify-center px-2 lg:px-10 py-8 lg:py-0">
@@ -100,8 +100,8 @@ const PasswordSet = () => {
       </div>
 
       {/* img */}
-      <div className=" w-1/2 xl:flex hidden ">
-        <img src={img} alt="img" className={"h-[120%]"} />
+      <div className=" w-1/2 h-full xl:flex hidden justify-end">
+        <img src={img} alt="img"  />
       </div>
     </div>
   </div>

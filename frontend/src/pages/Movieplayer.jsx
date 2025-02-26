@@ -18,6 +18,7 @@ import { mylistStore } from "../store/mylistStore";
 import { useUserStore } from "../store/userStore";
 import { MdFileDownloadDone } from "react-icons/md";
 import Loading from '../components/Loading'
+import Report from "../components/Report";
 
 const Movieplayer = () => {
   const { id } = useParams();
@@ -27,6 +28,7 @@ const Movieplayer = () => {
   const userId = user?._id; //global use
 
   const navigation = useNavigate();
+  const [reportShow, setReportShow] = useState(false)
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [listId, setListId] = useState([])
@@ -126,7 +128,7 @@ const Movieplayer = () => {
 
   const isSaved = listId.includes(id);// global use
 
-  // add mylist
+  // remove mylist
   const handleDeleteToList = async () => {
     try {
       await deleteToList(userId, saveId);
@@ -218,10 +220,19 @@ const Movieplayer = () => {
                               </button>
                               <span>{likeCount}</span>
                             </div> */}
-
-                            <button className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl">
-                              <IoInformationCircleOutline />
+                            {
+                              reportShow
+                              ?
+                              <Report setReportShow={setReportShow} itemId={itemId} userId={userId} itemType={itemType}/>
+                              :
+                              <button className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl">
+                              
+                                <IoInformationCircleOutline onClick={()=>setReportShow(true)} />
+                              
                             </button>
+                            }
+
+                            
                           </div>
                         </div>
                       </div>

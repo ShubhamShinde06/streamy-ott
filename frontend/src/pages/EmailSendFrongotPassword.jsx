@@ -25,7 +25,7 @@ const EmailSendFrongotPassword = () => {
         </Link>
       </div>
 
-      <div className="w-full mt-8 md:mt-[80px] gap-1 flex md:gap-2 ">
+      <div className="w-full mt-8 md:mt-[80px] flex justify-between ">
         {/* form */}
         <div className="lg:w-1/2 w-full flex items-center justify-center lg:px-10">
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -41,7 +41,7 @@ const EmailSendFrongotPassword = () => {
               <div>
                 <label
                   htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-xl font-medium text-gray-900 dark:text-white"
                 >
                   Your email
                 </label>
@@ -49,7 +49,7 @@ const EmailSendFrongotPassword = () => {
                   type="email"
                   name="email"
                   id="email"
-                  className=" lg:py-5 bg-[#454e6a] rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                  className=" lg:py-5 bg-[#454e6a] rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 text-xl"
                   placeholder="Email"
                   required=""
                   value={email}
@@ -64,7 +64,7 @@ const EmailSendFrongotPassword = () => {
               </button>
               <p className=" font-light text-black flex items-center justify-center text-xl">
                 <Link
-                  to="/"
+                  to="/auth"
                   className=" flex items-center gap-1 text-white font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   <IoIosArrowBack className="text-xl" /> Back to Login
@@ -91,8 +91,8 @@ const EmailSendFrongotPassword = () => {
       </div>
 
         {/* img */}
-        <div className=" w-1/2 xl:flex hidden ">
-          <img src={img} alt="img" className={"h-[120%]"} />
+        <div className=" w-1/2 h-full xl:flex hidden justify-end ">
+          <img src={img} alt="img"/>
         </div>
       </div>
     </div>

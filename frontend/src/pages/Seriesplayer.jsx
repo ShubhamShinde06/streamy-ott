@@ -14,7 +14,7 @@ import { motion } from "framer-motion";
 import { mylistStore } from "../store/mylistStore";
 import { MdFileDownloadDone } from "react-icons/md";
 import { useUserStore } from "../store/userStore";
-import { toast } from "react-toastify";
+import Report from "../components/Report";
 import Loading from "../components/Loading";
 
 
@@ -29,6 +29,7 @@ const Seriesplayer = () => {
   const { addToList, deleteToList, message, error, isLoading } = mylistStore();
 
  const [listId, setListId] = useState([])
+ const [reportShow, setReportShow] = useState(false)
   const [mylistUpdated, setMyListUpdated] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -219,9 +220,17 @@ const Seriesplayer = () => {
                             </button>
                             <span>{likeCount}</span>
                           </div> */}
+                              {
+                              reportShow
+                              ?
+                              <Report setReportShow={setReportShow} itemId={itemId} userId={userId} itemType={itemType}/>
+                              :
                               <button className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl">
-                                <IoInformationCircleOutline />
-                              </button>
+                              
+                                <IoInformationCircleOutline onClick={()=>setReportShow(true)} />
+                              
+                            </button>
+                            }
                             </div>
                           </div>
                         </div>

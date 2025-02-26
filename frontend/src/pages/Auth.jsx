@@ -53,9 +53,9 @@ const Auth = () => {
         {/* login & register */}
         <form
           onSubmit={handleSubmit}
-          className=" w-full h-[80vh] md:h-full justify-center flex flex-col gap-4 md:gap-6 xl:w-1/2"
+          className=" w-full h-[80vh] md:h-full justify-center flex flex-col gap-4 md:gap-6"
         >
-          <div className="w-full xl:w-[60%] mb-4 text-center md:text-start">
+          <div className="w-full mb-4 text-center md:text-start">
             <h1 className="md:text-[40px] text-[30px] logo">
               {currentState} ─
             </h1>
@@ -171,11 +171,11 @@ const Auth = () => {
         </form>
 
         {/* img */}
-        <div className=" w-1/2 xl:flex hidden ">
+        <div className=" w-1/2 h-full xl:flex hidden justify-end items-center">
           <img
             src={img}
             alt=""
-            className={`${currentState === "Login" ? "h-[120%]" : ""}`}
+            //className={`${currentState === "Login" ? "h-[120%]" : ""}`}
           />
         </div>
       </div>

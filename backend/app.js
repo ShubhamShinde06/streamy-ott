@@ -29,4 +29,7 @@ app.use("/api/auth", userRoute);
 import mylistRoute from "./routes/mylist.routes.js";
 app.use("/api/mylist", mylistRoute);
 
+import reportRoute from "./routes/report.routes.js";
+app.use("/api/report", reportRoute);
+
 export default app;

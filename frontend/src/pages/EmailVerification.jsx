@@ -66,7 +66,7 @@ const EmailVerification = () => {
         </Link>
       </div>
 
-      <div className="w-full mt-8 md:mt-[80px] gap-1 flex md:gap-2 ">
+      <div className="w-full mt-8 md:mt-[80px] flex justify-between">
         {/* login & register */}
         <div className="lg:w-1/2 w-full flex items-center justify-center">
           <div class=" text-white w-full flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 ">
@@ -123,8 +123,8 @@ const EmailVerification = () => {
         </div>
 
         {/* img */}
-        <div className=" w-1/2 xl:flex hidden ">
-          <img src={img} alt="img" className={"h-[120%]"} />
+        <div className=" w-1/2 h-full xl:flex hidden justify-end">
+          <img src={img} alt="img"/>
         </div>
       </div>
     </div>

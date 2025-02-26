@@ -14,12 +14,14 @@ import { IoAdd } from "react-icons/io5";
 import { useUserStore } from "../store/userStore";
 import { RiSearch2Fill } from "react-icons/ri";
 import { BiSolidSave } from "react-icons/bi";
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
   const { logout } = useUserStore();
 
   const handleLogout = () => {
     logout();
+    toast.success('Logout')
   };
 
   return (
