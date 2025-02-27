@@ -3,32 +3,32 @@ import upload_img from "../assets/upload_area.png";
 import { RxCross1 } from "react-icons/rx";
 
 const Additem = ({
-    inputs, 
-    handleInputChange,
-    handleAddInput,
-    handleDeleteInput,
-    genre, 
-    setGenre,
-    image1,
-    setImage1,
-    image2, 
-    setImage2,
-    poster, 
-    setPoster,
-    plot, 
-    setPlot,
-    title, 
-    setTitle,
-    release_year, 
-    setRelease_year,
-    runtime_minutes, 
-    setRuntime_minutes,
-    director, 
-    setDirector,
-    rating, 
-    setRating,
-    video_link, 
-    setVideo_link
+  inputs,
+  handleInputChange,
+  handleAddInput,
+  handleDeleteInput,
+  genre,
+  setGenre,
+  image1,
+  setImage1,
+  image2,
+  setImage2,
+  poster,
+  setPoster,
+  plot,
+  setPlot,
+  title,
+  setTitle,
+  release_year,
+  setRelease_year,
+  runtime_minutes,
+  setRuntime_minutes,
+  director,
+  setDirector,
+  rating,
+  setRating,
+  video_link,
+  setVideo_link,
 }) => {
   return (
     <div className="w-full flex flex-col gap-5">
@@ -124,7 +124,7 @@ const Additem = ({
               setGenre((prev) =>
                 prev.includes(item)
                   ? prev.filter((g) => g !== item)
-                  : [...prev, item]
+                  : [...prev, item],
               )
             }
             className={`px-3 py-1 flex items-center cursor-pointer outline-dotted rounded-md ${

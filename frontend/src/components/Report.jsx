@@ -4,10 +4,9 @@ import { reportStore } from "../store/reportStore";
 import { toast } from "react-toastify";
 
 const ReportModal = ({ setReportShow, itemId, userId, itemType }) => {
+  console.log(itemId, userId, itemType);
 
-  console.log(itemId, userId, itemType)
-
-  const {reportAdd, message, error, isLoading} = reportStore()
+  const { reportAdd, message, error, isLoading } = reportStore();
 
   const [selectedIssue, setSelectedIssue] = useState("");
   const [description, setDescription] = useState("");
@@ -21,9 +20,9 @@ const ReportModal = ({ setReportShow, itemId, userId, itemType }) => {
     }
     try {
       setLoading(true);
-      reportAdd(userId, itemId, itemType, selectedIssue, description)
-      toast.success('Report added successfully')
-      setReportShow(false)
+      reportAdd(userId, itemId, itemType, selectedIssue, description);
+      toast.success("Report added successfully");
+      setReportShow(false);
     } catch (error) {
       console.error("Error submitting report:", error);
       toast.error("Failed to submit report. Please try again.");
@@ -52,9 +51,21 @@ const ReportModal = ({ setReportShow, itemId, userId, itemType }) => {
           <div className="space-y-3 text-lg text-white">
             {[
               { id: "content", label: "Content Issue", value: "content_issue" },
-              { id: "playback", label: "Playback Problem", value: "playback_problem" },
-              { id: "download", label: "Download Problem", value: "download_problem" },
-              { id: "crash", label: "Crashes During Playback", value: "crash_during_playback" },
+              {
+                id: "playback",
+                label: "Playback Problem",
+                value: "playback_problem",
+              },
+              {
+                id: "download",
+                label: "Download Problem",
+                value: "download_problem",
+              },
+              {
+                id: "crash",
+                label: "Crashes During Playback",
+                value: "crash_during_playback",
+              },
             ].map((item) => (
               <label
                 key={item.id}
@@ -88,7 +99,9 @@ const ReportModal = ({ setReportShow, itemId, userId, itemType }) => {
           <button
             type="submit"
             className={`w-full py-3 text-lg font-medium rounded-lg transition ${
-              loading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 text-white"
+              loading
+                ? "bg-gray-500 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700 text-white"
             }`}
             disabled={loading}
           >

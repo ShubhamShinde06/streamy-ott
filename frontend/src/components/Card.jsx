@@ -8,7 +8,7 @@ const Card = ({ id, category, img1, img2 }) => {
       to={category === "series" ? `/seriesplayer/${id}` : `/movieplayer/${id}`}
     >
       <div className="lg:w-auto hover-box lg:h-[240px] md:w-[170px] h-[220px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative hover-card mr-3">
-         <img
+        <img
           src={img1}
           alt="streamy"
           className="w-full h-full lg:hidden block"

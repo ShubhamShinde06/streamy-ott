@@ -8,14 +8,8 @@ import Loading from "../components/Loading";
 import { motion } from "framer-motion";
 
 const Home = () => {
-  const {
-    loading,
-    new_release,
-    posterdata,
-    moviedata,
-    seriesData,
-    genreData,
-  } = useContext(FrontendContext);
+  const { loading, new_release, posterdata, moviedata, seriesData, genreData } =
+    useContext(FrontendContext);
 
   const loadCard = [{}, {}, {}, {}, {}];
 
@@ -34,7 +28,10 @@ const Home = () => {
         </motion.div>
         <div className=" w-full flex items-center gap-3 lg:ml-[100px]">
           {loadCard.map((item, index) => (
-            <motion.div key={index + 1} className="lg:w-[340px] bg-gray-700  shadow-lg animate-pulse lg:h-[200px] md:w-[170px] h-[180px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative mt-5">
+            <motion.div
+              key={index + 1}
+              className="lg:w-[340px] bg-gray-700  shadow-lg animate-pulse lg:h-[200px] md:w-[170px] h-[180px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative mt-5"
+            >
               <div className="lg:w-[340px]  lg:h-[200px] md:w-[170px] h-[180px] min-w-[140px] rounded-md cursor-pointer overflow-hidden relative mr-3">
                 <img
                   src={""}
@@ -82,16 +79,13 @@ const Home = () => {
           </div>
 
           {Object.keys(genreData).map((genre, index) => (
-    <div key={index} className="flex flex-col gap-4 lg:gap-5 pl-2">
-        <div className="w-full flex justify-between items-center lg:pr-5 text-2xl">
-            <h1 className="lg:text-3xl text-1xl">{genre}</h1>
-        </div>
-        <Cards Data={genreData[genre]} />
-    </div>
-))}
-
-
-        
+            <div key={index} className="flex flex-col gap-4 lg:gap-5 pl-2">
+              <div className="w-full flex justify-between items-center lg:pr-5 text-2xl">
+                <h1 className="lg:text-3xl text-1xl">{genre}</h1>
+              </div>
+              <Cards Data={genreData[genre]} />
+            </div>
+          ))}
         </div>
       </div>
     </div>

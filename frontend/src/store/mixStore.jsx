@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
-import {server} from '../App'
+import { server } from "../App";
 
 export const mixStore = create((set) => ({
   Data: null,
@@ -11,14 +11,13 @@ export const mixStore = create((set) => ({
   isAuthenticted: null,
   message: null,
 
-
   viewCount: async (id) => {
     set({ isLoading: true, error: null });
 
     try {
-      const response = await axios.post(server +`api/mix/content/${id}`);
+      const response = await axios.post(server + `api/mix/content/${id}`);
       set({
-        visitCount: response.data.visitCount, 
+        visitCount: response.data.visitCount,
         isLoading: false,
       });
     } catch (error) {
@@ -28,10 +27,4 @@ export const mixStore = create((set) => ({
       });
     }
   },
-
- 
-
-
-
-
 }));

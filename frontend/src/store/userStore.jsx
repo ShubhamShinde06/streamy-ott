@@ -22,8 +22,7 @@ export const useUserStore = create((set) => ({
           withCredentials: true,
           credentials: "include",
           headers: { "Content-Type": "application/json" },
-        }
-        
+        },
       );
       set({ user: response.data.data, isAuthenticted: true, isLoading: false });
     } catch (error) {
@@ -45,7 +44,7 @@ export const useUserStore = create((set) => ({
           withCredentials: true,
           credentials: "include",
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
       set({ user: response.data.data, isAuthenticted: true, isLoading: false });
     } catch (error) {
@@ -128,7 +127,7 @@ export const useUserStore = create((set) => ({
     try {
       const response = await axios.post(
         server + `api/auth/reset-password/${token}`,
-        { password }
+        { password },
       );
       set({ message: response.data.message, isLoading: false });
     } catch (error) {

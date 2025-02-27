@@ -8,7 +8,7 @@ const Profile = () => {
   const { user, checkAuth } = useUserStore();
   const [image, setImage] = useState(false);
 
-  const [updated, setUpdate] = useState(false)
+  const [updated, setUpdate] = useState(false);
 
   const { logout } = useUserStore();
 
@@ -50,7 +50,6 @@ const Profile = () => {
           ))}
         </div>
         <div className="flex-1 h-full backdrop-blur-sm bg-white/15 rounded-md py-8 px-5">
-         
           <div className="flex items-center justify-between mt-5">
             <div className="flex items-center gap-3">
               <div className="w-24 h-24 border rounded-full overflow-hidden flex items-center justify-center object-center">
@@ -87,7 +86,6 @@ const Profile = () => {
                   type="text"
                   className="py-3 px-2 w-full mt-1 placeholder:text-white rounded-md backdrop-blur-sm bg-white/15 border-2 border-[#8989ac] outline-none"
                   placeholder={user?.name}
-                  
                 />
               </div>
               <div className="w-full">
@@ -104,32 +102,34 @@ const Profile = () => {
 
           <div className=" mt-10  rounded-md py-6 px-5 outline-none">
             <div className="flex justify-end gap-4">
-              {
-                updated
-                ?
-              <>
-               <button onClick={()=>setUpdate(false)} className="px-6 py-4 rounded-md backdrop-blur-sm bg-white/15 font-bold tracking-wider">
-                Cancel
-              </button> 
-              <button  className="px-6 py-4 rounded-md bg-[#7339e5]">
-                Update
-              </button>
-              </>
-              :
-              <button onClick={()=>setUpdate(true)} className="px-6 py-4 rounded-md bg-[#7339e5]">
-                Edit
-              </button>
-              }
-              
+              {updated ? (
+                <>
+                  <button
+                    onClick={() => setUpdate(false)}
+                    className="px-6 py-4 rounded-md backdrop-blur-sm bg-white/15 font-bold tracking-wider"
+                  >
+                    Cancel
+                  </button>
+                  <button className="px-6 py-4 rounded-md bg-[#7339e5]">
+                    Update
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={() => setUpdate(true)}
+                  className="px-6 py-4 rounded-md bg-[#7339e5]"
+                >
+                  Edit
+                </button>
+              )}
             </div>
           </div>
         </div>
-          {/* <h1>Comeing Soon...</h1> */}
+        {/* <h1>Comeing Soon...</h1> */}
       </div>
 
       <div className="px-5 py-5 w-full h-full flex justify-center items-center lg:hidden">
-
-         <div className="mt-10 w-full">
+        <div className="mt-10 w-full">
           <div className=" flex flex-col items-center">
             <div className="w-24 h-24 border rounded-full overflow-hidden flex items-center justify-center object-center">
               <label htmlFor="image">
@@ -180,8 +180,8 @@ const Profile = () => {
           >
             Log Out
           </button>
-        </div> 
-          {/* <h1>Comeing Soon...</h1> */}
+        </div>
+        {/* <h1>Comeing Soon...</h1> */}
       </div>
     </div>
   );

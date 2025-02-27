@@ -162,7 +162,7 @@ const Seriesplayer = () => {
                   className="bg-transparent backdrop-blur-sm lg:bg-white/20 px-8 py-2 border-2 text-xl border-[#8989ac] rounded-md"
                   onChange={(e) => {
                     const season = data.seasonData.find(
-                      (s) => s.season_number === Number(e.target.value)
+                      (s) => s.season_number === Number(e.target.value),
                     );
                     setSelectedSeason(season);
                   }}

@@ -1,6 +1,6 @@
 import { seriesModle } from "../models/webseries.model.js";
 import { movieModel } from "../models/movie.model.js";
-import {likeModel} from '../models/like.model.js'
+import { likeModel } from "../models/like.model.js";
 import mongoose from "mongoose";
 
 export const getAllContent = async (req, res) => {
@@ -30,11 +30,13 @@ export const countView = async (req, res) => {
     // Try to find the content in movies or series
     const movie = await movieModel.findById(id);
     const series = await seriesModle.findById(id);
-    
+
     const content = movie || series;
 
     if (!content) {
-      return res.status(404).json({ success: false, message: "Content not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Content not found" });
     }
 
     // Increment the visit count
@@ -57,7 +59,9 @@ export const toggleLike = async (req, res) => {
     const { userId, contentId, contentType } = req.body;
 
     if (!userId || !contentId || !contentType) {
-      return res.status(400).json({ error: "User ID, Content ID, and Content Type are required" });
+      return res
+        .status(400)
+        .json({ error: "User ID, Content ID, and Content Type are required" });
     }
 
     if (!["movie", "web_series"].includes(contentType)) {
@@ -73,7 +77,9 @@ export const toggleLike = async (req, res) => {
     if (existingLike) {
       // User wants to unlike (remove like)
       await likeModel.findOneAndDelete({ userId, contentId });
-      await contentModel.findByIdAndUpdate(contentId, { $inc: { likeCount: -1 } }); // Decrease like count
+      await contentModel.findByIdAndUpdate(contentId, {
+        $inc: { likeCount: -1 },
+      }); // Decrease like count
       return res.json({ message: `${contentType} unliked!`, liked: false });
     }
 
@@ -93,14 +99,16 @@ export const checkLike = async (req, res) => {
     const { userId, contentId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(userId, contentId)) {
-          return res.status(400).json({
-            success: false,
-            message: "Invalid series ID",
-          });
-        }
+      return res.status(400).json({
+        success: false,
+        message: "Invalid series ID",
+      });
+    }
 
     if (!userId || !contentId) {
-      return res.status(400).json({ error: "User ID and Content ID are required" });
+      return res
+        .status(400)
+        .json({ error: "User ID and Content ID are required" });
     }
 
     const existingLike = await likeModel.findOne({ userId, contentId });
@@ -110,11 +118,4 @@ export const checkLike = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-}
-
-
-
-
-
-
-
+};

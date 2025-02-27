@@ -67,20 +67,20 @@ const Sidebar = () => {
         >
           <LuUsersRound /> <span>USERS</span>
         </NavLink>
-        <NavLink
+        {/* <NavLink
           to={"/comments"}
           className="flex items-center gap-2 text-xl py-2 px-2 rounded-md side-menu-hover"
         >
           <LiaCommentSolid /> <span>COMMENTS</span>
-        </NavLink>
+        </NavLink> */}
         <NavLink
           to={"/reviews"}
           className="flex items-center gap-2 text-xl py-2 px-2 rounded-md side-menu-hover"
         >
-          <FaStarHalfAlt /> <span>REVIEWS</span>
+          <FaStarHalfAlt /> <span>REPORTS</span>
         </NavLink>
         <div
-          onClick={()=>setOpen(!open)}
+          onClick={() => setOpen(!open)}
           className="flex items-center justify-between text-xl py-2 px-2 rounded-md side-menu-hover cursor-pointer"
         >
           <div className=" flex items-center gap-2">
@@ -88,7 +88,7 @@ const Sidebar = () => {
           </div>
           {open ? (
             <div
-              onClick={()=>setOpen(!open)}
+              onClick={() => setOpen(!open)}
               className="text-3xl cursor-pointer"
             >
               <MdKeyboardArrowUp />

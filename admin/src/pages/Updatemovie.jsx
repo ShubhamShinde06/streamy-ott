@@ -7,14 +7,14 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { AdminContext } from "../context/adminContext";
-import Loader from '../components/Loader'
+import Loader from "../components/Loader";
+import { server } from "../App";
 
 const Updatemovie = () => {
-
   const { id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const {loading, setLoading, contentData} = useContext(AdminContext)
+  const { loading, setLoading, contentData } = useContext(AdminContext);
 
   const [genre, setGenre] = useState([]);
   const [poster, setPoster] = useState(false);
@@ -29,102 +29,114 @@ const Updatemovie = () => {
 
   const getSingleContent = async () => {
     try {
-      
-      const response = await axios.get(`/api/movies/get-single-movies/${id}`)
-      if(response.data.success){
-        console.log(response.data.movie)
-        setGenre([response.data.movie.genre])
-        setTitle(response.data.movie.title)
-        setDirector(response.data.movie.director)
-        setPoster(response.data.movie.poster)
-        setRelease_year(response.data.movie.release_year)
-        setRuntime_minutes(response.data.movie.runtime_minutes)
-        setRating(response.data.movie.rating)
-        setVideo_link(response.data.movie.video_link)
-        setDownload_link(response.data.movie.download_link)
-        setPlot(response.data.movie.plot)
+      const response = await axios.get(
+        server + `/api/movies/get-single-movies/${id}`,
+      );
+      if (response.data.success) {
+        console.log(response.data.movie);
+        setGenre([response.data.movie.genre]);
+        setTitle(response.data.movie.title);
+        setDirector(response.data.movie.director);
+        setPoster(response.data.movie.poster);
+        setRelease_year(response.data.movie.release_year);
+        setRuntime_minutes(response.data.movie.runtime_minutes);
+        setRating(response.data.movie.rating);
+        setVideo_link(response.data.movie.video_link);
+        setDownload_link(response.data.movie.download_link);
+        setPlot(response.data.movie.plot);
       } else {
-        toast.error(response.data.message)
+        toast.error(response.data.message);
       }
     } catch (error) {
-      console.log(error)
-      toast.error(error.message)
+      console.log(error);
+      toast.error(error.message);
     }
-  }
-  useEffect(()=>{
-    getSingleContent()
-  },[])
+  };
+  useEffect(() => {
+    getSingleContent();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true)
+    setLoading(true);
     try {
-
-      const response = await axios.put(`/api/movies/update-movie/${id}`, {
-        genre,title,plot,release_year,runtime_minutes,director,rating,video_link,download_link,poster
-      });
+      const response = await axios.put(
+        server + `/api/movies/update-movie/${id}`,
+        {
+          genre,
+          title,
+          plot,
+          release_year,
+          runtime_minutes,
+          director,
+          rating,
+          video_link,
+          download_link,
+          poster,
+        },
+      );
       if (response.data.success) {
-        await contentData
+        await contentData;
         toast.success(response.data.message);
-        navigate('/catalog')
-        setLoading(false)
+        navigate("/catalog");
+        setLoading(false);
       } else {
-        toast.error(response.data.message)
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.error(error);
       toast.error(error.response.data.message);
-      setLoading(false)
+      setLoading(false);
     }
   };
 
   return (
     <div className="w-full h-full flex p-2 xl:p-5">
-    <Sidebar />
-    <div className="w-full xl:w-[calc(100vw-20vw)] xl:pl-5">
-      <Header tag={"Update Movie"} />
-      <div className="w-full mt-5 px-5 py-5 h-[calc(100vh-140px)] bg-gradient-to-b from-blue-900/80 to-blue-800/20 text-[#fff] backdrop-blur-lg  -white/20 rounded-2xl shadow-black/70 shadow-2xl overflow-scroll show-scroll">
-        <form onSubmit={handleSubmit}>
-          <div className="w-full flex flex-col gap-5">
-                <div className="flex flex-col md:flex-row gap-5">
+      <Sidebar />
+      <div className="w-full xl:w-[calc(100vw-20vw)] xl:pl-5">
+        <Header tag={"Update Movie"} />
+        <div className="w-full mt-5 px-5 py-5 h-[calc(100vh-140px)] bg-gradient-to-b from-blue-900/80 to-blue-800/20 text-[#fff] backdrop-blur-lg  -white/20 rounded-2xl shadow-black/70 shadow-2xl overflow-scroll show-scroll">
+          <form onSubmit={handleSubmit}>
+            <div className="w-full flex flex-col gap-5">
+              <div className="flex flex-col md:flex-row gap-5">
+                <input
+                  type="text"
+                  placeholder="Title"
+                  className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"
+                  required
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+                <div className="w-full flex gap-2">
+                  <input
+                    type="number"
+                    placeholder="Release Year"
+                    className="w-1/2 py-3 px-2  rounded-md bg-white/10 text-xl"
+                    required
+                    value={release_year}
+                    onChange={(e) => setRelease_year(e.target.value)}
+                  />
                   <input
                     type="text"
-                    placeholder="Title"
-                    className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"
+                    placeholder="Runtime minutes"
+                    className="w-1/2 py-3 px-2  rounded-md bg-white/10 text-xl"
                     required
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={runtime_minutes}
+                    onChange={(e) => setRuntime_minutes(e.target.value)}
                   />
-                  <div className="w-full flex gap-2">
-                    <input
-                      type="number"
-                      placeholder="Release Year"
-                      className="w-1/2 py-3 px-2  rounded-md bg-white/10 text-xl"
-                      required
-                      value={release_year}
-                      onChange={(e) => setRelease_year(e.target.value)}
-                    />
-                    <input
-                      type="text"
-                      placeholder="Runtime minutes"
-                      className="w-1/2 py-3 px-2  rounded-md bg-white/10 text-xl"
-                      required
-                      value={runtime_minutes}
-                      onChange={(e) => setRuntime_minutes(e.target.value)}
-                    />
-                  </div>
                 </div>
-                <div className="flex flex-col gap-5">
-                  <textarea
-                    placeholder="Plot"
-                    required
-                    value={plot}
-                    onChange={(e) => setPlot(e.target.value)}
-                    className="w-full py-6 px-2  rounded-md bg-white/10 text-xl"
-                  ></textarea>
-                </div>
-                
-                {/* <div className="flex flex-wrap gap-3">
+              </div>
+              <div className="flex flex-col gap-5">
+                <textarea
+                  placeholder="Plot"
+                  required
+                  value={plot}
+                  onChange={(e) => setPlot(e.target.value)}
+                  className="w-full py-6 px-2  rounded-md bg-white/10 text-xl"
+                ></textarea>
+              </div>
+
+              {/* <div className="flex flex-wrap gap-3">
                   <p className="mb-3 text-xl">Choose genre :-</p>
                   {[
                     "Action",
@@ -159,26 +171,26 @@ const Updatemovie = () => {
                   ))}
                 </div> */}
 
-                <div className="flex flex-col md:flex-row gap-5">
-                  <input
-                    type="number"
-                    placeholder="Rating"
-                    required
-                    className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"
-                    value={rating}
-                    onChange={(e) => setRating(e.target.value)}
-                  />
-                  <input
-                    type="text"
-                    placeholder="Director name"
-                    required
-                    className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"
-                    value={director}
-                    onChange={(e) => setDirector(e.target.value)}
-                  />
-                </div>
+              <div className="flex flex-col md:flex-row gap-5">
+                <input
+                  type="number"
+                  placeholder="Rating"
+                  required
+                  className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"
+                  value={rating}
+                  onChange={(e) => setRating(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Director name"
+                  required
+                  className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"
+                  value={director}
+                  onChange={(e) => setDirector(e.target.value)}
+                />
+              </div>
 
-                {/* <div>
+              {/* <div>
                   <p className="text-xl mb-2">Characters</p>
                   {inputs.map((input, index) => (
                     <div key={index} className="flex gap-2">
@@ -203,49 +215,49 @@ const Updatemovie = () => {
                   </button>
                 </div> */}
 
-                <div className="flex flex-col md:flex-row gap-5">
+              <div className="flex flex-col md:flex-row gap-5">
+                <input
+                  type="text"
+                  placeholder="Upload video Link"
+                  required
+                  value={video_link}
+                  onChange={(e) => setVideo_link(e.target.value)}
+                  className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"
+                />
+                <input
+                  type="text"
+                  placeholder="Upload downalod Link"
+                  required
+                  value={download_link}
+                  onChange={(e) => setDownload_link(e.target.value)}
+                  className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"
+                />
+                <div className="flex items-center gap-2">
                   <input
-                    type="text"
-                    placeholder="Upload video Link"
-                    required
-                    value={video_link}
-                    onChange={(e) => setVideo_link(e.target.value)}
-                    className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"
+                    type="checkbox"
+                    checked={poster}
+                    onChange={() => setPoster(!poster)}
+                    className="w-6 h-6"
                   />
-                  <input
-                    type="text"
-                    placeholder="Upload downalod Link"
-                    required
-                    value={download_link}
-                    onChange={(e) => setDownload_link(e.target.value)}
-                    className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"
-                  />
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={poster}
-                      onChange={() => setPoster(!poster)}
-                      className="w-6 h-6"
-                    />
-                    <label className="text-2xl cursor-pointer">Poster</label>
-                  </div>
+                  <label className="text-2xl cursor-pointer">Poster</label>
                 </div>
               </div>
-         
-          <div className="mt-8 w-full">
-            <button
-              type="submit"
-              disabled={loading}
-              className=" flex justify-center items-center disabled:cursor-not-allowed w-full py-4 hover:bg-white/10 rounded-md bg-[#0D6EFD] text-2xl"
-            >
-              {loading ? <Loader/> : 'Update'}
-            </button>
-          </div>
-        </form>
+            </div>
+
+            <div className="mt-8 w-full">
+              <button
+                type="submit"
+                disabled={loading}
+                className=" flex justify-center items-center disabled:cursor-not-allowed w-full py-4 hover:bg-white/10 rounded-md bg-[#0D6EFD] text-2xl"
+              >
+                {loading ? <Loader /> : "Update"}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-  )
-}
+  );
+};
 
-export default Updatemovie
+export default Updatemovie;

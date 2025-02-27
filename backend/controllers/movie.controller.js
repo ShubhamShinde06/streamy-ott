@@ -14,13 +14,12 @@ export const uploadMovie = async (req, res) => {
     video_link,
     download_link,
     characters,
-    poster
+    poster,
   } = req.body;
 
   try {
-
     const parsedGenre = JSON.parse(genre);
-    const parsedCharacters = JSON.parse(characters)
+    const parsedCharacters = JSON.parse(characters);
 
     const image1 = req.files.image1 && req.files.image1[0];
     const image2 = req.files.image2 && req.files.image2[0];
@@ -35,9 +34,8 @@ export const uploadMovie = async (req, res) => {
           unique_filename: false, // Avoid generating a random unique name
         });
         return result.secure_url;
-      })
+      }),
     );
-    
 
     const movieData = {
       title,
@@ -45,23 +43,22 @@ export const uploadMovie = async (req, res) => {
       release_year,
       runtime_minutes,
       director,
-      genre : parsedGenre,
+      genre: parsedGenre,
       plot,
       rating,
       video_link,
       download_link,
-      characters : parsedCharacters,
-      poster: poster === "true" ? true : false
+      characters: parsedCharacters,
+      poster: poster === "true" ? true : false,
     };
 
-    const movie = new movieModel(movieData)
-    await movie.save()
+    const movie = new movieModel(movieData);
+    await movie.save();
 
     res.status(201).json({
-        success: true,
-        message: "Movie Added",
+      success: true,
+      message: "Movie Added",
     });
-
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -73,13 +70,14 @@ export const uploadMovie = async (req, res) => {
 
 export const getMovies = async (req, res) => {
   try {
-    
-    const movies = await movieModel.find()
+    const movies = await movieModel.find();
+    const countMovies = await movieModel.countDocuments()
+
     res.status(200).json({
       success: true,
+      total: countMovies,
       movies,
-    })
-
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -87,31 +85,29 @@ export const getMovies = async (req, res) => {
       message: "Server down getMovies",
     });
   }
-}
+};
 
 export const deleteMovie = async (req, res) => {
   try {
-    
     const { id } = req.params;
 
-    const movie = await movieModel.findByIdAndDelete(id)
+    const movie = await movieModel.findByIdAndDelete(id);
 
-    if(!movie){
+    if (!movie) {
       res.status(404).json({
-        success:false,
-        message:"movie not found!"
-      })
+        success: false,
+        message: "movie not found!",
+      });
     }
 
     res.json({
       success: true,
       message: "Movie deleted",
     });
-
   } catch (error) {
-    res.status(500).json({ message: 'Error deleteMovie ', error });
+    res.status(500).json({ message: "Error deleteMovie ", error });
   }
-}
+};
 
 export const singleMovie = async (req, res) => {
   try {
@@ -122,7 +118,6 @@ export const singleMovie = async (req, res) => {
       success: true,
       movie,
     });
-
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -140,11 +135,9 @@ export const updateMovie = async (req, res) => {
       return res.status(400).json({ error: "Invalid movie ID" });
     }
 
-    const updatedMovie = await movieModel.findByIdAndUpdate(
-      id,
-      req.body,
-      { new: true }
-    );
+    const updatedMovie = await movieModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
     if (!updatedMovie) {
       return res.status(404).json({ error: "movie not found" });
     }
@@ -153,7 +146,6 @@ export const updateMovie = async (req, res) => {
       message: "updated",
       updatedMovie,
     });
-
   } catch (error) {
     console.log(error);
     return res.status(500).json({

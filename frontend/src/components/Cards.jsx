@@ -63,7 +63,7 @@ const Cards = ({ Data }) => {
             img1={item.image[0]}
             img2={item.image[1]}
           />
-        )
+        ),
       )}
     </Carousel>
   );

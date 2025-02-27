@@ -30,7 +30,7 @@ export const signUp = async (req, res) => {
 
     const hashedPassword = await bcryptjs.hash(password, 10);
     const verificationToken = Math.floor(
-      100000 + Math.random() * 900000
+      100000 + Math.random() * 900000,
     ).toString();
 
     const userNew = new userModel({
@@ -49,14 +49,13 @@ export const signUp = async (req, res) => {
     await sendVerificationEmail(userNew.email, verificationToken);
 
     res.status(201).json({
-        success: true,
-        message: "user created successfully",
-        data : {
-            ...userNew._doc,
-            password: undefined
-        }
-    })
-
+      success: true,
+      message: "user created successfully",
+      data: {
+        ...userNew._doc,
+        password: undefined,
+      },
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -119,10 +118,7 @@ export const login = async (req, res) => {
       });
     }
 
-    const isPasswordValid = await bcryptjs.compare(
-      password,
-      user.password
-    );
+    const isPasswordValid = await bcryptjs.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(400).json({
         success: false,
@@ -176,14 +172,13 @@ export const forgotPassword = async (req, res) => {
     //send email
     await sendPasswordResetEmail(
       user.email,
-      `${process.env.FRONTEND_URL}/reset-password/${resetToken}`
+      `${process.env.FRONTEND_URL}/reset-password/${resetToken}`,
     );
 
     res.status(200).json({
       success: true,
       message: "Passowrd reset link sent to your email",
     });
-
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -219,13 +214,12 @@ export const resetPassword = async (req, res) => {
 
     await user.save();
 
-    await sendResetSuccessEmail(user.email)
-    
+    await sendResetSuccessEmail(user.email);
+
     res.status(200).json({
       success: true,
       message: "Password reset successfull",
     });
-
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -245,19 +239,18 @@ export const logout = async (req, res) => {
 
 export const checkAuth = async (req, res) => {
   try {
-    const user = await userModel.findById(req.userId).select("-password")
-    if(!user){
+    const user = await userModel.findById(req.userId).select("-password");
+    if (!user) {
       return res.status(400).json({
         success: false,
-        message: "user not found!"
-      })
+        message: "user not found!",
+      });
     }
 
     res.status(200).json({
       success: true,
-      user
-    })
-
+      user,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -265,5 +258,23 @@ export const checkAuth = async (req, res) => {
       message: "Error in check-auth",
     });
   }
-}
+};
 
+export const adminAllusers = async (req, res) => {
+  try {
+    const users = await userModel.find().select("-password");
+    const countUsers = await userModel.countDocuments()
+
+    res.status(200).json({
+      success: true,
+      total: countUsers,
+      data: users,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Error in addminAllusers",
+    });
+  }
+};

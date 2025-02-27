@@ -15,7 +15,7 @@ export const sendVerificationEmail = async (email, verificationToken) => {
       subject: "Verify your email",
       html: VERIFICATION_EMAIL_TEMPLATE.replace(
         "{verificationCode}",
-        verificationToken
+        verificationToken,
       ),
       category: "Email Verification",
     });

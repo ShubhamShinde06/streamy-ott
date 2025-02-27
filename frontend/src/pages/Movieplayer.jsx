@@ -17,10 +17,12 @@ import { motion } from "framer-motion";
 import { mylistStore } from "../store/mylistStore";
 import { useUserStore } from "../store/userStore";
 import { MdFileDownloadDone } from "react-icons/md";
-import Loading from '../components/Loading'
+import Loading from "../components/Loading";
 import Report from "../components/Report";
 
 const Movieplayer = () => {
+  const navigate = useNavigate();
+
   const { id } = useParams();
   const itemId = id; //global use
 
@@ -28,17 +30,16 @@ const Movieplayer = () => {
   const userId = user?._id; //global use
 
   const navigation = useNavigate();
-  const [reportShow, setReportShow] = useState(false)
+  const [reportShow, setReportShow] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [listId, setListId] = useState([])
+  const [listId, setListId] = useState([]);
   const [mylistUpdated, setMyListUpdated] = useState(false);
-  const { addToList, deleteToList, message, error, isLoading  } = mylistStore();
+  const { addToList, deleteToList, message, error, isLoading } = mylistStore();
   const { viewCount, visitCount } = mixStore();
-  const [category, setCategory] = useState('')
-  const [saveId, setSaveId] = useState(null)
+  const [category, setCategory] = useState("");
+  const [saveId, setSaveId] = useState(null);
 
-  
   const itemType = category; //global use
 
   //single movie get
@@ -46,7 +47,7 @@ const Movieplayer = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        server + `api/movies/get-single-movies/${id}`
+        server + `api/movies/get-single-movies/${id}`,
       );
       if (response.data.success) {
         const Data = response.data.movie;
@@ -70,7 +71,7 @@ const Movieplayer = () => {
         };
         setData(DataM);
         setLoading(false);
-        setCategory(DataM.category)
+        setCategory(DataM.category);
       } else {
         toast.error(response.data.message);
         setLoading(false);
@@ -94,7 +95,7 @@ const Movieplayer = () => {
   const handleAddToList = async () => {
     try {
       await addToList(userId, itemId, itemType);
-      setMyListUpdated((prev) => !prev)
+      setMyListUpdated((prev) => !prev);
       //toast.success(message);
       //console.log(message);
     } catch (error) {
@@ -106,14 +107,13 @@ const Movieplayer = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${server}api/mylist/get/${userId}`);
-        const data = response.data.data; 
-      if (data.length > 0) {
-        setListId(data.map(item => item.itemId._id)); 
-        setSaveId(data.find(item => item.itemId._id === id)?._id || '');
-
-      } else {
-        console.log("No items found");
-      }
+        const data = response.data.data;
+        if (data.length > 0) {
+          setListId(data.map((item) => item.itemId._id));
+          setSaveId(data.find((item) => item.itemId._id === id)?._id || "");
+        } else {
+          console.log("No items found");
+        }
       } catch (error) {
         console.log(error.response?.data?.message || "Something went wrong");
       } finally {
@@ -124,22 +124,21 @@ const Movieplayer = () => {
     if (userId) {
       fetchData();
     }
-  }, [userId, mylistUpdated]); 
+  }, [userId, mylistUpdated]);
 
-  const isSaved = listId.includes(id);// global use
+  const isSaved = listId.includes(id); // global use
 
   // remove mylist
   const handleDeleteToList = async () => {
     try {
       await deleteToList(userId, saveId);
-      setMyListUpdated((prev) => !prev)
+      setMyListUpdated((prev) => !prev);
       //toast.success(message);
       //console.log(message || error);
     } catch (error) {
       console.log(error);
     }
   };
-
 
   return (
     <div className="w-full h-[calc(100vh-auto)] lg:h-[100vh] lg:flex">
@@ -207,32 +206,44 @@ const Movieplayer = () => {
                             Download
                           </Link>
                           <div className="flex items-center gap-4">
-                            
-                            <button className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl">
-                            {isSaved ? (isLoading ? <Loading/> : <MdFileDownloadDone onClick={handleDeleteToList} />) : (isLoading ? <Loading/> : <IoAdd onClick={handleAddToList}/>)}
+                            <button
+                              className="px-2 py-2 rounded-full border-2  text-2xl border-[#8989ac] backdrop-blur-sm bg-white/20"
+                              onClick={() => {
+                                if (!user) {
+                                  navigate("/auth"); // Redirect to auth if user is null
+                                } else {
+                                  isSaved
+                                    ? handleDeleteToList()
+                                    : handleAddToList();
+                                }
+                              }}
+                            >
+                              {isLoading ? (
+                                <Loading />
+                              ) : isSaved ? (
+                                <MdFileDownloadDone />
+                              ) : (
+                                <IoAdd />
+                              )}
                             </button>
-                            {/* <div className="flex flex-col gap-2 items-center justify-center mt-8">
-                              <button
-                                onClick={handleLike}
-                                className={`px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl`}
-                              >
-                                {liked ? <AiFillLike /> : <BiLike />}
-                              </button>
-                              <span>{likeCount}</span>
-                            </div> */}
-                            {
-                              reportShow
-                              ?
-                              <Report setReportShow={setReportShow} itemId={itemId} userId={userId} itemType={itemType}/>
-                              :
-                              <button className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl">
-                              
-                                <IoInformationCircleOutline onClick={()=>setReportShow(true)} />
-                              
-                            </button>
-                            }
 
-                            
+                            {reportShow ? (
+                              <Report
+                                setReportShow={setReportShow}
+                                itemId={itemId}
+                                userId={userId}
+                                itemType={itemType}
+                              />
+                            ) : (
+                              <button
+                                className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl"
+                                onClick={() =>
+                                  user ? setReportShow(true) : navigate("/auth")
+                                }
+                              >
+                                <IoInformationCircleOutline />
+                              </button>
+                            )}
                           </div>
                         </div>
                       </div>

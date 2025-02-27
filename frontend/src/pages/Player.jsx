@@ -15,7 +15,9 @@ const Player = () => {
   const getSingleMovie = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(server +`api/movies/get-single-movies/${id}`);
+      const response = await axios.get(
+        server + `api/movies/get-single-movies/${id}`,
+      );
       if (response.data.success) {
         const Data = response.data.movie;
         const DataM = {
@@ -49,7 +51,8 @@ const Player = () => {
           />
           <div>
             <h1 className=" hidden lg:block  lg:text-3xl ">
-              <span className=" font-bold tracking-wide">Watching Now:</span> {data.title}
+              <span className=" font-bold tracking-wide">Watching Now:</span>{" "}
+              {data.title}
             </h1>
           </div>
         </div>
@@ -88,7 +91,8 @@ const Player = () => {
       </div>
       <div className=" text-center">
         <h1 className=" block lg:hidden text-xl ">
-          <span className=" text-2xl font-bold">Watching Now:</span> {data.title}
+          <span className=" text-2xl font-bold">Watching Now:</span>{" "}
+          {data.title}
         </h1>
       </div>
     </div>

@@ -124,7 +124,7 @@ const EmailVerification = () => {
 
         {/* img */}
         <div className=" w-1/2 h-full xl:flex hidden justify-end">
-          <img src={img} alt="img"/>
+          <img src={img} alt="img" />
         </div>
       </div>
     </div>

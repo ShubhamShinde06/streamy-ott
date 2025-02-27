@@ -67,41 +67,38 @@ body {
 }
 
 .slick-dots li button:before {
-  color: white; 
+  color: white;
 }
 
 .slick-dots li.slick-active button:before {
-  color: white !important; 
+  color: white !important;
 }
 
 .slick-dots li button:before {
-  color: white !important; 
+  color: white !important;
   opacity: 0.5;
 }
 
 .slick-dots li.slick-active button:before {
-  color: white !important; 
-  opacity: 1; 
-}
-
-.hover-box:hover .show-box{
+  color: white !important;
   opacity: 1;
 }
 
-.react-multiple-carousel__arrow{
-  opacity: 0 !important;
- 
+.hover-box:hover .show-box {
+  opacity: 1;
 }
 
-.scroll-hover:hover .react-multiple-carousel__arrow{
+.react-multiple-carousel__arrow {
+  opacity: 0 !important;
+}
+
+.scroll-hover:hover .react-multiple-carousel__arrow {
   opacity: 1 !important;
 }
-
 
 :root {
   --color: #0088cc;
 }
-
 
 .svg {
   width: 100%;
@@ -140,8 +137,6 @@ body {
   }
 }
 
-
-
 @media only screen and (min-width: 1024px) {
   .hover-card:hover .card-info {
     display: flex;
@@ -153,9 +148,9 @@ body {
     -o-transition: all ease-in-out;
   }
   .in-site-color {
-    -webkit-box-shadow: inset 157px -200px 242px 7px rgba(7,1,64,1);
-    -moz-box-shadow: inset 157px -200px 242px 7px rgba(7,1,64,1);
-    box-shadow: inset 157px -200px 242px 7px rgba(7,1,64,1);
+    -webkit-box-shadow: inset 157px -200px 242px 7px rgba(7, 1, 64, 1);
+    -moz-box-shadow: inset 157px -200px 242px 7px rgba(7, 1, 64, 1);
+    box-shadow: inset 157px -200px 242px 7px rgba(7, 1, 64, 1);
   }
   a.active {
     background-color: #7339e5;
@@ -176,7 +171,7 @@ body {
 }
 
 @media only screen and (max-width: 720px) {
-  .react-multiple-carousel__arrow  {
+  .react-multiple-carousel__arrow {
     display: none !important;
   }
   a.active {
@@ -186,6 +181,6 @@ body {
     /* -webkit-box-shadow: inset 96px -77px 82px -28px #070140;
     -moz-box-shadow: inset 96px -77px 82px -28px #070140;
     box-shadow: inset 96px -77px 82px -28px #070140; */
-    box-shadow: inset -0px -100px 202px 0px rgba(7,1,64,1);
+    box-shadow: inset -0px -100px 202px 0px rgba(7, 1, 64, 1);
   }
 }

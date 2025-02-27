@@ -3,7 +3,10 @@ import Sidebar from "../components/Sidebar";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { LuDownload } from "react-icons/lu";
 import { IoAdd } from "react-icons/io5";
-import {IoChevronBackOutline, IoInformationCircleOutline} from "react-icons/io5";
+import {
+  IoChevronBackOutline,
+  IoInformationCircleOutline,
+} from "react-icons/io5";
 import { FaPlay } from "react-icons/fa";
 import { IoMdPlayCircle } from "react-icons/io";
 import axios from "axios";
@@ -17,10 +20,11 @@ import { useUserStore } from "../store/userStore";
 import Report from "../components/Report";
 import Loading from "../components/Loading";
 
-
 const Seriesplayer = () => {
+
+
   const { id } = useParams();
-  const itemId = id //global use
+  const itemId = id; //global use
 
   const { user } = useUserStore();
   const userId = user?._id; //global use
@@ -28,18 +32,18 @@ const Seriesplayer = () => {
   const { viewCount, visitCount } = mixStore();
   const { addToList, deleteToList, message, error, isLoading } = mylistStore();
 
- const [listId, setListId] = useState([])
- const [reportShow, setReportShow] = useState(false)
+  const [listId, setListId] = useState([]);
+  const [reportShow, setReportShow] = useState(false);
   const [mylistUpdated, setMyListUpdated] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [selectedSeason, setSelectedSeason] = useState(null);
-  const [category, setCategory] = useState('')
-  const [saveId, setSaveId] = useState(null)
+  const [category, setCategory] = useState("");
+  const [saveId, setSaveId] = useState(null);
 
-  const itemType = 'web_series'; //global use
-  
+  const itemType = "web_series"; //global use
+
   const topRef = useRef(null);
   const handlePageUp = () => {
     topRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -76,13 +80,13 @@ const Seriesplayer = () => {
           download_link: Data.download_link,
           seasonData: seasonData,
           likeCount: Data.likeCount,
-          category: Data.category
+          category: Data.category,
         };
 
-        setData(DataM)
+        setData(DataM);
         setSelectedSeason(seasonData.length > 0 ? seasonData[0] : null);
         setLoading(false);
-        setCategory(DataM.category)
+        setCategory(DataM.category);
       }
     } catch (error) {
       console.error("Error fetching series:", error);
@@ -98,55 +102,54 @@ const Seriesplayer = () => {
     viewCount(id);
   }, [id]);
 
-   // add mylist
-    const handleAddToList = async () => {
-      try {
-        await addToList(userId, itemId, itemType);
-        setMyListUpdated((prev) => !prev)
-        //toast.success(message);
-        //console.log(message);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  // add mylist
+  const handleAddToList = async () => {
+    try {
+      await addToList(userId, itemId, itemType);
+      setMyListUpdated((prev) => !prev);
+      //toast.success(message);
+      //console.log(message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(`${server}api/mylist/get/${userId}`);
-          const data = response.data.data; 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${server}api/mylist/get/${userId}`);
+        const data = response.data.data;
         if (data.length > 0) {
-          setListId(data.map(item => item.itemId._id));
-          setSaveId(data.find(item => item.itemId._id === id)?._id || '');
+          setListId(data.map((item) => item.itemId._id));
+          setSaveId(data.find((item) => item.itemId._id === id)?._id || "");
         } else {
           console.log("No items found");
         }
-        } catch (error) {
-          console.log(error.response?.data?.message || "Something went wrong");
-        } finally {
-          setLoading(false);
-        }
-      };
-  
-      if (userId) {
-        fetchData();
+      } catch (error) {
+        console.log(error.response?.data?.message || "Something went wrong");
+      } finally {
+        setLoading(false);
       }
-    }, [userId, mylistUpdated]); 
-  
-    const isSaved = listId.includes(id);// global use
+    };
 
-      // remove mylist
+    if (userId) {
+      fetchData();
+    }
+  }, [userId, mylistUpdated]);
+
+  const isSaved = listId.includes(id); // global use
+
+  // remove mylist
   const handleDeleteToList = async () => {
     try {
       await deleteToList(userId, saveId);
-      setMyListUpdated((prev) => !prev)
+      setMyListUpdated((prev) => !prev);
       //toast.success(message);
       //console.log(message || error);
     } catch (error) {
       console.log(error);
     }
   };
-  
 
   return (
     <>
@@ -208,30 +211,45 @@ const Seriesplayer = () => {
                               <LuDownload className="text-2xl" /> Download
                             </button>
                             <div className="flex items-center gap-4">
-                              <button className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl">
-                              {isSaved ? (isLoading ? <Loading/> : <MdFileDownloadDone onClick={handleDeleteToList} />) : (isLoading ? <Loading/> : <IoAdd onClick={handleAddToList}/>)}
-                              </button>
-                              {/* <div className="flex flex-col gap-2 items-center justify-center mt-8">
                             <button
-                              onClick={handleLike}
-                              className={`px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl`}
+                              className="px-2 py-2 rounded-full border-2  text-2xl border-[#8989ac] backdrop-blur-sm bg-white/20"
+                              onClick={() => {
+                                if (!user) {
+                                  navigate("/auth"); // Redirect to auth if user is null
+                                } else {
+                                  isSaved
+                                    ? handleDeleteToList()
+                                    : handleAddToList();
+                                }
+                              }}
                             >
-                              {liked ? <AiFillLike /> : <BiLike />}
+                              {isLoading ? (
+                                <Loading />
+                              ) : isSaved ? (
+                                <MdFileDownloadDone />
+                              ) : (
+                                <IoAdd />
+                              )}
                             </button>
-                            <span>{likeCount}</span>
-                          </div> */}
-                              {
-                              reportShow
-                              ?
-                              <Report setReportShow={setReportShow} itemId={itemId} userId={userId} itemType={itemType}/>
-                              :
-                              <button className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl">
-                              
-                                <IoInformationCircleOutline onClick={()=>setReportShow(true)} />
-                              
-                            </button>
-                            }
-                            </div>
+
+                            {reportShow ? (
+                              <Report
+                                setReportShow={setReportShow}
+                                itemId={itemId}
+                                userId={userId}
+                                itemType={itemType}
+                              />
+                            ) : (
+                              <button
+                                className="px-2 py-2 rounded-full border-2 border-[#8989ac] backdrop-blur-sm bg-white/20 text-2xl"
+                                onClick={() =>
+                                  user ? setReportShow(true) : navigate("/auth")
+                                }
+                              >
+                                <IoInformationCircleOutline />
+                              </button>
+                            )}
+                          </div>
                           </div>
                         </div>
                       </div>
@@ -285,13 +303,16 @@ const Seriesplayer = () => {
                       className="bg-white/30 backdrop-blur-md border border-[#8989ac] text-xl rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 px-4 py-2 hover:bg-white/50"
                       onChange={(e) => {
                         const season = data?.seasonData.find(
-                          (s) => s.season_number === Number(e.target.value)
+                          (s) => s.season_number === Number(e.target.value),
                         );
                         if (season) setSelectedSeason(season);
                       }}
                     >
                       {data?.seasonData.map((season) => (
-                        <option key={season.season_number} value={season.season_number}>
+                        <option
+                          key={season.season_number}
+                          value={season.season_number}
+                        >
                           Season {season.season_number}
                         </option>
                       ))}

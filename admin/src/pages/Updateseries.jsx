@@ -8,13 +8,13 @@ import { RxCross1 } from "react-icons/rx";
 import { useNavigate, useParams } from "react-router-dom";
 import { AdminContext } from "../context/adminContext";
 import Loader from "../components/Loader";
+import { server } from "../App";
 
 const Updateseries = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  const {id} = useParams()
-  const navigate = useNavigate()
-
-  const {loading, setLoading} = useContext(AdminContext)
+  const { loading, setLoading } = useContext(AdminContext);
 
   const [poster, setPoster] = useState(false);
   const [plot, setPlot] = useState("");
@@ -34,7 +34,7 @@ const Updateseries = () => {
           plot: "",
           runtime_minutes: "",
           videoLink: "",
-          downloadLink: ""
+          downloadLink: "",
         },
       ],
     },
@@ -70,10 +70,10 @@ const Updateseries = () => {
   const handleSeasonChange = (index, event) => {
     const updatedSeasons = [...seasons];
     const { name, value } = event.target;
-    updatedSeasons[index][name] = name === 'release_year' ? Number(value) : value;
+    updatedSeasons[index][name] =
+      name === "release_year" ? Number(value) : value;
     setSeasons(updatedSeasons);
   };
-  
 
   const handleEpisodeChange = (seasonIndex, episodeIndex, event) => {
     const updatedSeasons = [...seasons];
@@ -84,48 +84,56 @@ const Updateseries = () => {
 
   const getSingleContent = async () => {
     try {
-      
-      const response = await axios.get(`/api/series/${id}`)
-      if(response.data.success){
-        console.log(response.data.series)
-        setTitle(response.data.series.series_name)
-        setRelease_year(response.data.series.release_year_start)
-        setTotal_seasons(response.data.series.total_seasons)
-        setPlot(response.data.series.plot)
-        setSeasons(response.data.series.seasons)
-        setRating(response.data.series.rating)
-        setDirector(response.data.series.director)
-        setPoster(response.data.series.poster)
+      const response = await axios.get(server + `/api/series/${id}`);
+      if (response.data.success) {
+        console.log(response.data.series);
+        setTitle(response.data.series.series_name);
+        setRelease_year(response.data.series.release_year_start);
+        setTotal_seasons(response.data.series.total_seasons);
+        setPlot(response.data.series.plot);
+        setSeasons(response.data.series.seasons);
+        setRating(response.data.series.rating);
+        setDirector(response.data.series.director);
+        setPoster(response.data.series.poster);
       } else {
-        toast.error(response.data.message)
+        toast.error(response.data.message);
       }
-
     } catch (error) {
-      console.log(error)
-      toast.error(error.message)
+      console.log(error);
+      toast.error(error.message);
     }
-  }
-  useEffect(()=>{
-    getSingleContent()
-  },[])
+  };
+  useEffect(() => {
+    getSingleContent();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true)
+    setLoading(true);
     try {
-      const response = await axios.put(`/api/series/update-series/${id}`, {
-        series_name, release_year_start, total_seasons, plot, seasons, rating, director, poster
-      });
+      const response = await axios.put(
+        server + `/api/series/update-series/${id}`,
+        {
+          series_name,
+          release_year_start,
+          total_seasons,
+          plot,
+          seasons,
+          rating,
+          director,
+          poster,
+        },
+      );
 
       if (response.data.success) {
         toast.success(response.data.message);
-        setLoading(false)
-        navigate('/catalog')
+        setLoading(false);
+        navigate("/catalog");
       }
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.message);
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -263,7 +271,6 @@ const Updateseries = () => {
                   Add Character
                 </button>
               </div> */}
-
             </div>
             {/* Season & episodes */}
             <div className=" my-5">
@@ -365,7 +372,7 @@ const Updateseries = () => {
               <div className="flex items-center gap-2">
                 <input
                   type="checkbox"
-                  checked={poster}   
+                  checked={poster}
                   onChange={() => setPoster(!poster)}
                   className="w-6 h-6"
                 />
@@ -379,14 +386,14 @@ const Updateseries = () => {
                 disabled={loading}
                 className="  disabled:cursor-not-allowed flex items-center justify-center w-full py-4 hover:bg-white/10 rounded-md bg-[#0D6EFD] text-2xl"
               >
-               {loading ? <Loader/> : 'Update'}
+                {loading ? <Loader /> : "Update"}
               </button>
             </div>
           </form>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Updateseries
+export default Updateseries;

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const likeSchema = new mongoose.Schema({
+const likeSchema = new mongoose.Schema(
+  {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user", // Reference to User model
@@ -15,7 +16,9 @@ const likeSchema = new mongoose.Schema({
       enum: ["movie", "web_series"], // Identify if it’s a movie or web series
       required: true,
     },
-  }, { timestamps: true });
-  
-  export const likeModel = mongoose.models.Like || mongoose.model("Like", likeSchema);
-  
+  },
+  { timestamps: true },
+);
+
+export const likeModel =
+  mongoose.models.Like || mongoose.model("Like", likeSchema);

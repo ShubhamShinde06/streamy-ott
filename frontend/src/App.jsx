@@ -54,7 +54,7 @@ function App() {
 
   useEffect(() => {
     checkAuth();
-  }, [user]); 
+  }, [user]);
 
   return (
     <div className="w-full h-full">

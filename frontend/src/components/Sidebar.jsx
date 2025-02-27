@@ -21,7 +21,7 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     logout();
-    toast.success('Logout')
+    toast.success("Logout");
   };
 
   return (
@@ -60,7 +60,10 @@ const Sidebar = () => {
           [<BiSolidSave />, "Saved"],
           [<FaUser />, "Profile"],
         ].map((item, index) => (
-          <div key={index + 1} className="flex flex-col items-center justify-center">
+          <div
+            key={index + 1}
+            className="flex flex-col items-center justify-center"
+          >
             <NavLink
               to={`/${item[1]}`}
               key={item}

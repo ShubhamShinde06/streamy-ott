@@ -13,7 +13,7 @@ export const uploadSeries = async (req, res) => {
     seasons,
     characters,
     rating,
-    director
+    director,
   } = req.body;
   try {
     const parsedSeasons = JSON.parse(seasons);
@@ -33,7 +33,7 @@ export const uploadSeries = async (req, res) => {
           unique_filename: false, // Avoid generating a random unique name
         });
         return result.secure_url;
-      })
+      }),
     );
 
     const seriesData = {
@@ -69,8 +69,11 @@ export const uploadSeries = async (req, res) => {
 export const getSeries = async (req, res) => {
   try {
     const series = await seriesModle.find();
+    const countSeries = await seriesModle.countDocuments()
+
     res.status(200).json({
       success: true,
+      total: countSeries,
       series,
     });
   } catch (error) {
@@ -84,26 +87,24 @@ export const getSeries = async (req, res) => {
 
 export const deleteSeries = async (req, res) => {
   try {
-      
-      const { id } = req.params;
-  
-      const series = await seriesModle.findByIdAndDelete(id)
-  
-      if(!series){
-        res.status(404).json({
-          success:false,
-          message:"series not found!"
-        })
-      }
-  
-      res.json({
-        success: true,
-        message: "series deleted",
+    const { id } = req.params;
+
+    const series = await seriesModle.findByIdAndDelete(id);
+
+    if (!series) {
+      res.status(404).json({
+        success: false,
+        message: "series not found!",
       });
-  
-    } catch (error) {
-      res.status(500).json({ message: 'Error deleteSeries like', error });
     }
+
+    res.json({
+      success: true,
+      message: "series deleted",
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleteSeries like", error });
+  }
 };
 
 export const singleSeries = async (req, res) => {
@@ -131,7 +132,6 @@ export const singleSeries = async (req, res) => {
       success: true,
       series,
     });
-
   } catch (error) {
     console.error("Error in singleSeries:", error);
     return res.status(500).json({
@@ -149,11 +149,9 @@ export const updateSeries = async (req, res) => {
       return res.status(400).json({ error: "Invalid series ID" });
     }
 
-    const updatedSeries = await seriesModle.findByIdAndUpdate(
-      id,
-      req.body,
-      { new: true }
-    );
+    const updatedSeries = await seriesModle.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
     if (!updatedSeries) {
       return res.status(404).json({ error: "series not found" });
     }
@@ -162,7 +160,6 @@ export const updateSeries = async (req, res) => {
       message: "updated",
       updatedSeries,
     });
-
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -189,7 +186,7 @@ export const singleEpisode = async (req, res) => {
     let foundEpisode = null;
     series.seasons.forEach((season) => {
       const episode = season.episodes.find(
-        (ep) => ep._id.toString() === episodeId
+        (ep) => ep._id.toString() === episodeId,
       );
       if (episode) foundEpisode = episode;
     });
@@ -213,4 +210,3 @@ export const singleEpisode = async (req, res) => {
     });
   }
 };
-

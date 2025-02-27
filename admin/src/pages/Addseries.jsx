@@ -8,11 +8,12 @@ import { RxCross1 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
 import { AdminContext } from "../context/adminContext";
 import Loader from "../components/Loader";
+import { server } from "../App";
 
 const Addseries = () => {
   const navigateTo = useNavigate();
 
-  const {loading, setLoading} = useContext(AdminContext)
+  const { loading, setLoading } = useContext(AdminContext);
 
   // State to manage input fields
   const [inputs, setInputs] = useState([{ value: "" }]);
@@ -53,7 +54,7 @@ const Addseries = () => {
           plot: "",
           runtime_minutes: "",
           videoLink: "",
-          downloadLink: ""
+          downloadLink: "",
         },
       ],
     },
@@ -89,10 +90,10 @@ const Addseries = () => {
   const handleSeasonChange = (index, event) => {
     const updatedSeasons = [...seasons];
     const { name, value } = event.target;
-    updatedSeasons[index][name] = name === 'release_year' ? Number(value) : value;
+    updatedSeasons[index][name] =
+      name === "release_year" ? Number(value) : value;
     setSeasons(updatedSeasons);
   };
-  
 
   const handleEpisodeChange = (seasonIndex, episodeIndex, event) => {
     const updatedSeasons = [...seasons];
@@ -103,7 +104,7 @@ const Addseries = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true)
+    setLoading(true);
     try {
       const formData = new FormData();
 
@@ -115,24 +116,30 @@ const Addseries = () => {
       formData.append("rating", rating);
       formData.append("poster", poster);
       formData.append("genre", JSON.stringify(genre));
-      formData.append("characters",JSON.stringify(inputs.map((input) => input.value)));   
-      formData.append("seasons", JSON.stringify(seasons))
+      formData.append(
+        "characters",
+        JSON.stringify(inputs.map((input) => input.value)),
+      );
+      formData.append("seasons", JSON.stringify(seasons));
       if (image1) formData.append("image1", image1);
       if (image2) formData.append("image2", image2);
 
-      const response = await axios.post("/api/series/upload", formData);
+      const response = await axios.post(
+        server + "/api/series/upload",
+        formData,
+      );
 
       if (response.data.success) {
         toast.success(response.data.message);
         setTimeout(() => {
           navigateTo(0, { replace: true });
         }, 2000);
-        setLoading(false)
+        setLoading(false);
       }
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.message);
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -242,7 +249,7 @@ const Addseries = () => {
                       setGenre((prev) =>
                         prev.includes(item)
                           ? prev.filter((g) => g !== item)
-                          : [...prev, item]
+                          : [...prev, item],
                       )
                     }
                     className={`px-3 py-1 flex items-center cursor-pointer outline-dotted rounded-md ${
@@ -402,7 +409,7 @@ const Addseries = () => {
               <div className="flex items-center gap-2">
                 <input
                   type="checkbox"
-                  checked={poster}   
+                  checked={poster}
                   onChange={() => setPoster(!poster)}
                   className="w-6 h-6"
                 />
@@ -416,7 +423,7 @@ const Addseries = () => {
                 disabled={loading}
                 className="  disabled:cursor-not-allowed flex items-center justify-center md:w-1/4 w-full py-2 bg-white/10 rounded-md hover:bg-[#0D6EFD] text-2xl"
               >
-               {loading ? <Loader/> : 'Publish'}
+                {loading ? <Loader /> : "Publish"}
               </button>
             </div>
           </form>
