@@ -72,6 +72,7 @@ const Movieplayer = () => {
         setData(DataM);
         setLoading(false);
         setCategory(DataM.category);
+        console.log(DataM.download_link)
       } else {
         toast.error(response.data.message);
         setLoading(false);
@@ -199,7 +200,7 @@ const Movieplayer = () => {
                             <FaPlay /> Play
                           </Link>
                           <Link
-                            to={""}
+                            to={data.download_link}
                             className="backdrop-blur-sm bg-white/40 px-6 py-2 lg:py-3 lg:px-10  text-xl rounded-md flex items-center gap-1"
                           >
                             <LuDownload className=" text-2xl" />
