@@ -7,6 +7,7 @@ import { format } from "timeago.js";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const Reviews = () => {
   const [data, setData] = useState([]);
@@ -67,7 +68,9 @@ const Reviews = () => {
               </tr>
             </thead>
             <tbody className="text-xl text-center">
-              {data.map((item, index) => (
+              {data.length > 0
+              ?
+              data.map((item, index) => (
                 <>
                   <tr
                     key={index + 1}
@@ -89,7 +92,13 @@ const Reviews = () => {
                     </td>
                   </tr>
                 </>
-              ))}
+              ))
+            :
+          
+            <div  className="w-full flex justify-center py-4  absolute">
+              <Loader/>
+            </div>
+          }
             </tbody>
           </table>
         </div>

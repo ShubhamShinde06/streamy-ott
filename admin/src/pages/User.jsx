@@ -5,6 +5,7 @@ import axios from "axios";
 import { server } from "../App";
 import { format } from "timeago.js";
 import { MdDoneAll, MdRemoveDone } from "react-icons/md";
+import Loader from "../components/Loader";
 
 const User = () => {
   const [data, setData] = useState([]);
@@ -43,7 +44,9 @@ const User = () => {
               </tr>
             </thead>
             <tbody className="text-xl text-center">
-              {data.map((item, index) => (
+              {data.length > 0 
+              ?
+              data.map((item, index) => (
                 <>
                   <tr
                     key={index + 1}
@@ -62,7 +65,12 @@ const User = () => {
                     </td>
                   </tr>
                 </>
-              ))}
+              ))
+            :
+            <div  className="w-full flex justify-center py-4  absolute">
+            <Loader/>
+          </div>
+            }
             </tbody>
           </table>
         </div>

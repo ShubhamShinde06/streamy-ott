@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { server } from "../App";
+import Loader from "../components/Loader";
 
 const Catalog = () => {
   const { contentData } = useContext(AdminContext);
@@ -69,7 +70,9 @@ const Catalog = () => {
               </tr>
             </thead>
             <tbody className="text-xl text-center">
-              {contentData.map((item, index) => (
+              {contentData.length > 0
+              ?
+              contentData.map((item, index) => (
                 <>
                   <tr
                     key={index + 1}
@@ -108,7 +111,12 @@ const Catalog = () => {
                     </td>
                   </tr>
                 </>
-              ))}
+              ))
+            :
+            <div  className="w-full flex justify-center py-4  absolute">
+            <Loader/>
+          </div>
+            }
             </tbody>
           </table>
         </div>
