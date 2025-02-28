@@ -59,7 +59,7 @@ const Reviews = () => {
               <tr>
                 <th>ID</th>
                 <th>username</th>
-                <th>itemname</th>
+                <th>movie/show name</th>
                 <th>category</th>
                 <th>Issue</th>
                 <th>description</th>

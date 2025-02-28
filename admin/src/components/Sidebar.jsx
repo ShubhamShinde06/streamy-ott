@@ -5,16 +5,19 @@ import { IoAddCircleOutline, IoExitOutline } from "react-icons/io5";
 import { PiSquaresFour } from "react-icons/pi";
 import { TbMovie } from "react-icons/tb";
 import { LuUsersRound } from "react-icons/lu";
-import { LiaCommentSolid } from "react-icons/lia";
 import { FaStarHalfAlt } from "react-icons/fa";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { AdminContext } from "../context/adminContext";
 import { MdLaptopChromebook } from "react-icons/md";
 
-const Sidebar = () => {
+const Sidebar = ({setToken}) => {
   const { sideMenu } = useContext(AdminContext);
 
   const [open, setOpen] = useState(false);
+
+  const handleLogout = () => {
+    setToken('')
+  }
 
   return (
     <div
@@ -44,7 +47,7 @@ const Sidebar = () => {
         </div>
         {/* logout_icon */}
         <div className="py-3 px-3 rounded-md backdrop-blur-sm cursor-pointer bg-white/10 border flex items-center text-xl">
-          <IoExitOutline />
+          <IoExitOutline onClick={handleLogout}/>
         </div>
       </div>
 

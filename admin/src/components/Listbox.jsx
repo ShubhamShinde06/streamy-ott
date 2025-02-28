@@ -29,17 +29,17 @@ const Listbox = (props) => {
             <th className="py-5">ID</th>
             <th>TITLE</th>
             <th className=" uppercase">director</th>
-            <th>RATING</th>
+            <th>{props.four }</th>
           </tr>
         </thead>
         {
           props?.data?.map((item, index) => (
             <tbody className=" text-center">
           <tr>
-            <td className="py-2">{index}</td>
+            <td className="py-2">{index + 1}</td>
             <td >{item.title || item.series_name }</td>
             <td >{item.director}</td>
-            <td>{item.rating}/10</td>
+            <td>{ props.four === 'RATING' ? item.rating : item.visitCount} </td>
           </tr>
         </tbody>
           ))

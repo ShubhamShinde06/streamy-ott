@@ -8,14 +8,29 @@ import Updatemovie from "./pages/Updatemovie";
 import Updateseries from "./pages/Updateseries";
 import User from "./pages/User";
 import Reviews from "./pages/Reviews";
+import Auth from "./pages/Auth";
+import { useEffect, useState } from "react";
 
-export const server = "http://localhost:8000";
+export const server = "https://streamy-ott.onrender.com";
 
 export default function App() {
+
+  const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '')
+
+  useEffect(()=>{
+    localStorage.setItem('token', token)
+  },[token])
+
   return (
     <>
+    {
+      token === ""
+      ?
+      <Auth setToken={setToken} />
+      :
+      <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home setToken={setToken} />} />
         <Route path="/uploadM" element={<Addmovie />} />
         <Route path="/uploadS" element={<Addseries />} />
         <Route path="/updateM/:id" element={<Updatemovie />} />
@@ -24,6 +39,9 @@ export default function App() {
         <Route path="/users" element={<User />} />
         <Route path="/reviews" element={<Reviews />} />
       </Routes>
+      </>
+    }
+     
       <ToastContainer />
     </>
   );

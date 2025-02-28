@@ -38,7 +38,7 @@ const User = () => {
                 <th>ID</th>
                 <th>NAME</th>
                 <th>EMAIL</th>
-                <th>created</th>
+                <th>Sign up</th>
                 <th>Verified</th>
               </tr>
             </thead>

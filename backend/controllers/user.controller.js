@@ -8,6 +8,7 @@ import {
   sendVerificationEmail,
   sendWelcomeEmail,
 } from "../mailtrap/emails.js";
+import jwt from 'jsonwebtoken'
 
 export const signUp = async (req, res) => {
   const { name, email, password } = req.body;
@@ -259,6 +260,37 @@ export const checkAuth = async (req, res) => {
     });
   }
 };
+
+//admin login
+export const adminLogin = async (req, res) => {
+
+  try {
+      
+      const {email, password} = req.body
+
+      if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
+          const token = jwt.sign(email + password, process.env.JWT_SECRET)
+          res.json({
+              success: true,
+              token
+          })
+      }
+      else {
+          res.json({
+              success: false,
+              message: "Invalid credentials"
+          })
+      }
+
+  } catch (error) {
+      console.log(error)
+      return res.status(500).json({
+          success:false,
+          message:"Error in adminLogin"
+      })
+  }
+
+}
 
 export const adminAllusers = async (req, res) => {
   try {

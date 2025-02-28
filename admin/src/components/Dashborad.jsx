@@ -11,11 +11,11 @@ import { TbRefresh } from "react-icons/tb";
 import { TfiCup } from "react-icons/tfi";
 
 const Dashborad = () => {
-  const { movieTotal, seriesTotal, userTotal, reportTotal, movies, series } =
-    useContext(AdminContext);
+  const { movieTotal, seriesTotal, userTotal, reportTotal, movies, series,   TopViewMovies,
+    TopViewShows} = useContext(AdminContext);
 
-  console.log("movie", movies);
-  console.log("series", series);
+  // console.log("movie", movies);
+  // console.log("series", series);
 
   const [refresh, setRefresh] = useState(false); // Initial key state
 
@@ -49,13 +49,11 @@ const Dashborad = () => {
       </div>
       <div className="w-full flex flex-col gap-7 md:flex md:flex-row md:gap-5 mt-5">
         <div className="w-full flex flex-col gap-5">
-        <Listbox data={movies} tabelName={'TOP MOVIES'}/>
-          <Listbox data={series} tabelName={'TOP SHOWS'}/>
+          <Listbox data={movies} tabelName={'TOP MOVIES'} four={'RATING'}/>
+          <Listbox data={series} tabelName={'TOP SHOWS'} four={'RATING'}/>       
+          <Listbox data={TopViewMovies} tabelName={'TOP WATCH MOVIES'} four={'VIEWS'} />
+          <Listbox data={TopViewShows} tabelName={'TOP WATCH SHOWS'} four={'VIEWS'}/>
         </div>
-        {/* <div className="w-full flex flex-col gap-5">
-          <Listbox />
-          <Listbox />
-        </div> */}
       </div>
     </div>
   );

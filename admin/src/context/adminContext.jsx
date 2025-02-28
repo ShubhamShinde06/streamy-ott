@@ -12,6 +12,9 @@ const AdminContextProvider = (props) => {
   const [movies, setMovies] = useState([]);
   const [series, setSeries] = useState([]);
 
+  const [TopViewMovies, setTopViewMovies] = useState([])
+  const [TopViewShows, setTopViewShows] = useState([])
+
   const [movieTotal, setMovieTotal] = useState();
   const [seriesTotal, setSeriesTotal] = useState();
   const [userTotal, setUserTotal] = useState();
@@ -42,6 +45,7 @@ const AdminContextProvider = (props) => {
           response.data.movies.sort((a, b) => b.rating - a.rating).slice(0, 7),
         );
         setMovieTotal(response.data.total);
+        setTopViewMovies(response.data.movies.sort((a, b) => b.visitCount - a.visitCount).slice(0,7))
       } else {
         toast.error(response.data.message);
       }
@@ -59,6 +63,8 @@ const AdminContextProvider = (props) => {
           response.data.series.sort((a, b) => b.rating - a.rating).slice(0, 7),
         );
         setSeriesTotal(response.data.total);
+        setTopViewShows(response.data.series.filter(series => series.visitCount > 0).sort((a, b) => b.visitCount -  a.visitCount).slice(0,7))
+
       } else {
         toast.error(response.data.message);
       }
@@ -113,6 +119,8 @@ const AdminContextProvider = (props) => {
     setContentData,
     movies,
     series,
+    TopViewMovies,
+    TopViewShows,
 
     movieTotal,
     seriesTotal,

@@ -2,6 +2,7 @@ import { Router } from "express";
 import verifyToken from "../middleware/verifyToken.js";
 import {
   adminAllusers,
+  adminLogin,
   checkAuth,
   forgotPassword,
   login,
@@ -18,6 +19,7 @@ route.get("/check-auth", verifyToken, checkAuth);
 route.post("/signup", signUp);
 route.post("/logout", logout);
 route.post("/login", login);
+route.post("/admin-login", adminLogin);
 
 route.get("/users-get", adminAllusers);
 
