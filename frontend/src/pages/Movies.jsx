@@ -18,7 +18,6 @@ const Movies = () => {
       const response = await axios.get(server + "api/movies/get-movies");
       if (response.data.success) {
         setData(response.data.movies);
-        console.log(response.data.total)
         setLoading(false);
       } else {
         setLoading(false);

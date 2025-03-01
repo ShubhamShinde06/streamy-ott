@@ -14,8 +14,7 @@ const Dashborad = () => {
   const { movieTotal, seriesTotal, userTotal, reportTotal, movies, series,   TopViewMovies,
     TopViewShows} = useContext(AdminContext);
 
-  // console.log("movie", movies);
-  // console.log("series", series);
+
 
   const [refresh, setRefresh] = useState(false); // Initial key state
 

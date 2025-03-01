@@ -86,7 +86,6 @@ const Updateseries = () => {
     try {
       const response = await axios.get(server + `/api/series/${id}`);
       if (response.data.success) {
-        console.log(response.data.series);
         setTitle(response.data.series.series_name);
         setRelease_year(response.data.series.release_year_start);
         setTotal_seasons(response.data.series.total_seasons);

@@ -4,7 +4,6 @@ import { reportStore } from "../store/reportStore";
 import { toast } from "react-toastify";
 
 const ReportModal = ({ setReportShow, itemId, userId, itemType }) => {
-  console.log(itemId, userId, itemType);
 
   const { reportAdd, message, error, isLoading } = reportStore();
 

@@ -33,7 +33,6 @@ const Updatemovie = () => {
         server + `/api/movies/get-single-movies/${id}`,
       );
       if (response.data.success) {
-        console.log(response.data.movie);
         setGenre([response.data.movie.genre]);
         setTitle(response.data.movie.title);
         setDirector(response.data.movie.director);

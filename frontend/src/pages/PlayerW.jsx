@@ -7,8 +7,7 @@ import { server } from "../App";
 
 const PlayerW = () => {
   const { seriesId, episodeId } = useParams();
-  // console.log(seriesId)
-  // console.log(episodeId)
+
   const navigation = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);

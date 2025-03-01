@@ -6,10 +6,12 @@ import { IoEyeOutline } from "react-icons/io5";
 import axios from 'axios'
 import {server} from '../App'
 import { toast } from 'react-toastify';
+import Loader from '../components/Loader';
 
 const Auth = ({setToken}) => {
 
       const [show, setShow] = useState(false);
+      const [loading, setLoading] = useState(false)
 
       const [email, setEmail] = useState('')
       const [password, setPassword] = useState('')
@@ -17,16 +19,20 @@ const Auth = ({setToken}) => {
 
     const handleSubmit = async (e) => {
       e.preventDefault();
+      setLoading(true)
       try {
         const response = await axios.post(server + '/api/auth/admin-login', {email, password})
         if(response.data.success){
           setToken(response.data.token)
+          setLoading(false)
         }else {
                 toast.error(response.data.message);
+                setLoading(false)
               }
       } catch (error) {
         console.log(error);
         toast.error(error.message);
+        setLoading(false)
       }
     }
 
@@ -90,8 +96,8 @@ const Auth = ({setToken}) => {
           <div className="w-full xl:w-[60%] h-[50px] mt-10 md:mt-4">
           
               <button className="w-full h-full rounded-lg bg-[#7339e5] font-bold text-[18px] tracking-widest flex items-center justify-center">
-                {/* {isLoading ? <Loading /> : "Login"} */}
-                Login
+                {loading ? <Loader /> : "Login"}
+               
               </button>
           
           </div>

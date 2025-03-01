@@ -72,7 +72,6 @@ const Movieplayer = () => {
         setData(DataM);
         setLoading(false);
         setCategory(DataM.category);
-        console.log(DataM.download_link)
       } else {
         toast.error(response.data.message);
         setLoading(false);

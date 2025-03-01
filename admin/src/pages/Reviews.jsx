@@ -18,7 +18,6 @@ const Reviews = () => {
       try {
         const response = await axios.get(server + "/api/report/get");
         if (response.data.success) {
-          console.log(response.data.data);
           setData(response.data.data);
         } else {
           console.error("Failed to fetch reports");

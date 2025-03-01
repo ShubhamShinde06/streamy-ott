@@ -12,6 +12,7 @@ import Auth from "./pages/Auth";
 import { useEffect, useState } from "react";
 
 export const server = "https://streamy-ott.onrender.com";
+//export const server = "http://localhost:8000"
 
 export default function App() {
 

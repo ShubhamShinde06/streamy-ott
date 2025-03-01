@@ -25,7 +25,6 @@ const Seriesplayer = () => {
     try {
       const response = await axios.get(`/api/series/get-single-series/${id}`);
       if (response.data.success) {
-        console.log(response.data);
         const Data = response.data.series;
         let characters = Data.characters;
         if (typeof characters === "string") {
