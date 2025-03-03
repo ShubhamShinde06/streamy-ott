@@ -14,6 +14,7 @@ const Search = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [menu, setMenu] = useState("All");
 
+
   const applyFilter = () => {
     if (!allData || !Array.isArray(allData)) return;
 

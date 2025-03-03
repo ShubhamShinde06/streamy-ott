@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { useUserStore } from "../store/userStore";
 import img from "../assets/upload_area.png";
+import { FaRegUser } from "react-icons/fa";
 
 const Profile = () => {
   const [change, setChange] = useState("Profile");
@@ -30,9 +31,6 @@ const Profile = () => {
         <div className="lg:w-1/3 h-full flex flex-col gap-5 px-5">
           {[
             "Profile",
-            "Subscription",
-            "Downloads",
-            "App Settings",
             "Support",
             "Privacy Policy",
           ].map((item) => (
@@ -52,8 +50,8 @@ const Profile = () => {
         <div className="flex-1 h-full backdrop-blur-sm bg-white/15 rounded-md py-8 px-5">
           <div className="flex items-center justify-between mt-5">
             <div className="flex items-center gap-3">
-              <div className="w-24 h-24 border rounded-full overflow-hidden flex items-center justify-center object-center">
-                <label htmlFor="image">
+              <div className="w-24 h-24 rounded-full overflow-hidden flex items-center justify-center object-center">
+                {/* <label htmlFor="image">
                   <img
                     className="w-full h-full cursor-pointer object-cover"
                     src={imageURL || img}
@@ -66,7 +64,8 @@ const Profile = () => {
                     hidden
                     onChange={(e) => setImage(e.target.files[0])}
                   />
-                </label>
+                </label> */}
+                <FaRegUser className="text-7xl" />
               </div>
               <div className="flex flex-col justify-center">
                 <p>{user?.name}</p>
@@ -131,8 +130,8 @@ const Profile = () => {
       <div className="px-5 py-5 w-full h-full flex justify-center items-center lg:hidden">
         <div className="mt-10 w-full">
           <div className=" flex flex-col items-center">
-            <div className="w-24 h-24 border rounded-full overflow-hidden flex items-center justify-center object-center">
-              <label htmlFor="image">
+            <div className="w-24 h-24 rounded-full overflow-hidden flex items-center justify-center object-center">
+              {/* <label htmlFor="image">
                 <img
                   className="w-full h-full cursor-pointer object-cover"
                   src={imageURL || img}
@@ -145,7 +144,8 @@ const Profile = () => {
                   hidden
                   onChange={(e) => setImage(e.target.files[0])}
                 />
-              </label>
+              </label> */}
+              <FaRegUser className="text-7xl" />
             </div>
             <p className="mt-1 text-xl">{user?.name}</p>
             <p className="text-xs">0.02.16</p>
@@ -154,9 +154,6 @@ const Profile = () => {
           <div className="w-full h-full flex flex-col gap-3 mt-5">
             {[
               "Profile",
-              "Subscription",
-              "Downloads",
-              "App Settings",
               "Support",
               "Privacy Policy",
             ].map((item) => (
