@@ -11,7 +11,7 @@ import { AdminContext } from "../context/adminContext";
 import { MdLaptopChromebook } from "react-icons/md";
 
 const Sidebar = ({setToken}) => {
-  const { sideMenu } = useContext(AdminContext);
+  const { sideMenu, setSideMenu } = useContext(AdminContext);
 
   const [open, setOpen] = useState(false);
 
@@ -54,30 +54,28 @@ const Sidebar = ({setToken}) => {
       <ul className="flex flex-col gap-4 py-10">
         <NavLink
           to={"/"}
+          onClick={() => setSideMenu(false)}
           className="flex items-center gap-2 text-xl py-2 px-2 rounded-md side-menu-hover"
         >
           <PiSquaresFour /> <span>DASHBORAD</span>
         </NavLink>
         <NavLink
           to={"/catalog"}
+          onClick={() => setSideMenu(false)}
           className="flex items-center gap-2 text-xl py-2 px-2 rounded-md side-menu-hover"
         >
           <TbMovie /> <span>CATALOG</span>
         </NavLink>
         <NavLink
           to={"/users"}
+          onClick={() => setSideMenu(false)}
           className="flex items-center gap-2 text-xl py-2 px-2 rounded-md side-menu-hover"
         >
           <LuUsersRound /> <span>USERS</span>
         </NavLink>
-        {/* <NavLink
-          to={"/comments"}
-          className="flex items-center gap-2 text-xl py-2 px-2 rounded-md side-menu-hover"
-        >
-          <LiaCommentSolid /> <span>COMMENTS</span>
-        </NavLink> */}
         <NavLink
           to={"/reviews"}
+          onClick={() => setSideMenu(false)}
           className="flex items-center gap-2 text-xl py-2 px-2 rounded-md side-menu-hover"
         >
           <FaStarHalfAlt /> <span>REPORTS</span>
@@ -106,28 +104,18 @@ const Sidebar = ({setToken}) => {
           <div className=" flex flex-col gap-2 py-2 px-2  rounded-md backdrop-blur-sm bg-white/5">
             <NavLink
               to={"/uploadM"}
+              onClick={() => setSideMenu(false)}
               className="flex items-center gap-2 text-xl py-2 px-2 rounded-md side-menu-hover"
             >
               <IoAddCircleOutline /> <span>ADD MOVIE</span>
             </NavLink>
             <NavLink
               to={"/uploadS"}
+              onClick={() => setSideMenu(false)}
               className="flex items-center gap-2 text-xl py-2 px-2 rounded-md side-menu-hover"
             >
               <IoAddCircleOutline /> <span>ADD SERIES</span>
             </NavLink>
-            {/* <NavLink
-              to={"/listM"}
-              className="flex items-center gap-2 text-xl py-2 px-2 rounded-md side-menu-hover"
-            >
-              <CiViewList /><span>MOVIES LISTS</span>
-            </NavLink>
-            <NavLink
-              to={"/listS"}
-              className="flex items-center gap-2 text-xl py-2 px-2 rounded-md side-menu-hover"
-            >
-              <CiViewList /><span>SERIES LIST</span>
-            </NavLink> */}
           </div>
         ) : (
           ""
