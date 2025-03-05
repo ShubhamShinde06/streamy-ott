@@ -6,6 +6,7 @@ import { server } from "../App";
 import { useUserStore } from "../store/userStore";
 import { motion } from "framer-motion";
 import Cardsitem from "../components/Card";
+import { Link } from "react-router-dom";
 
 const MyList = () => {
   const { user } = useUserStore();
@@ -79,15 +80,24 @@ const MyList = () => {
                 </>
               ) : (
                 <>
-                  {Data.map((item, index) => (
-                    <Cardsitem
-                      key={index}
-                      id={item.id}
-                      category={item.type}
-                      img1={item.imageOne}
-                      img2={item.imageTwo}
-                    />
-                  ))}
+                  {Data.length > 0 ? (
+                    Data.map((item, index) => (
+                      <Cardsitem
+                        key={index}
+                        id={item.id}
+                        category={item.type}
+                        img1={item.imageOne}
+                        img2={item.imageTwo}
+                      />
+                    ))
+                  ) : (
+                    <>
+                      <div className="w-[90vw] h-[80vh] flex flex-col gap-2 items-center justify-center absolute">
+                        <p className=" text-gray-400">Add some Movies/Shows</p>
+                        <Link to={'/home'} className="bg-white text-black px-6 md:px-10 py-2 md:py-3 text-lg lg:text-xl xl:text-2xl rounded-md flex items-center gap-2">Go to Home</Link>
+                      </div>
+                    </>
+                  )}
                 </>
               )}
             </div>

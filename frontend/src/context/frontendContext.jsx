@@ -40,11 +40,13 @@ const FrontendContextProvider = (props) => {
 
         sortedContent.forEach((item) => {
           let genres = [];
-          if (typeof item.genre === "string") {
+          if (typeof item.genre === Array) {
             genres = item.genre.split("•").map((g) => g.trim()); // Split & trim spaces
           } else if (Array.isArray(item.genre)) {
             genres = item.genre;
           }
+
+     
 
           // Assign the movie/show to the first genre only (to avoid repetition)
           const primaryGenre = genres[0];
