@@ -141,7 +141,7 @@ const Movieplayer = () => {
   };
 
   return (
-    <div className="w-full h-[calc(100vh-auto)] lg:h-[100vh] lg:flex">
+    <div className="w-full h-[calc(100vh-5vh)] lg:h-[100vh] lg:flex">
       <Sidebar />
       {loading ? (
         <>
@@ -160,7 +160,7 @@ const Movieplayer = () => {
         <>
           <div className=" lg:relative w-full h-full overflow-scroll show-scroll">
             {/* poster */}
-            <main className="w-full h-auto lg:h-[100%] ">
+            <main className="w-full h-auto ">
               <div className=" in-site-color w-full h-full relative lg:block flex flex-col items-center justify-center">
                 {/* logo */}
                 <header className="absolute top-5 left-2 lg:top-10 lg:left-10 z-20 ">
@@ -290,14 +290,14 @@ const Movieplayer = () => {
               <div className="w-full h-full flex flex-col gap-6 lg:gap-8">
                 <div>
                   <h1 className="text-3xl ">Cast</h1>
-                  <div className=" w-full flex items-center justify-center lg:justify-start flex-wrap gap-8 mt-5">
+                  <div className=" w-full flex items-center justify-center lg:justify-start gap-8 mt-5 overflow-x-auto show-scroll">
                     {data.characters && data.characters.length > 0 ? (
                       data.characters.map((item, index) => (
                         <div
                           key={index + 1}
-                          className="flex flex-col gap-2 items-center text-center"
+                          className="flex flex-col gap-2 items-center text-center min-w-28"
                         >
-                          <div className="w-[80px] h-[80px] rounded-full flex items-center justify-center text-9xl">
+                          <div className="w-[50px] h-[50px] rounded-full flex items-center justify-center text-9xl">
                           <TfiUser />
                           </div>
                           <p>{item}</p>

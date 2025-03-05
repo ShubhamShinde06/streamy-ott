@@ -65,7 +65,7 @@ const FrontendContextProvider = (props) => {
         });
 
         setGenreData(genreData);
-        setAllData(sortedContent);
+        setAllData(sortedContent.slice(0, 7));
         setPosterData(poster);
         setNew_release(sortedContent.slice(0, 7));
         setMovieData(movie.slice(0, 7));

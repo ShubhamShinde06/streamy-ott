@@ -19,6 +19,7 @@ import { MdFileDownloadDone } from "react-icons/md";
 import { useUserStore } from "../store/userStore";
 import Report from "../components/Report";
 import Loading from "../components/Loading";
+import { TfiUser } from "react-icons/tfi";
 
 const Seriesplayer = () => {
 
@@ -153,7 +154,7 @@ const Seriesplayer = () => {
 
   return (
     <>
-      <div className="w-full h-[calc(100vh-auto)] lg:h-[100vh] lg:flex">
+      <div className="w-full h-[calc(100vh-5vh)] lg:h-[100vh] lg:flex">
         <Sidebar />
         {loading ? (
           <>
@@ -374,15 +375,15 @@ const Seriesplayer = () => {
 
                   <div>
                     <h1 className="text-3xl ">Cast</h1>
-                    <div className=" w-full flex items-center justify-center lg:justify-start flex-wrap gap-8 mt-5">
+                    <div className=" w-full flex items-center justify-center lg:justify-start gap-8 mt-5 overflow-x-auto show-scroll">
                       {data?.characters && data?.characters.length > 0 ? (
                         data?.characters.map((item, index) => (
                           <div
                             key={index}
-                            className="flex flex-col gap-2 items-center text-center"
+                            className="flex flex-col gap-2 items-center text-center min-w-28"
                           >
-                            <div className="w-[80px] h-[80px] rounded-full flex items-center justify-center text-9xl">
-                              <CgProfile />
+                            <div className="w-[50px] h-[50px] rounded-full flex items-center justify-center text-9xl">
+                              <TfiUser />
                             </div>
                             <p>{item}</p> {/* Display the character name */}
                           </div>
