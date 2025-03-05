@@ -31,8 +31,7 @@ const Profile = () => {
         <div className="lg:w-1/3 h-full flex flex-col gap-5 px-5">
           {[
             "Profile",
-            "Support",
-            "Privacy Policy",
+   
           ].map((item) => (
             <div
               key={item}
@@ -151,11 +150,10 @@ const Profile = () => {
             <p className="text-xs">0.02.16</p>
           </div>
 
-          <div className="w-full h-full flex flex-col gap-3 mt-5">
+          <div className="w-full h-full flex flex-col gap-3 mt-5 relative">
             {[
-              "Profile",
-              "Support",
-              "Privacy Policy",
+              "Profile"
+           
             ].map((item) => (
               <div
                 key={item}
@@ -173,7 +171,7 @@ const Profile = () => {
 
           <button
             onClick={handleLogout}
-            className=" py-2 w-full  backdrop-blur-sm bg-white/15 rounded-md mt-28 text-xl"
+            className=" py-2 w-[90vw]  backdrop-blur-sm bg-white/15 rounded-md mt-28 text-xl absolute bottom-20"
           >
             Log Out
           </button>

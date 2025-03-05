@@ -1,5 +1,5 @@
 import { IoAdd } from "react-icons/io5";
-import { CgProfile } from "react-icons/cg";
+import { TfiUser } from "react-icons/tfi";
 import {
   IoChevronBackOutline,
   IoInformationCircleOutline,
@@ -298,9 +298,9 @@ const Movieplayer = () => {
                           className="flex flex-col gap-2 items-center text-center"
                         >
                           <div className="w-[80px] h-[80px] rounded-full flex items-center justify-center text-9xl">
-                            <CgProfile />
+                          <TfiUser />
                           </div>
-                          <p>{item}</p> {/* Display the character name */}
+                          <p>{item}</p>
                         </div>
                       ))
                     ) : (

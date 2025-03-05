@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { RiDeleteBinLine } from "react-icons/ri";
@@ -10,9 +10,42 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { server } from "../App";
 import Loader from "../components/Loader";
+import { IoIosSearch } from "react-icons/io";
 
 const Catalog = () => {
+
+  const [search, setSearch] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+
   const { contentData } = useContext(AdminContext);
+
+  const applyFilter = () => {
+      if (!contentData || !Array.isArray(contentData)) return;
+  
+      let searchLower = search.toLowerCase();
+      let filtered = contentData.filter((item) => {
+        const matchesSeriesName =
+          item.series_name?.toLowerCase().includes(searchLower);
+        const matchesTitle = item.title?.toLowerCase().includes(searchLower);
+        const genres =
+          typeof item.genre === "string"
+            ? item.genre.split(",").map((g) => g.trim().toLowerCase())
+            : Array.isArray(item.genre)
+            ? item.genre.filter((g) => typeof g === "string").map((g) => g.toLowerCase())
+            : [];
+        const matchesGenre = genres.some((g) => g.includes(searchLower));
+  
+        return matchesSeriesName || matchesTitle || matchesGenre;
+      });
+  
+    
+  
+      setFilteredData(filtered);
+    };
+  
+    useEffect(() => {
+      applyFilter();
+    }, [search, contentData]);
 
   const removeSeries = async (id) => {
     try {
@@ -58,6 +91,16 @@ const Catalog = () => {
       <div className=" w-full xl:w-[calc(100vw-20vw)] xl:pl-5">
         <Header tag={"Content"} />
         <div className="w-full mt-5 px-5 py-5 h-[calc(100vh-140px)] bg-gradient-to-b  from-blue-900/80 to-blue-800/20 text-[#fff] backdrop-blur-lg  -white/20 rounded-2xl shadow-black/70 shadow-2xl overflow-scroll show-scroll">
+          <div className="w-full h-20  flex items-center justify-center">
+               <IoIosSearch className="text-[25px]" />
+                          <input
+                            type="text"
+                            placeholder="Search for title, genres "
+                            className="flex-1 bg-transparent outline-none px-3"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                          />
+          </div>
           <table className="w-full">
             <thead className=" text-xl  backdrop-blur-sm bg-white/10 ">
               <tr>
@@ -70,9 +113,9 @@ const Catalog = () => {
               </tr>
             </thead>
             <tbody className="text-xl text-center">
-              {contentData.length > 0
+              {filteredData.length > 0
               ?
-              contentData.map((item, index) => (
+              filteredData.map((item, index) => (
                 <>
                   <tr
                     key={index + 1}
