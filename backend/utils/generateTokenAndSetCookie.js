@@ -5,7 +5,7 @@ const generateTokenAndSetCookie = (res, userId) => {
     return res.json("JWT_SECRET is missing");
   }
 
-  const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ userId }, 'streamyeasytowatch', {
     expiresIn: "7d",
   });
 

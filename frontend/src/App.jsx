@@ -17,7 +17,6 @@ import PlayerW from "./pages/PlayerW";
 import EmailVerification from "./pages/EmailVerification";
 import EmailSendFrongotPassword from "./pages/EmailSendFrongotPassword";
 import PasswordSet from "./pages/PasswordSet";
-import LoadingAnimation from "./components/LoadingAnimation";
 
 export const server =
   import.meta.env.MODE === "development" ? "http://localhost:8000/" : "/";
