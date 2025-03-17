@@ -31,4 +31,7 @@ app.use("/api/mylist", mylistRoute);
 import reportRoute from "./routes/report.routes.js";
 app.use("/api/report", reportRoute);
 
+import suggestRoute from "./routes/suggest.routes.js";
+app.use("/api/suggest", suggestRoute);
+
 export default app;

@@ -9,6 +9,7 @@ import { FaStarHalfAlt } from "react-icons/fa";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { AdminContext } from "../context/adminContext";
 import { MdLaptopChromebook } from "react-icons/md";
+import { FaRocketchat } from "react-icons/fa";
 
 const Sidebar = ({setToken}) => {
   const { sideMenu, setSideMenu } = useContext(AdminContext);
@@ -79,6 +80,13 @@ const Sidebar = ({setToken}) => {
           className="flex items-center gap-2 text-xl py-2 px-2 rounded-md side-menu-hover"
         >
           <FaStarHalfAlt /> <span>REPORTS</span>
+        </NavLink>
+        <NavLink
+          to={"/suggest"}
+          onClick={() => setSideMenu(false)}
+          className="flex items-center gap-2 text-xl py-2 px-2 rounded-md side-menu-hover"
+        >
+          <FaRocketchat /> <span>SUGGEST</span>
         </NavLink>
         <div
           onClick={() => setOpen(!open)}

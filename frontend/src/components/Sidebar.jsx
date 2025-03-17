@@ -15,6 +15,7 @@ import { useUserStore } from "../store/userStore";
 import { RiSearch2Fill } from "react-icons/ri";
 import { BiSolidSave } from "react-icons/bi";
 import { toast } from "react-toastify";
+import { LuBotMessageSquare } from "react-icons/lu";
 
 const Sidebar = () => {
   const { logout } = useUserStore();
@@ -38,6 +39,7 @@ const Sidebar = () => {
             [<AiOutlineHome />, "/home"],
             [<LiaTvSolid />, "/shows"],
             [<MdOutlineLibraryAdd />, "/saved"],
+            // [<LuBotMessageSquare />, "/none"]
           ].map((item) => (
             <NavLink
               to={item[1]}
@@ -57,6 +59,7 @@ const Sidebar = () => {
         {[
           [<AiFillHome />, "Home"],
           [<RiSearch2Fill />, "Search"],
+          [<LuBotMessageSquare />, "chat"],
           [<BiSolidSave />, "Saved"],
           [<FaUser />, "Profile"],
         ].map((item, index) => (
