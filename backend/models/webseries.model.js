@@ -11,8 +11,8 @@ const SeriesSchema = new mongoose.Schema(
     release_year_start: { type: Number, required: true },
     total_seasons: { type: Number, required: true },
     rating: { type: Number, required: true },
-    director: { type: String, required: true },
-    characters: { type: [Array], required: true },
+    director: { type: String },
+    characters: { type: [Array] },
     likeCount: {
       type: Number,
       default: 0, // Initialize like count to 0

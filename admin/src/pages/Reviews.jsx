@@ -95,7 +95,7 @@ const Reviews = () => {
             :
           
             <div  className="w-full flex justify-center py-4  absolute">
-              <Loader/>
+               Oops Data not available!
             </div>
           }
             </tbody>

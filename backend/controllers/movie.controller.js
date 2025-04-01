@@ -7,7 +7,7 @@ export const uploadMovie = async (req, res) => {
     title,
     release_year,
     runtime_minutes,
-    director,
+    
     genre,
     plot,
     rating,
@@ -42,7 +42,7 @@ export const uploadMovie = async (req, res) => {
       image: imagesUrl,
       release_year,
       runtime_minutes,
-      director,
+    
       genre: parsedGenre,
       plot,
       rating,

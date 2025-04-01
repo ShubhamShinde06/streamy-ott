@@ -16,16 +16,20 @@ const Suggest = () => {
   
     useEffect(() => {
       const fetchReports = async () => {
+        setLoading(true)
         try {
           const response = await axios.get(server + "/api/suggest/get");
           if (response.data.success) {
             setData(response.data.data);
             console.log(response.data.data)
+            setLoading(false)
           } else {
             console.error("Failed to fetch reports");
+            setLoading(false)
           }
         } catch (error) {
           console.error("Error fetching reports:", error);
+          setLoading(false)
         }
       };
   
@@ -69,34 +73,45 @@ const Suggest = () => {
             </tr>
           </thead>
           <tbody className="text-xl text-center">
-            {data.length > 0
-            ?
-            data.map((item, index) => (
+            {
+              loading
+              ?
               <>
-                <tr
-                  key={index + 1}
-                  className="border-b-2 border-[rgba(255,255,255,0.22)]"
-                >
-                  <td className=" py-2">{index + 1}</td>
-                  <td>{item.userId}</td>
-                  <td>{item.title}</td>
-                  <td>
-                    <button
-                      onClick={() => removeReport(item._id)}
-                      className=" bg-red-200 text-2xl px-2 py-1 text-red-600 rounded-full"
-                    >
-                      {loading ? <Loader/> : <RiDeleteBinLine />}
-                    </button>
-                  </td>
-                </tr>
+              <div  className="w-full flex justify-center py-4  absolute">
+              <Loader/>
+              </div>
               </>
-            ))
-          :
-        
-          <div  className="w-full flex justify-center py-4  absolute">
-            <Loader/>
-          </div>
-        }
+              :
+              data.length > 0
+                ?
+                data.map((item, index) => (
+                  <>
+                    <tr
+                      key={index + 1}
+                      className="border-b-2 border-[rgba(255,255,255,0.22)]"
+                    >
+                      <td className=" py-2">{index + 1}</td>
+                      <td>{item.userId}</td>
+                      <td>{item.title}</td>
+                      <td>
+                        <button
+                          onClick={() => removeReport(item._id)}
+                          className=" bg-red-200 text-2xl px-2 py-1 text-red-600 rounded-full"
+                        >
+                          {loading ? <Loader/> : <RiDeleteBinLine />}
+                        </button>
+                      </td>
+                    </tr>
+                  </>
+                ))
+              :
+            
+              <div  className="w-full flex justify-center py-4  absolute">
+                Oops Data not available!
+              </div>
+            
+            }
+            
           </tbody>
         </table>
       </div>

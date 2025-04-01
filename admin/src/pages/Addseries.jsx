@@ -274,7 +274,7 @@ const Addseries = () => {
                 <input
                   type="text"
                   placeholder="Director name"
-                  required
+                  
                   className="w-full py-3 px-2  rounded-md bg-white/10 text-xl"
                   value={director}
                   onChange={(e) => setDirector(e.target.value)}

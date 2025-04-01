@@ -11,14 +11,14 @@ export const uploadSeries = async (req, res) => {
     release_year_start,
     total_seasons,
     seasons,
-    characters,
+    
     rating,
-    director,
+    
   } = req.body;
   try {
     const parsedSeasons = JSON.parse(seasons);
     const parsedGenre = JSON.parse(genre);
-    const parsedCharacters = JSON.parse(characters);
+
 
     const image1 = req.files.image1 && req.files.image1[0];
     const image2 = req.files.image2 && req.files.image2[0];
@@ -45,9 +45,9 @@ export const uploadSeries = async (req, res) => {
       total_seasons,
       image: imagesUrl,
       rating,
-      director,
+   
       seasons: parsedSeasons,
-      characters: parsedCharacters,
+    
     };
 
     const series = new seriesModle(seriesData);

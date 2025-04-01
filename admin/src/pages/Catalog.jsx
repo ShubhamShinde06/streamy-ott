@@ -85,6 +85,8 @@ const Catalog = () => {
     }
   };
 
+  console.log(filteredData)
+
   return (
     <div className=" w-full h-full flex p-2 xl:p-5">
       <Sidebar />
@@ -108,7 +110,7 @@ const Catalog = () => {
                 <th>NAME</th>
                 <th>POSTER</th>
                 <th>RATING</th>
-              
+                <th>Likes</th>
                 <th>CREATE DATE</th>
                 <th>ACTION</th>
               </tr>
@@ -127,6 +129,7 @@ const Catalog = () => {
                           ? item.series_name
                           : item.title}
                       </td>
+                      <td>{item?.poster === true ? 'True' : 'False'}</td>
                       <td>{item.rating}</td>
                       <td>{item.visitCount}</td>
                       <td>{format(item.createdAt)}</td>
