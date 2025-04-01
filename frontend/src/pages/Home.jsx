@@ -9,10 +9,13 @@ import { motion } from "framer-motion";
 import { LuBotMessageSquare } from "react-icons/lu";
 import { RxCross2 } from "react-icons/rx";
 import Suggest from "../components/Suggest";
+import { useUserStore } from "../store/userStore";
 
 const Home = () => {
   const { loading, new_release, posterdata, moviedata, seriesData, genreData, chat, setChat } =
     useContext(FrontendContext);
+
+    const {user} = useUserStore()
 
 
   const loadCard = [{}, {}, {}, {}, {}];

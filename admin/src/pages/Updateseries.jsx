@@ -144,6 +144,17 @@ const Updateseries = () => {
         <div className="w-full mt-5 px-5 py-5 h-[calc(100vh-140px)] bg-gradient-to-b from-blue-900/80 to-blue-800/20 text-[#fff] backdrop-blur-lg  -white/20 rounded-2xl shadow-black/70 shadow-2xl overflow-scroll show-scroll">
           <form onSubmit={handleSubmit}>
             <div className="w-full flex flex-col gap-5">
+            <div className="flex flex-col md:flex-row gap-5 mt-5">
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={poster}
+                  onChange={() => setPoster(!poster)}
+                  className="w-6 h-6"
+                />
+                <label className="text-2xl cursor-pointer">Poster</label>
+              </div>
+            </div>
               <div className="flex flex-col md:flex-row gap-5">
                 {/* series_name */}
                 <input
@@ -367,7 +378,7 @@ const Updateseries = () => {
               </button>
             </div>
 
-            <div className="flex flex-col md:flex-row gap-5 mt-5">
+            {/* <div className="flex flex-col md:flex-row gap-5 mt-5">
               <div className="flex items-center gap-2">
                 <input
                   type="checkbox"
@@ -377,7 +388,7 @@ const Updateseries = () => {
                 />
                 <label className="text-2xl cursor-pointer">Poster</label>
               </div>
-            </div>
+            </div> */}
 
             <div className="mt-8 flex justify-start">
               <button

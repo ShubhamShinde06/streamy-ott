@@ -10,6 +10,7 @@ import User from "./pages/User";
 import Reviews from "./pages/Reviews";
 import Auth from "./pages/Auth";
 import { useEffect, useState } from "react";
+import Suggest from "./pages/Suggest";
 
 export const server = "https://streamy-ott.onrender.com";
 //export const server = "http://localhost:8000"
@@ -39,6 +40,7 @@ export default function App() {
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/users" element={<User />} />
         <Route path="/reviews" element={<Reviews />} />
+        <Route path="/suggest" element={<Suggest />} />
       </Routes>
       </>
     }
