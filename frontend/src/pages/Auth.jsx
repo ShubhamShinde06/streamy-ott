@@ -33,7 +33,8 @@ const Auth = () => {
       try {
         await signup(name, email, password);
         toast.success(message);
-        navigate("/verify-email");
+        //navigate("/verify-email");
+        navigate("/");
       } catch (error) {
         console.log(error);
       }
@@ -112,11 +113,11 @@ const Auth = () => {
             </div>
             {currentState === "Login" ? (
               <>
-                <div className=" text-[16px] text-end">
+                {/* <div className=" text-[16px] text-end">
                   <Link to={"/forgot-password"}>
                     <h1 className=" cursor-pointer">Forgot password</h1>
                   </Link>
-                </div>
+                </div> */}
               </>
             ) : (
               <></>
