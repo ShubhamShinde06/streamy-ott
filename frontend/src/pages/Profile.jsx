@@ -31,20 +31,22 @@ const Profile = () => {
         <div className="lg:w-1/3 h-full flex flex-col gap-5 px-5">
           {[
             "Profile",
-   
+            // "Download App"
           ].map((item) => (
             <div
               key={item}
               onClick={() => setChange(item)}
-              className={`py-3 w-full rounded-md px-2 text-xl cursor-pointer transition-all ${
-                change === item
+              className={`py-3 w-full rounded-md px-2 text-xl cursor-pointer transition-all ${change === item
                   ? "backdrop-blur-sm bg-white/15 text-white font-semibold"
                   : "text-gray-300"
-              }`}
+                }`}
             >
               {item}
             </div>
           ))}
+          <a href="/streamy.apk" download className="flex items-center py-3 w-full rounded-md px-2 text-xl cursor-pointer transition-all">
+            {/* <RiArrowRightSLine /> */}Download App
+          </a>
         </div>
         <div className="flex-1 h-full backdrop-blur-sm bg-white/15 rounded-md py-8 px-5">
           <div className="flex items-center justify-between mt-5">
@@ -152,17 +154,16 @@ const Profile = () => {
 
           <div className="w-full h-full flex flex-col gap-3 mt-5 relative">
             {[
-              "Profile"
-           
+              "Profile",
+              "Download App"
             ].map((item) => (
               <div
                 key={item}
                 onClick={() => setChange(item)}
-                className={`py-2 w-full rounded-md px-2 text-xl cursor-pointer transition-all ${
-                  change === item
+                className={`py-2 w-full rounded-md px-2 text-xl cursor-pointer transition-all ${change === item
                     ? "backdrop-blur-sm bg-white/15 text-white font-semibold"
                     : "text-gray-300"
-                }`}
+                  }`}
               >
                 {item}
               </div>
