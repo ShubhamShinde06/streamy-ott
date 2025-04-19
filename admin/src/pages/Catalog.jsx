@@ -15,8 +15,9 @@ import { IoIosSearch } from "react-icons/io";
 const Catalog = () => {
   const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+  
 
-  const { contentData } = useContext(AdminContext);
+  const { contentData, setReCall } = useContext(AdminContext);
 
   const applyFilter = () => {
     if (!contentData || !Array.isArray(contentData)) return;
@@ -54,9 +55,7 @@ const Catalog = () => {
       );
       if (response.data.success) {
         toast.success(response.data.message);
-        setTimeout(() => {
-          navigation(0, { replace: true });
-        }, 2000);
+        setReCall((prev) => !prev)
         await contentData;
       } else {
         toast.error(response.data.message);
@@ -69,12 +68,10 @@ const Catalog = () => {
 
   const removeMovie = async (id) => {
     try {
-      const response = await axios.delete(`/api/movies/delete-movie/${id}`);
+      const response = await axios.delete(server + `/api/movies/delete-movie/${id}`);
       if (response.data.success) {
         toast.success(response.data.message);
-        setTimeout(() => {
-          navigation(0, { replace: true });
-        }, 2000);
+        setReCall((prev) => !prev)
         await contentData;
       } else {
         toast.error(response.data.message);
