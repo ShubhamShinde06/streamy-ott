@@ -8,6 +8,7 @@ export const AdminContext = createContext();
 const AdminContextProvider = (props) => {
   const [sideMenu, setSideMenu] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [reCall, setReCall] = useState(false)
   const [contentData, setContentData] = useState([]);
   const [movies, setMovies] = useState([]);
   const [series, setSeries] = useState([]);
@@ -103,12 +104,15 @@ const AdminContextProvider = (props) => {
   };
 
   useEffect(() => {
-    getContent();
     getMovieTotal();
     getSeriesTotal();
     getUsersTotal();
     getReportsTotal();
   }, []);
+
+  useEffect(()=>{
+    getContent();
+  },[[reCall]])
 
   const value = {
     sideMenu,
@@ -126,6 +130,8 @@ const AdminContextProvider = (props) => {
     seriesTotal,
     userTotal,
     reportTotal,
+
+    reCall, setReCall
   };
 
   return (
